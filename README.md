@@ -1,2 +1,2 @@
 # dapla-start-ui
-User Interrface for Statistics Norway Data Platform
+User Interface for Statistics Norway Data Platform
