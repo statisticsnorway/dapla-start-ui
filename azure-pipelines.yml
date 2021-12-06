@@ -23,7 +23,7 @@ pool:
 variables:
   - group: Hemmeligheter
   - name: 'appName'
-    value: ''
+    value: 'dapla-start-ui'
   - name: 'imageTag'
     value: '$(Build.SourceBranchName)-$(Build.SourceVersion)'
 
