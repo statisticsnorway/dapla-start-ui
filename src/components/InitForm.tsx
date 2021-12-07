@@ -1,15 +1,12 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import { Grid, Button } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import { useForm, Resolver } from 'react-hook-form';
 import axios from 'axios';
 import { useHistory, Redirect } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import { useCookies } from 'react-cookie';
 import theme from '../theme';
-import CookieCutterTemplate from './initform/CookieCutterTemplate';
-import UserRepo from './initform/UserRepo';
 import workerURL from '../constants';
 
 const useStyles = makeStyles((theme) => ({
@@ -52,10 +49,10 @@ const resolver: Resolver<any> = async (values) => {
   return {
     values: {
       template: {
-        repo: values.template.split('/').slice(0, 2).join('/'),
-        directory: values.template.split('/')[2] || '',
+        repo: "statisticsnorway/cookiecutter-dapla-team-default",
+        directory: '',
       },
-      repo: values.repo,
+      repo: '',
       org: "statisticsnorway",
     },
     errors,
@@ -64,7 +61,7 @@ const resolver: Resolver<any> = async (values) => {
 
 export default function InitForm() {
   const classes = useStyles(theme);
-  const { register, handleSubmit, errors } = useForm<Inputs>({ resolver, reValidateMode: 'onSubmit' });
+  const { handleSubmit } = useForm<Inputs>({ resolver, reValidateMode: 'onSubmit' });
   const history = useHistory();
   const [cookies] = useCookies();
   if (!cookies.token) {
@@ -83,14 +80,7 @@ export default function InitForm() {
 
   return (
     <div className={classes.paper}>
-      <Typography component="h1" variant="h5">
-        Select template
-      </Typography>
       <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
-        <Grid container spacing={2}>
-          <CookieCutterTemplate inputRef={register} />
-          <UserRepo inputRef={register} errors={errors} />
-        </Grid>
         <Button
           type="submit"
           fullWidth

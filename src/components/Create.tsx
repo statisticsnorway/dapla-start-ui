@@ -80,7 +80,7 @@ export default function Create() {
     }
   },
   [created, downloaded, location, setCreated, setDownloaded, history, repoOutput, setRepoOutput]);
-  const { repo = '', org = '' } = location.state || {};
+
   const component = created ? (
     <Card className={classes.root}>
       <CardContent>
@@ -114,41 +114,6 @@ export default function Create() {
 
       <LinearProgress color="secondary" />
     </div>
-  );
-
-  const downloadComponent = downloaded ? (
-      <Card className={classes.root}>
-        <CardContent>
-          <Typography variant="h5">
-            Successfully created
-            {' '}
-            <Link href={repoOutput.url}>
-              {repoOutput.url}
-            </Link>
-          </Typography>
-          {(repoOutput.output !== ''
-              ? (
-                  <>
-                    <Typography color="textSecondary">
-                      <br />
-                      Output from the cookiecutter:
-                    </Typography>
-                    <Typography variant="body2" style={{ whiteSpace: 'pre-line', wordBreak: 'break-word' }}>
-                      <br />
-                      {repoOutput.output}
-                    </Typography>
-                  </>
-              ) : null)}
-        </CardContent>
-      </Card>
-  ) : (
-      <div className={classes.root}>
-        <Typography component="h1" variant="h6">
-          Please wait while your repository is being generated...
-        </Typography>
-
-        <LinearProgress color="secondary" />
-      </div>
   );
 
   return (

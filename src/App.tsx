@@ -15,7 +15,6 @@ import Error from './components/Error';
 
 import AuthorizationForm from './components/AuthorizationForm';
 import Create from './components/Create';
-import Download from "./components/Download";
 import DefaultDocs from './components/DefaultDocs';
 
 export default function App() {

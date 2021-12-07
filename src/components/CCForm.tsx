@@ -1,7 +1,7 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import {Grid, Button, TextField, isWidthDown} from '@material-ui/core';
+import {Grid, Button, TextField} from '@material-ui/core';
 import {useForm} from 'react-hook-form';
 import {useLocation, useHistory, Link} from 'react-router-dom';
 import Autocomplete from '@material-ui/lab/Autocomplete';
@@ -122,15 +122,6 @@ export default function CCForm(this: any) {
     const {register, handleSubmit} = useForm<any>({reValidateMode: 'onSubmit'});
     const location = useLocation<any>();
     const history = useHistory();
-    const formRef = useRef();
-
-    let state = {
-        isDownload: true
-    }
-
-    const handleSubmit_download = () => {
-        location.state.isDownload = true
-    }
 
     const handleSubmit_create = () => {
         location.state.isDownload = false
