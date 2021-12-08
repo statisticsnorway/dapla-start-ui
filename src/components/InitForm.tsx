@@ -7,7 +7,6 @@ import { useHistory, Redirect } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import { useCookies } from 'react-cookie';
 import theme from '../theme';
-import workerURL from '../constants';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -34,7 +33,7 @@ type Inputs = {
 
 const getUrl = (repo: string) => {
   const cookies = new Cookies();
-  return `${workerURL}/validate/statisticsnorway/${repo}?token=${cookies.get('token')}`;
+  return `${process.env.REACT_APP_WORKER_URL}/validate/statisticsnorway/${repo}?token=${cookies.get('token')}`;
 };
 
 const resolver: Resolver<any> = async (values) => {
@@ -73,7 +72,7 @@ export default function InitForm() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ ...data, token: cookies.token }),
     };
-    fetch(`${workerURL}/form`, requestOptions)
+    fetch(`${process.env.REACT_APP_WORKER_URL}/form`, requestOptions)
       .then((response) => response.json())
       .then((data) => history.push('/create', data));
   };
