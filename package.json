@@ -39,8 +39,7 @@
     "eject": "react-scripts eject",
     "serve": "serve -s build -l 3000",
     "stacker-postinstall": "npm run build",
-    "prestart": "react-env --dest ./public",
-    "coverage": "react-scripts test --coverage --watchAll=false"
+    "coverage": "react-scripts test --coverage --watchAll=false --passWithNoTests"
   },
   "engines": {
     "node": "16.x"
@@ -76,18 +75,9 @@
       "src/**",
       "!src/index.js",
       "!src/**/index.js",
-      "!src/configurations/**",
       "!src/enums/**",
       "!src/__tests__/test-data/**"
     ],
-    "coverageThreshold": {
-      "global": {
-        "branches": 75,
-        "functions": 75,
-        "lines": 75,
-        "statements": 75
-      }
-    },
     "coverageReporters": [
       "cobertura",
       "lcov",
