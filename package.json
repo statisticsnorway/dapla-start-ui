@@ -39,7 +39,7 @@
     "eject": "react-scripts eject",
     "serve": "serve -s build -l 3000",
     "stacker-postinstall": "npm run build",
-    "coverage": "react-scripts test --coverage --watchAll=false --passWithNoTests "
+    "coverage": "react-scripts test --coverage --watchAll=false --passWithNoTests"
   },
   "engines": {
     "node": "16.x"
@@ -69,5 +69,19 @@
       "type": "Apache-2.0",
       "url": "http://www.apache.org/licenses/LICENSE-2.0"
     }
-  ]
+  ],
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**",
+      "!src/index.js",
+      "!src/**/index.js",
+      "!src/enums/**",
+      "!src/__tests__/test-data/**"
+    ],
+    "coverageReporters": [
+      "cobertura",
+      "lcov",
+      "text"
+    ]
+  }
 }
