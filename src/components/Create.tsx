@@ -6,6 +6,7 @@ import {
 } from '@material-ui/core';
 import { useLocation, useHistory } from 'react-router-dom';
 import theme from '../theme';
+import workerURL from "../constants";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -59,7 +60,7 @@ export default function Create() {
       body: JSON.stringify(ccState),
     };
     if (!created && !downloaded && ccState) {
-      fetch(`${process.env.REACT_APP_WORKER_URL}/create`, requestOptions)
+      fetch(`${workerURL}/create`, requestOptions)
         .then((response) => {
           if (!response.ok) {
             throw response;

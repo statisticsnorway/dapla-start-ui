@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form';
 import { useLocation, useHistory } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import theme from '../theme';
+import workerURL from "../constants";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -36,7 +37,7 @@ export default function AuthorizationForm() {
   // eslint-disable-next-line
   const [cookies, setCookie] = useCookies();
   const onSubmit = (data: any) => {
-    fetch(`${process.env.REACT_APP_WORKER_URL}/oauth-url`)
+    fetch(`${workerURL}/oauth-url`)
       .then((response) => response.json())
       .then((data) => {
         window.location.replace(data.url);
@@ -45,7 +46,7 @@ export default function AuthorizationForm() {
   const code = useQuery().get('code');
   useEffect(() => {
     if (code) {
-      fetch(`${process.env.REACT_APP_WORKER_URL}/oauth-token/${code}`)
+      fetch(`${workerURL}/oauth-token/${code}`)
         .then((response) => response.json())
         .then((data) => {
           setCookie('token', data.token, { maxAge: 60 * 60 * 24 });

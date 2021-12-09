@@ -6,6 +6,7 @@ import {useForm} from 'react-hook-form';
 import {useLocation, useHistory, Link} from 'react-router-dom';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import theme from '../theme';
+import workerURL from "../constants";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -138,7 +139,7 @@ export default function CCForm(this: any) {
                 },
             ),
         };
-        fetch(`${process.env.REACT_APP_WORKER_URL}/form`, requestOptions)
+        fetch(`${workerURL}/form`, requestOptions)
             .then((response) => response.json())
             .then((newData) => {
                 if (location.state.isDownload) {

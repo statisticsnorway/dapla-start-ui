@@ -7,6 +7,7 @@ import {
 import {useLocation, useHistory} from 'react-router-dom';
 import theme from '../theme';
 import axios from 'axios';
+import workerURL from "../constants";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -70,7 +71,7 @@ export default function Download() {
                 const data = JSON.stringify(ccState)
                 console.log(data)
                 axios.post(
-                    `${process.env.REACT_APP_WORKER_URL}/download`,
+                    `${workerURL}/download`,
                     data,
                     {
                         headers: {

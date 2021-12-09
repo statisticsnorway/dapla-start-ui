@@ -7,6 +7,7 @@ import { useHistory, Redirect } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import { useCookies } from 'react-cookie';
 import theme from '../theme';
+import workerURL from "../constants";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -72,7 +73,7 @@ export default function InitForm() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ ...data, token: cookies.token }),
     };
-    fetch(`${process.env.REACT_APP_WORKER_URL}/form`, requestOptions)
+    fetch(`${workerURL}/form`, requestOptions)
       .then((response) => response.json())
       .then((data) => history.push('/create', data));
   };
