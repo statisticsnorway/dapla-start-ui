@@ -71,7 +71,7 @@ export default function Download() {
                 const data = JSON.stringify(ccState)
                 console.log(data)
                 axios.post(
-                    `${window.__RUNTIME_CONFIG__.REACT_APP_WORKER_URL}/download`,
+                    `${window.__ENV.REACT_APP_WORKER_URL}/download`,
                     data,
                     {
                         headers: {

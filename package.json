@@ -34,10 +34,11 @@
     "universal-cookie": "^4.0.3"
   },
   "scripts": {
-    "start": "NODE_ENV=development runtime-env-cra --config-name=./public/__ENV.js && react-scripts start",
-    "build": "react-scripts build",
+    "start": "react-scripts start",
+    "build": "react-scripts build && react-env --dest ./build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "prestart": "react-env --dest ./public",
     "serve": "serve -s build -l 3000",
     "stacker-postinstall": "npm run build",
     "coverage": "react-scripts test --coverage --watchAll=false --passWithNoTests"
