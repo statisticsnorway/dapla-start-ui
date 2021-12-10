@@ -60,7 +60,7 @@ export default function Create() {
       body: JSON.stringify(ccState),
     };
     if (!created && !downloaded && ccState) {
-      fetch(`${window.__RUNTIME_CONFIG__.REACT_APP_WORKER_URL}/create`, requestOptions)
+      fetch(`${window.__ENV.REACT_APP_WORKER_URL}/create`, requestOptions)
         .then((response) => {
           if (!response.ok) {
             throw response;
