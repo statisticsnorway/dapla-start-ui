@@ -34,7 +34,7 @@ type Inputs = {
 
 const getUrl = (repo: string) => {
   const cookies = new Cookies();
-  return `${process.env.REACT_APP_WORKER_URL}/validate/statisticsnorway/${repo}?token=${cookies.get('token')}`;
+  return `${workerURL}/validate/statisticsnorway/${repo}?token=${cookies.get('token')}`;
 };
 
 const resolver: Resolver<any> = async (values) => {
