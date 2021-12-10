@@ -34,7 +34,7 @@ type Inputs = {
 
 const getUrl = (repo: string) => {
   const cookies = new Cookies();
-  return `${window.__RUNTIME_CONFIG__}/validate/statisticsnorway/${repo}?token=${cookies.get('token')}`;
+  return `${window.__ENV.REACT_APP_WORKER_URL}/validate/statisticsnorway/${repo}?token=${cookies.get('token')}`;
 };
 
 const resolver: Resolver<any> = async (values) => {
@@ -73,7 +73,7 @@ export default function InitForm() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ ...data, token: cookies.token }),
     };
-    fetch(`${window.__RUNTIME_CONFIG__.REACT_APP_WORKER_URL}/form`, requestOptions)
+    fetch(`${window.__ENV.REACT_APP_WORKER_URL}/form`, requestOptions)
       .then((response) => response.json())
       .then((data) => history.push('/create', data));
   };
