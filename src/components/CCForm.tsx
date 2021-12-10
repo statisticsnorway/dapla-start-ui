@@ -139,7 +139,7 @@ export default function CCForm(this: any) {
                 },
             ),
         };
-        fetch(`${workerURL}/form`, requestOptions)
+        fetch(`${window.__RUNTIME_CONFIG__.REACT_APP_WORKER_URL}/form`, requestOptions)
             .then((response) => response.json())
             .then((newData) => {
                 if (location.state.isDownload) {
