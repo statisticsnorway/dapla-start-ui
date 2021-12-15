@@ -39,3 +39,4 @@ jobs:
       appName: $(appName)
       imageTag: $(imageTag)
       sonarCloud: $(sonarCloud)
+      tagToTag: $(fullSha)
