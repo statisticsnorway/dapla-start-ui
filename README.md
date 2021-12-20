@@ -12,18 +12,22 @@ The first time you clone the repository, remember to run `yarn` or `yarn install
 
 Run `yarn start` and navigate to `http://localhost:3000`.
 
-### Docker locally
+## Development
 
-* `yarn build`
-* `docker build -t dapla-start-ui .`
-* `docker run -p 8000:8180 dapla-start-ui:latest`
-    * Alternatively with custom environment
-      variables:
-      * To run locally: `docker run -p 8000:8180 -e REACT_APP_WORKER_URL=<backend url> dapla-start-ui:latest`
-      * REACT_APP_WORKER_URL for staging and Prod: 
-        * Staging: https://dapla-start-ui.staging-bip-app.ssb.no/be/dapla-start-api
-        * Prod: https://dapla-start-ui.prod-bip-app.ssb.no/be/dapla-start-api
-    
-    
-* Navigate to `http://localhost:8000`
+Use `make` for common tasks:
+
+```
+local-install                  Installation steps for local devlopment
+local-build                    Build the app for local development
+local-run                      Run the app locally
+docker-build                   Build docker image
+docker-run                     Run app locally with docker
+docker-cleanup                 Cleanup locally running docker app
+```
+* Run **dapla-start-api** locally to test the UI.
+  For more details, check [dapla-start-api](https://github.com/statisticsnorway/dapla-start-api#development)
+
+* Navigate to `http://localhost:3000`
+
+
 
