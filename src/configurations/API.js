@@ -1,3 +1,3 @@
 export const API = {
-  GET_HEALTH: '/health/ready'
+  GET_HEALTH: '/health/readiness'
 }

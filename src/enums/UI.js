@@ -1,6 +1,6 @@
 export const UI = {
   HEADER: {
-    en: 'App name',
-    nb: 'Applikasjonsnavn'
+    en: 'Dapla-Start',
+    nb: 'Dapla-Start'
   }
 }
