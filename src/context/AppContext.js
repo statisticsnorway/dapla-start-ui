@@ -5,7 +5,10 @@ const initWizard = initial => initial
 
 const initialWizard = {
   teamName: '',
-  developers: []
+  manager: '',
+  dataProtectionOfficers: [],
+  developers: [],
+  consumers: []
 }
 
 const wizardReducer = (state, action) => {
@@ -13,8 +16,17 @@ const wizardReducer = (state, action) => {
     case 'setTeamName':
       return { ...state, teamName: action.payload }
 
+    case 'setManager':
+      return { ...state, manager: action.payload }
+
+    case 'setDataProtectionOfficers':
+      return { ...state, dataProtectionOfficers: action.payload }
+
     case 'setDevelopers':
       return { ...state, developers: action.payload }
+
+    case 'setConsumers':
+      return { ...state, consumers: action.payload }
 
     default:
       return state
