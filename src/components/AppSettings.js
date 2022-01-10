@@ -25,7 +25,7 @@ function AppSettings ({ open, setOpen }) {
     }
   }
 
-  const changeSettings = (value) => {
+  const changeSettings = value => {
     setApiUrl(value)
     setSettingsEdited(true)
   }
