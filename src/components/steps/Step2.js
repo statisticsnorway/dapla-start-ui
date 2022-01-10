@@ -1,27 +1,23 @@
+import { Link } from 'react-router-dom'
 import { useContext, useEffect, useState } from 'react'
 import { Button, Container, Divider, Form, Grid, Header, Icon } from 'semantic-ui-react'
 
 import { LanguageContext, useWizardActions, useWizardContext } from '../../context/AppContext'
-import { UI } from '../../enums'
-import { Link } from 'react-router-dom'
+import { STEPS, UI, WIZARD } from '../../enums'
 
-const addItem = value => ({
-  key: value,
-  text: value,
-  value: value
+const addItemToOptions = item => ({
+  key: item,
+  text: item,
+  value: item
 })
 
-const convertOptions = array =>
-  array.map(value => ({
-    key: value,
-    text: value,
-    value: value
-  }))
+const convertOptions = optionsArray => optionsArray.map(option => ({
+  key: option,
+  text: option,
+  value: option
+}))
 
-const renderLabel = label => ({
-  color: 'blue',
-  content: label.text
-})
+const formHeader = text => <Header size="small" content={text.title} subheader={text.description} />
 
 function Step2 () {
   const { wizard } = useWizardContext()
@@ -34,40 +30,33 @@ function Step2 () {
   const [dataProtectionOfficersOptions, setDataProtectionOfficersOptions] = useState(wizard.dataProtectionOfficers)
 
   useEffect(() => {
-    if (wizard.dataProtectionOfficers.length !== 0) {
-      setDataProtectionOfficersOptions(convertOptions(wizard.dataProtectionOfficers))
-    } else {
-      setDataProtectionOfficersOptions([])
-    }
-
-    if (wizard.developers.length !== 0) {
-      setDevelopersOptions(convertOptions(wizard.developers))
-    } else {
-      setDevelopersOptions([])
-    }
-
-    if (wizard.consumers.length !== 0) {
-      setConsumersOptions(convertOptions(wizard.consumers))
-    } else {
-      setConsumersOptions([])
-    }
+    setConsumersOptions(convertOptions(wizard.consumers))
+    setDevelopersOptions(convertOptions(wizard.developers))
+    setDataProtectionOfficersOptions(convertOptions(wizard.dataProtectionOfficers))
   }, [wizard])
 
   return (
     <Grid>
       <Grid.Column width={3} />
       <Grid.Column width={10}>
-        <Header dividing size="huge" icon="users" content="Team" />
+        <Header dividing size="huge" icon={STEPS.team.icon} content={STEPS.team.header} />
         <Divider hidden />
         <Form size="big">
           <Form.Input
-            label={<Header size="small" content="Manager"
-                           subheader="Utvidede rettigheter i Google prosjekter og tilhørende tjenester" />}
-            placeholder="Manager"
+            value={wizard.teamName}
+            label={formHeader(WIZARD.teamName)}
+            placeholder={WIZARD.teamName.title}
+            onChange={(e, { value }) =>
+              setWizard({ type: 'setTeamName', payload: value })
+            }
+          />
+          <Form.Input
             value={wizard.manager}
-            onChange={(e, { value }) => {
+            label={formHeader(WIZARD.manager)}
+            placeholder={WIZARD.manager.title}
+            onChange={(e, { value }) =>
               setWizard({ type: 'setManager', payload: value })
-            }}
+            }
           />
           <Divider hidden />
           <Form.Dropdown
@@ -75,18 +64,18 @@ function Step2 () {
             multiple
             selection
             allowAdditions
-            label={<Header size="small" content="Databeskyttelsesansvarlig"
-                           subheader="Utvidede rettigheter og tilganger til rådata og alle datatilstander" />}
-            placeholder="Databeskyttelsesansvarlig"
             noResultsMessage={null}
+            label={formHeader(WIZARD.dpo)}
+            placeholder={WIZARD.dpo.title}
             value={wizard.dataProtectionOfficers}
-            options={dataProtectionOfficersOptions}
             additionLabel={`${UI.ADD[language]} `}
-            renderLabel={renderLabel}
-            onAddItem={(e, { value }) => setDataProtectionOfficersOptions([addItem(value), ...dataProtectionOfficersOptions])}
-            onChange={(e, { value }) => {
+            options={dataProtectionOfficersOptions}
+            onChange={(e, { value }) =>
               setWizard({ type: 'setDataProtectionOfficers', payload: value })
-            }}
+            }
+            onAddItem={(e, { value }) =>
+              setDataProtectionOfficersOptions([addItemToOptions(value), ...dataProtectionOfficersOptions])
+            }
           />
           <Divider hidden />
           <Form.Dropdown
@@ -94,18 +83,18 @@ function Step2 () {
             multiple
             selection
             allowAdditions
-            label={<Header size="small" content="Utviklere"
-                           subheader="Tilgang til Jupyter, lese- og skrivetilgang til alle teamets bøtter" />}
-            placeholder="Utviklere"
             noResultsMessage={null}
             value={wizard.developers}
             options={developersOptions}
-            renderLabel={renderLabel}
+            label={formHeader(WIZARD.developer)}
+            placeholder={WIZARD.developer.title}
             additionLabel={`${UI.ADD[language]} `}
-            onAddItem={(e, { value }) => setDevelopersOptions([addItem(value), ...developersOptions])}
-            onChange={(e, { value }) => {
+            onChange={(e, { value }) =>
               setWizard({ type: 'setDevelopers', payload: value })
-            }}
+            }
+            onAddItem={(e, { value }) =>
+              setDevelopersOptions([addItemToOptions(value), ...developersOptions])
+            }
           />
           <Divider hidden />
           <Form.Dropdown
@@ -113,23 +102,24 @@ function Step2 () {
             multiple
             selection
             allowAdditions
-            label={<Header size="small" content="Konsumenter" subheader="Lesetilgang til noen av teamets bøtter" />}
-            placeholder="Konsumenter"
             noResultsMessage={null}
             value={wizard.consumers}
             options={consumersOptions}
-            renderLabel={renderLabel}
+            label={formHeader(WIZARD.consumer)}
+            placeholder={WIZARD.consumer.title}
             additionLabel={`${UI.ADD[language]} `}
-            onAddItem={(e, { value }) => setConsumersOptions([addItem(value), ...consumersOptions])}
-            onChange={(e, { value }) => {
+            onChange={(e, { value }) =>
               setWizard({ type: 'setConsumers', payload: value })
-            }}
+            }
+            onAddItem={(e, { value }) =>
+              setConsumersOptions([addItemToOptions(value), ...consumersOptions])
+            }
           />
         </Form>
         <Divider hidden />
         <Container fluid textAlign="right">
           <Button animated primary size="huge" as={Link} to="/3">
-            <Button.Content visible>Gå videre</Button.Content>
+            <Button.Content visible>{UI.NEXT[language]}</Button.Content>
             <Button.Content hidden>
               <Icon name="arrow right" />
             </Button.Content>

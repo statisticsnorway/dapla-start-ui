@@ -6,5 +6,9 @@ export const UI = {
   ADD: {
     en: 'Add',
     nb: 'Legg til'
+  },
+  NEXT: {
+    en: 'Next',
+    nb: 'Gå videre'
   }
 }

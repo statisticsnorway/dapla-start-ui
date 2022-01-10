@@ -39,9 +39,7 @@ const WizardContextActions = createContext(null)
 export const useWizardContext = () => useContext(WizardContext)
 export const useWizardActions = () => useContext(WizardContextActions)
 
-export const ApiContext = createContext({
-  api: window.__ENV.REACT_APP_API
-})
+export const ApiContext = createContext({ api: window.__ENV.REACT_APP_API })
 
 export const LanguageContext = createContext(LANGUAGE.LANGUAGES.NORWEGIAN.languageCode)
 
