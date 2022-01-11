@@ -8,7 +8,7 @@ export const WIZARD = {
     description: 'Utvidede rettigheter i Google prosjekter og tilhørende tjenester'
   },
   dpo: {
-    title: 'Databeskyttelsesansvarlig',
+    title: 'Databeskyttelsesansvarlige',
     description: 'Utvidede rettigheter og tilganger til rådata og alle datatilstander'
   },
   developer: {
