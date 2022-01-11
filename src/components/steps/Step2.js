@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from 'react'
 import { Button, Container, Divider, Form, Grid, Header, Icon } from 'semantic-ui-react'
 
 import { LanguageContext, useWizardActions, useWizardContext } from '../../context/AppContext'
-import { STEPS, UI, WIZARD } from '../../enums'
+import { STEPS, TEST_IDS, UI, WIZARD } from '../../enums'
 
 const addItemToOptions = item => ({
   key: item,
@@ -67,6 +67,7 @@ function Step2 () {
             noResultsMessage={null}
             label={formHeader(WIZARD.dpo)}
             placeholder={WIZARD.dpo.title}
+            data-testid={TEST_IDS.DPO_DROPDOWN}
             value={wizard.dataProtectionOfficers}
             additionLabel={`${UI.ADD[language]} `}
             options={dataProtectionOfficersOptions}
@@ -89,6 +90,7 @@ function Step2 () {
             label={formHeader(WIZARD.developer)}
             placeholder={WIZARD.developer.title}
             additionLabel={`${UI.ADD[language]} `}
+            data-testid={TEST_IDS.DEVELOPER_DROPDOWN}
             onChange={(e, { value }) =>
               setWizard({ type: 'setDevelopers', payload: value })
             }
@@ -108,6 +110,7 @@ function Step2 () {
             label={formHeader(WIZARD.consumer)}
             placeholder={WIZARD.consumer.title}
             additionLabel={`${UI.ADD[language]} `}
+            data-testid={TEST_IDS.CONSUMER_DROPDOWN}
             onChange={(e, { value }) =>
               setWizard({ type: 'setConsumers', payload: value })
             }

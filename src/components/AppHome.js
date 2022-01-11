@@ -22,6 +22,7 @@ function AppHome () {
       </Step.Group>
       <Divider hidden />
       <Routes>
+        <Route path="*" element={<Step1 />} />
         <Route path="/1" element={<Step1 />} />
         <Route path="/2" element={<Step2 />} />
         <Route path="/3" element={<Step3 />} />
