@@ -10,5 +10,9 @@ export const UI = {
   NEXT: {
     en: 'Next',
     nb: 'Gå videre'
+  },
+  CONTINUE:{
+    en: 'Continue',
+    nb: 'Fortsette'
   }
 }
