@@ -15,7 +15,7 @@ function AppHome () {
             <Icon name={step.icon} />
             <Step.Content>
               <Step.Title>{step.header}</Step.Title>
-              <Step.Description>{step.description}?</Step.Description>
+              <Step.Description>{step.description}</Step.Description>
             </Step.Content>
           </Step>
         )}

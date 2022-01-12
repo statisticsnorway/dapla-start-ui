@@ -24,8 +24,8 @@ export const WIZARD = {
 export const STEPS = {
   welcome: {
     icon: 'info',
-    header: 'Velkommen',
-    description: 'Hva er dette?'
+    header: 'Kom i gang',
+    description: 'Om denne veilederen'
   },
   team: {
     icon: 'users',
