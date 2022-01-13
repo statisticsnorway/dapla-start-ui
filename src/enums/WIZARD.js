@@ -1,23 +1,23 @@
 export const WIZARD = {
   teamName: {
     title: 'Teamnavn',
-    description: 'Something'
+    description: ''
   },
   manager: {
-    title: 'Manager',
-    description: 'Utvidede rettigheter i Google prosjekter og tilhørende tjenester'
+    title: 'Team-/domeneansvarlig',
+    description: 'Alle tilgjengelige rettigheter i Google prosjekter og tilhørende tjenester og bøtter'
   },
   dpo: {
     title: 'Databeskyttelsesansvarlige',
-    description: 'Utvidede rettigheter og tilganger til rådata og alle datatilstander'
+    description: 'Utvidede rettigheter og tilganger til alle datatilstander og administrering av bakke-sky synkronisering'
   },
   developer: {
     title: 'Utviklere',
-    description: 'Tilgang til Jupyter, lese- og skrivetilgang til alle teamets bøtter'
+    description: 'Tilgang til Jupyter, lese- og skrivetilgang til alle teamets bøtter utenom bakke-sky synkronisering og upseudonymisert kildedata'
   },
   consumer: {
     title: 'Konsumenter',
-    description: 'Lesetilgang til noen av teamets bøtter'
+    description: 'Lesetilgang til noen av teamets bøtter, primært klargjorte utdata'
   }
 }
 
@@ -29,17 +29,17 @@ export const STEPS = {
   },
   team: {
     icon: 'users',
-    header: 'Team',
-    description: 'Teamnavn osv., konstellasjon stuff'
+    header: 'Teamet',
+    description: 'Teamets oppbygning og tilganger'
   },
   services: {
     icon: 'cogs',
     header: 'Tjenester',
-    description: 'bøtter, transfer-service osv.'
+    description: 'Ytterligere informasjon og tjenesteaktivering'
   },
   summary: {
     icon: 'clipboard list',
     header: 'Oppsummering',
-    description: 'Bekreftelser og output'
+    description: 'Bekreftelse og bestilling'
   }
 }

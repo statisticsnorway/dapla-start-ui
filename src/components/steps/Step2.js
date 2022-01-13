@@ -1,9 +1,65 @@
 import { Link } from 'react-router-dom'
 import { useContext, useEffect, useState } from 'react'
-import { Button, Container, Divider, Form, Grid, Header, Icon } from 'semantic-ui-react'
+import { Accordion, Button, Container, Divider, Form, Grid, Header, Icon, Table } from 'semantic-ui-react'
 
 import { LanguageContext, useWizardActions, useWizardContext } from '../../context/AppContext'
 import { STEPS, TEST_IDS, UI, WIZARD } from '../../enums'
+
+const panels = [
+  {
+    key: 'what',
+    title: 'Hva skjer her egentlig?',
+    content: {
+      content: (
+        <>
+          <p>
+            Forklarende tekst?
+          </p>
+          <Table definition celled>
+            <Table.Header>
+              <Table.Row>
+                <Table.HeaderCell />
+                <Table.HeaderCell>Full kontroll</Table.HeaderCell>
+                <Table.HeaderCell>Upseudonymiserte data</Table.HeaderCell>
+                <Table.HeaderCell>Administrere bakke-sky synkronisering</Table.HeaderCell>
+                <Table.HeaderCell>Pseudonymiserte data</Table.HeaderCell>
+                <Table.HeaderCell>Jupyter</Table.HeaderCell>
+                <Table.HeaderCell>Klargjorte utdata</Table.HeaderCell>
+              </Table.Row>
+            </Table.Header>
+            <Table.Body>
+              <Table.Row>
+                <Table.Cell>{WIZARD.manager.title}</Table.Cell>
+                {Array.from({ length: 6 }, () =>
+                  <Table.Cell textAlign="center"><Icon name="check" color="green" /></Table.Cell>
+                )}
+              </Table.Row>
+              <Table.Row>
+                <Table.Cell>{WIZARD.dpo.title}</Table.Cell>
+                <Table.Cell />
+                {Array.from({ length: 5 }, () =>
+                  <Table.Cell textAlign="center"><Icon name="check" color="green" /></Table.Cell>
+                )}
+              </Table.Row>
+              <Table.Row>
+                <Table.Cell>{WIZARD.developer.title}</Table.Cell>
+                {Array.from({ length: 3 }, () => <Table.Cell />)}
+                {Array.from({ length: 3 }, () =>
+                  <Table.Cell textAlign="center"><Icon name="check" color="green" /></Table.Cell>
+                )}
+              </Table.Row>
+              <Table.Row>
+                <Table.Cell>{WIZARD.consumer.title}</Table.Cell>
+                {Array.from({ length: 5 }, () => <Table.Cell />)}
+                <Table.Cell textAlign="center"><Icon name="check" color="green" /></Table.Cell>
+              </Table.Row>
+            </Table.Body>
+          </Table>
+        </>
+      )
+    }
+  }
+]
 
 const emptyErrors = {
   teamName: '',
@@ -89,7 +145,8 @@ function Step2 () {
       <Grid.Column width={3} />
       <Grid.Column width={10}>
         <Header dividing size="huge" icon={STEPS.team.icon} content={STEPS.team.header} />
-        <Divider hidden />
+        <Accordion defaultActiveIndex={-1} panels={panels} fluid />
+        <Divider />
         <Form size="big">
           <Form.Input
             value={wizard.teamName}
@@ -104,7 +161,7 @@ function Step2 () {
           <Form.Input
             value={wizard.manager}
             label={formHeader(WIZARD.manager)}
-            placeholder={WIZARD.manager.title}
+            placeholder={UI.EMAIL_PLACEHOLDER}
             onBlur={e => checkInput('manager', e.target.value)}
             error={errors.manager !== '' && { content: errors.manager, pointing: 'below' }}
             onChange={(e, { value }) =>
@@ -119,7 +176,7 @@ function Step2 () {
             allowAdditions
             noResultsMessage={null}
             label={formHeader(WIZARD.dpo)}
-            placeholder={WIZARD.dpo.title}
+            placeholder={UI.EMAIL_PLACEHOLDER}
             data-testid={TEST_IDS.DPO_DROPDOWN}
             value={wizard.dataProtectionOfficers}
             additionLabel={`${UI.ADD[language]} `}
@@ -141,8 +198,8 @@ function Step2 () {
             noResultsMessage={null}
             value={wizard.developers}
             options={developersOptions}
+            placeholder={UI.EMAIL_PLACEHOLDER}
             label={formHeader(WIZARD.developer)}
-            placeholder={WIZARD.developer.title}
             additionLabel={`${UI.ADD[language]} `}
             data-testid={TEST_IDS.DEVELOPER_DROPDOWN}
             error={errors.developer !== '' && { content: errors.developer, pointing: 'below' }}
@@ -162,8 +219,8 @@ function Step2 () {
             noResultsMessage={null}
             value={wizard.consumers}
             options={consumersOptions}
+            placeholder={UI.EMAIL_PLACEHOLDER}
             label={formHeader(WIZARD.consumer)}
-            placeholder={WIZARD.consumer.title}
             additionLabel={`${UI.ADD[language]} `}
             data-testid={TEST_IDS.CONSUMER_DROPDOWN}
             error={errors.consumer !== '' && { content: errors.consumer, pointing: 'below' }}
