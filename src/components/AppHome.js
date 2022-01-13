@@ -11,7 +11,12 @@ function AppHome () {
     <>
       <Step.Group size="big" widths={4}>
         {Object.entries(STEPS).map(([key, step], index) =>
-          <Step key={key} active={location.pathname === `/${index + 1}`} as={Link} to={`/${index + 1}`}>
+          <Step
+            key={key}
+            as={Link}
+            to={`/${index + 1}`}
+            active={location.pathname === `/${index + 1}` || (location.pathname === '/' && index === 0)}
+          >
             <Icon name={step.icon} />
             <Step.Content>
               <Step.Title>{step.header}</Step.Title>
