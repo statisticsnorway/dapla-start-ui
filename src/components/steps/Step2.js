@@ -30,27 +30,27 @@ const panels = [
             <Table.Body>
               <Table.Row>
                 <Table.Cell>{WIZARD.manager.title}</Table.Cell>
-                {Array.from({ length: 6 }, () =>
-                  <Table.Cell textAlign="center"><Icon name="check" color="green" /></Table.Cell>
+                {Array.from({ length: 6 }, (v, i) =>
+                  <Table.Cell key={i} textAlign="center"><Icon name="check" color="green" /></Table.Cell>
                 )}
               </Table.Row>
               <Table.Row>
                 <Table.Cell>{WIZARD.dpo.title}</Table.Cell>
                 <Table.Cell />
-                {Array.from({ length: 5 }, () =>
-                  <Table.Cell textAlign="center"><Icon name="check" color="green" /></Table.Cell>
+                {Array.from({ length: 5 }, (v, i) =>
+                  <Table.Cell key={i} textAlign="center"><Icon name="check" color="green" /></Table.Cell>
                 )}
               </Table.Row>
               <Table.Row>
                 <Table.Cell>{WIZARD.developer.title}</Table.Cell>
-                {Array.from({ length: 3 }, () => <Table.Cell />)}
-                {Array.from({ length: 3 }, () =>
-                  <Table.Cell textAlign="center"><Icon name="check" color="green" /></Table.Cell>
+                {Array.from({ length: 3 }, (v, i) => <Table.Cell key={i} />)}
+                {Array.from({ length: 3 }, (v, i) =>
+                  <Table.Cell key={i} textAlign="center"><Icon name="check" color="green" /></Table.Cell>
                 )}
               </Table.Row>
               <Table.Row>
                 <Table.Cell>{WIZARD.consumer.title}</Table.Cell>
-                {Array.from({ length: 5 }, () => <Table.Cell />)}
+                {Array.from({ length: 5 }, (v, i) => <Table.Cell key={i} />)}
                 <Table.Cell textAlign="center"><Icon name="check" color="green" /></Table.Cell>
               </Table.Row>
             </Table.Body>
@@ -176,11 +176,11 @@ function Step2 () {
             allowAdditions
             noResultsMessage={null}
             label={formHeader(WIZARD.dpo)}
-            placeholder={UI.EMAIL_PLACEHOLDER}
             data-testid={TEST_IDS.DPO_DROPDOWN}
             value={wizard.dataProtectionOfficers}
             additionLabel={`${UI.ADD[language]} `}
             options={dataProtectionOfficersOptions}
+            placeholder={`${UI.EMAIL_PLACEHOLDER}, ${UI.EMAIL_PLACEHOLDER}`}
             error={errors.dpo !== '' && { content: errors.dpo, pointing: 'below' }}
             onChange={(e, { value }) =>
               setInput('dpo', 'setDataProtectionOfficers', value)
@@ -198,10 +198,10 @@ function Step2 () {
             noResultsMessage={null}
             value={wizard.developers}
             options={developersOptions}
-            placeholder={UI.EMAIL_PLACEHOLDER}
             label={formHeader(WIZARD.developer)}
             additionLabel={`${UI.ADD[language]} `}
             data-testid={TEST_IDS.DEVELOPER_DROPDOWN}
+            placeholder={`${UI.EMAIL_PLACEHOLDER}, ${UI.EMAIL_PLACEHOLDER}`}
             error={errors.developer !== '' && { content: errors.developer, pointing: 'below' }}
             onChange={(e, { value }) =>
               setInput('developer', 'setDevelopers', value)
@@ -219,10 +219,10 @@ function Step2 () {
             noResultsMessage={null}
             value={wizard.consumers}
             options={consumersOptions}
-            placeholder={UI.EMAIL_PLACEHOLDER}
             label={formHeader(WIZARD.consumer)}
             additionLabel={`${UI.ADD[language]} `}
             data-testid={TEST_IDS.CONSUMER_DROPDOWN}
+            placeholder={`${UI.EMAIL_PLACEHOLDER}, ${UI.EMAIL_PLACEHOLDER}`}
             error={errors.consumer !== '' && { content: errors.consumer, pointing: 'below' }}
             onChange={(e, { value }) =>
               setInput('consumer', 'setConsumers', value)
