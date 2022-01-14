@@ -23,7 +23,7 @@ docker-build: ## Build docker image
 
 .PHONY: docker-run
 docker-run: ## Run app locally with docker
-	 docker run -p 3000:8180 -e REACT_APP_WORKER_URL=http://localhost:8000 --name dapla-start-ui dapla-start-ui:latest
+	 docker run -p 3000:8180 -e REACT_APP_API=http://localhost:8000 --name dapla-start-ui dapla-start-ui:latest
 
 .PHONY: docker-shell
 docker-shell: ## Enter shell of locally running docker app

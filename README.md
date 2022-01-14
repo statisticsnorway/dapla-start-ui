@@ -4,13 +4,7 @@
 
 
 This is a react based frontend app. One the main functionality served is to create GitHub repository for the team which
-holds the Terraform code needed to provision resources for the team. 
-
-### Try this application locally
-
-The first time you clone the repository, remember to run `yarn` or `yarn install`.
-
-Run `yarn start` and navigate to `http://localhost:3000`.
+holds the Terraform code needed to provision resources for the team.
 
 ## Development
 
