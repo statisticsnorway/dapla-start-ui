@@ -1,11 +1,11 @@
 import { useEffect } from 'react'
-import { Button, Container, Divider, Form, Grid, Header, Icon } from 'semantic-ui-react'
-import { STEPS, UI } from '../../enums'
+import { Button, Container, Divider, Form, Grid, Header, Icon, Table } from 'semantic-ui-react'
+import { STEPS, UI, WIZARD } from '../../enums'
 import { Link } from 'react-router-dom'
 import { useContext, useState } from 'react'
 import { LanguageContext, useWizardActions, useWizardContext } from '../../context/AppContext'
 
-function toHumanReadable (name) {
+const toHumanReadable = (name) => {
   if (!name) {
     return ''
   }
@@ -14,7 +14,7 @@ function toHumanReadable (name) {
   return words.map(capitalize).join(' ')
 }
 
-function capitalize (word) {
+const capitalize = (word) => {
   return word.charAt(0).toUpperCase() + word.substring(1)
 }
 
@@ -131,7 +131,6 @@ function Step3 () {
           </Button.Content>
         </Button>
       </Container>
-
     }
   }
 
