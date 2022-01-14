@@ -60,6 +60,7 @@ function Step4 () {
             <Table.Header>
               <Table.Row>
                 {
+                  (Object.entries(wizard.services).length > 0) &&
                   Object.entries(wizard.services.user_inputs).map(([key, value]) => {
                     return <Table.HeaderCell>{toHumanReadable(key)}</Table.HeaderCell>
                   })
@@ -69,7 +70,8 @@ function Step4 () {
             <Table.Body>
               <Table.Row>
                 {
-                  Object.entries(wizard.services.user_inputs).map(([key, value]) => {
+                  (Object.entries(wizard.services).length >0) &&
+                    Object.entries(wizard.services.user_inputs).map(([key, value]) => {
                     return <Table.Cell verticalAlign="top">{value}</Table.Cell>
                   })
                 }
