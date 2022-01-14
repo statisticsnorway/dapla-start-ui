@@ -30,6 +30,8 @@ variables:
     value: 'dapla-start-ui'
   - name: 'imageTag'
     value: '$(Build.SourceBranchName)-$(Build.SourceVersion)'
+  - name: 'sonarCloud'
+    value: 'bipSonarCloud-Dapla'
 
 jobs:
   - template: javascript/react-complete-build.yml@templates
