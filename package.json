@@ -67,14 +67,6 @@
       "!src/enums/**",
       "!src/__tests__/test-data/**"
     ],
-    "coverageThreshold": {
-      "global": {
-        "branches": 75,
-        "functions": 75,
-        "lines": 75,
-        "statements": 75
-      }
-    },
     "coverageReporters": [
       "cobertura",
       "lcov",
