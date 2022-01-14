@@ -93,8 +93,8 @@ function Step3 () {
           }
           onChange={(e, { value }) => {
             setUserInputs({ ...userInputs, [key]: value })
-            cookiecutterData.user_inputs = userInputs
-            setInput('services', 'setServices', cookiecutterData)
+            setCookiecutterData({ ...cookiecutterData, user_inputs: { ...userInputs, [key]: value }})
+            setInput('services', 'setServices', { ...cookiecutterData, user_inputs: { ...userInputs, [key]: value }})
           }}
         />
       }
@@ -106,8 +106,8 @@ function Step3 () {
           placeholder={key}
           onChange={(e, { value }) => {
             setUserInputs({ ...userInputs, [key]: value })
-            cookiecutterData.user_inputs = userInputs
-            setInput('services', 'setServices', cookiecutterData)
+            setCookiecutterData({ ...cookiecutterData, user_inputs: { ...userInputs, [key]: value }})
+            setInput('services', 'setServices', { ...cookiecutterData, user_inputs: { ...userInputs, [key]: value }})
           }}
         />
       }
