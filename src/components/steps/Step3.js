@@ -1,10 +1,9 @@
 import { useEffect } from 'react'
-import { Button, Container, Divider, Dropdown, Form, Grid, Header, Icon, Input } from 'semantic-ui-react'
-import { STEPS, UI, WIZARD } from '../../enums'
-import { Link, useNavigate } from 'react-router-dom'
+import { Button, Container, Divider, Form, Grid, Header, Icon } from 'semantic-ui-react'
+import { STEPS, UI } from '../../enums'
+import { Link } from 'react-router-dom'
 import { useContext, useState } from 'react'
 import { LanguageContext, useWizardActions, useWizardContext } from '../../context/AppContext'
-import { useForm } from 'react-hook-form'
 
 function toHumanReadable (name) {
   if (!name) {
@@ -20,11 +19,11 @@ function capitalize (word) {
 }
 
 function Step3 () {
-  const { language } = useContext(LanguageContext)
   const { wizard } = useWizardContext()
   const { setWizard } = useWizardActions()
-  const navigate = useNavigate()
-  const [services, setServices] = useState(wizard.services)
+
+  const { language } = useContext(LanguageContext)
+
   const [cookiecutterData, setCookiecutterData] = useState(null)
   const [userInputs, setUserInputs] = useState({})
 
@@ -41,18 +40,19 @@ function Step3 () {
         org: 'statisticsnorway',
       }),
     }
-    fetch(`${window.__ENV.REACT_APP_API}/form`, requestOptions)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data)
-        setCookiecutterData(data)
-        setUserInputs({ ...userInputs, [data.next_key]: data.next_value })
-      })
-  }, [])
+    if (Object.keys(wizard.services).length === 0) {
+      fetch(`${window.__ENV.REACT_APP_API}/form`, requestOptions)
+        .then((response) => response.json())
+        .then((data) => {
+          setCookiecutterData(data)
+          setUserInputs({ ...userInputs, [data.next_key]: data.next_value })
+        })
+    } else {
+      setCookiecutterData(wizard.services)
+      setUserInputs(wizard.services.user_inputs)
+    }
 
-  const saveUserData = () => {
-    setServices(cookiecutterData.user_inputs)
-  }
+  }, [])
 
   const generateNextField = () => {
     const requestOptions = {
@@ -73,6 +73,10 @@ function Step3 () {
       })
   }
 
+  const setInput = (input, type, value) => {
+    setWizard({ type: type, payload: value })
+  }
+
   const formBuilder = () =>
     Object.entries(userInputs).map(([key, value]) => {
       if (Array.isArray(value)) {
@@ -89,9 +93,12 @@ function Step3 () {
           }
           onChange={(e, { value }) => {
             setUserInputs({ ...userInputs, [key]: value })
+            cookiecutterData.user_inputs = userInputs
+            setInput('services', 'setServices', cookiecutterData)
           }}
         />
       }
+
       if (typeof value === 'string') {
         return <Form.Input
           value={userInputs[key]}
@@ -99,10 +106,34 @@ function Step3 () {
           placeholder={key}
           onChange={(e, { value }) => {
             setUserInputs({ ...userInputs, [key]: value })
+            cookiecutterData.user_inputs = userInputs
+            setInput('services', 'setServices', cookiecutterData)
           }}
         />
       }
     })
+
+  const displayButtons = () => {
+    if (cookiecutterData !== null && cookiecutterData.done) {
+      return <Container fluid textAlign="right">
+        <Button animated primary size="huge" as={Link} to="/4">
+          <Button.Content visible>{UI.NEXT[language]}</Button.Content>
+          <Button.Content hidden>
+            <Icon name="arrow right" />
+          </Button.Content>
+        </Button>
+      </Container>
+    } else {
+      return <Container fluid textAlign="left">
+        <Button primary size="huge" onClick={generateNextField}>
+          <Button.Content visible>{UI.CONTINUE[language]}</Button.Content>
+          <Button.Content hidden>
+          </Button.Content>
+        </Button>
+      </Container>
+
+    }
+  }
 
   return (
     <Grid>
@@ -111,28 +142,11 @@ function Step3 () {
         <Header dividing size="huge" icon={STEPS.services.icon} content={STEPS.services.header} />
         <Divider hidden />
         <Form>
-          {cookiecutterData !== null && formBuilder()}
           {
-            cookiecutterData !== null && !cookiecutterData.done &&
-            <Container fluid textAlign="left">
-              <Button primary size="huge" onClick={generateNextField}>
-                <Button.Content visible>{UI.CONTINUE[language]}</Button.Content>
-                <Button.Content hidden>
-                </Button.Content>
-              </Button>
-            </Container>
+            (cookiecutterData !== null || userInputs !== null) && formBuilder()
           }
           {
-            cookiecutterData !== null && cookiecutterData.done &&
-            <Container fluid textAlign="right">
-              <Button animated primary size="huge" onClick={saveUserData} as={Link} to="/4">
-                <Button.Content visible>{UI.NEXT[language]}</Button.Content>
-                <Button.Content hidden>
-                  <Icon name="arrow right" />
-                </Button.Content>
-              </Button>
-            </Container>
-
+            displayButtons()
           }
 
         </Form>
