@@ -1,8 +1,7 @@
-import { useEffect } from 'react'
-import { Button, Container, Divider, Form, Grid, Header, Icon, Table } from 'semantic-ui-react'
-import { STEPS, UI, WIZARD } from '../../enums'
+import { useContext, useEffect, useState } from 'react'
+import { Button, Container, Divider, Form, Grid, Header, Icon } from 'semantic-ui-react'
+import { STEPS, UI } from '../../enums'
 import { Link } from 'react-router-dom'
-import { useContext, useState } from 'react'
 import { LanguageContext, useWizardActions, useWizardContext } from '../../context/AppContext'
 
 const toHumanReadable = (name) => {
@@ -51,7 +50,7 @@ function Step3 () {
       setCookiecutterData(wizard.services)
       setUserInputs(wizard.services.user_inputs)
     }
-
+// eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const generateNextField = () => {
@@ -93,8 +92,8 @@ function Step3 () {
           }
           onChange={(e, { value }) => {
             setUserInputs({ ...userInputs, [key]: value })
-            setCookiecutterData({ ...cookiecutterData, user_inputs: { ...userInputs, [key]: value }})
-            setInput('services', 'setServices', { ...cookiecutterData, user_inputs: { ...userInputs, [key]: value }})
+            setCookiecutterData({ ...cookiecutterData, user_inputs: { ...userInputs, [key]: value } })
+            setInput('services', 'setServices', { ...cookiecutterData, user_inputs: { ...userInputs, [key]: value } })
           }}
         />
       }
@@ -106,11 +105,13 @@ function Step3 () {
           placeholder={key}
           onChange={(e, { value }) => {
             setUserInputs({ ...userInputs, [key]: value })
-            setCookiecutterData({ ...cookiecutterData, user_inputs: { ...userInputs, [key]: value }})
-            setInput('services', 'setServices', { ...cookiecutterData, user_inputs: { ...userInputs, [key]: value }})
+            setCookiecutterData({ ...cookiecutterData, user_inputs: { ...userInputs, [key]: value } })
+            setInput('services', 'setServices', { ...cookiecutterData, user_inputs: { ...userInputs, [key]: value } })
           }}
         />
       }
+
+      return null
     })
 
   const displayButtons = () => {
