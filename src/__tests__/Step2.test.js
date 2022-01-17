@@ -5,7 +5,7 @@ import { MemoryRouter } from 'react-router-dom'
 import { Step2 } from '../components/steps'
 import { AppContextProvider } from '../context/AppContext'
 import { TEST_CONFIGURATIONS } from '../configurations'
-import { STEPS, TEST_IDS, UI, WIZARD } from '../enums'
+import { STEPS, TEST_IDS, UI } from '../enums'
 
 const { language } = TEST_CONFIGURATIONS
 
@@ -25,7 +25,6 @@ test('Renders correctly', () => {
   const { getByText, getByPlaceholderText, getByTestId } = setup()
 
   expect(getByText(STEPS.team.header)).toBeInTheDocument()
-  expect(getByPlaceholderText(WIZARD.teamName.title)).toBeInTheDocument()
   expect(getByPlaceholderText(UI.EMAIL_PLACEHOLDER)).toBeInTheDocument()
   expect(getByTestId(TEST_IDS.DPO_DROPDOWN)).toBeInTheDocument()
   expect(getByTestId(TEST_IDS.DEVELOPER_DROPDOWN)).toBeInTheDocument()
@@ -34,9 +33,6 @@ test('Renders correctly', () => {
 
 test('Editing values works correctly', () => {
   const { getByText, getByPlaceholderText, getByTestId } = setup()
-
-  userEvent.type(getByPlaceholderText(WIZARD.teamName.title), 'test-team')
-  expect(getByPlaceholderText(WIZARD.teamName.title)).toHaveValue('test-team')
 
   userEvent.type(getByPlaceholderText(UI.EMAIL_PLACEHOLDER), 'test-manager@test.com')
   expect(getByPlaceholderText(UI.EMAIL_PLACEHOLDER)).toHaveValue('test-manager@test.com')
