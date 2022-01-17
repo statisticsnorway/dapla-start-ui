@@ -19,5 +19,9 @@ export const UI = {
     en: 'Begin',
     nb: 'Sett i gang'
   },
+  FINISH: {
+    en: 'Let\'s go!',
+    nb: 'Ok, kjør på!'
+  },
   EMAIL_PLACEHOLDER: 'abc@ssb.no'
 }

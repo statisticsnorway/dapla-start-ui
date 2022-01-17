@@ -1,12 +1,17 @@
-import { Divider, Grid, Header, List, Segment, Table } from 'semantic-ui-react'
+import useAxios from 'axios-hooks'
+import { useContext, useState } from 'react'
+import { Button, Container, Divider, Grid, Header, Icon, List, Segment, Table } from 'semantic-ui-react'
+import { ErrorMessage } from '@statisticsnorway/dapla-js-utilities'
 
-import { useWizardContext } from '../../context/AppContext'
-import { STEPS, WIZARD } from '../../enums'
+import { ApiContext, LanguageContext, useWizardContext } from '../../context/AppContext'
+import { API } from '../../configurations'
+import { STEPS, UI, WIZARD } from '../../enums'
 
 function toHumanReadable (name) {
   if (!name) {
     return ''
   }
+
   const words = name.match(/[A-Za-z][^_\-A-Z]*/g) || []
 
   return words.map(capitalize).join(' ')
@@ -18,6 +23,32 @@ function capitalize (word) {
 
 function Step4 () {
   const { wizard } = useWizardContext()
+
+  const { api } = useContext(ApiContext)
+  const { language } = useContext(LanguageContext)
+
+  const [done, setDone] = useState(false)
+
+  const [{ error, loading }, execute] = useAxios(`${api}${API.CREATE_JIRA}`, { manual: true, useCache: false })
+
+  const sendOrder = async () => {
+    const payload = {
+      display_team_name: wizard.services.display_team_name,
+      uniform_team_name: wizard.services.team_name,
+      manager_email_list: [wizard.manager],
+      dpo_email_list: wizard.dataProtectionOfficers,
+      dev_email_list: wizard.developers,
+      consumer_email_list: wizard.consumers,
+      service_list: wizard.services.enable_transfer_service === 'yes' ? ['transfer service'] : []
+    }
+
+    await execute({
+      data: payload
+    }).then(response => {
+      console.log(response)
+      setDone(true)
+    })
+  }
 
   return (
     <Grid>
@@ -70,8 +101,8 @@ function Step4 () {
             <Table.Body>
               <Table.Row>
                 {
-                  (Object.entries(wizard.services).length >0) &&
-                    Object.entries(wizard.services.user_inputs).map(([key, value]) => {
+                  (Object.entries(wizard.services).length > 0) &&
+                  Object.entries(wizard.services.user_inputs).map(([key, value]) => {
                     return <Table.Cell verticalAlign="top">{value}</Table.Cell>
                   })
                 }
@@ -79,6 +110,16 @@ function Step4 () {
             </Table.Body>
           </Table>
         </Segment>
+        <Divider hidden />
+        {!loading && error && <ErrorMessage error={error} language={language} />}
+        <Container fluid textAlign="right">
+          <Button animated primary size="huge" onClick={() => sendOrder()} disabled={done || loading} loading={loading}>
+            <Button.Content visible>{UI.FINISH[language]}</Button.Content>
+            <Button.Content hidden>
+              <Icon name="check" />
+            </Button.Content>
+          </Button>
+        </Container>
       </Grid.Column>
       <Grid.Column width={3} />
     </Grid>
