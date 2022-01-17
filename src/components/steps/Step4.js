@@ -27,7 +27,6 @@ function Step4 () {
         <Divider hidden />
         <Header size="huge" attached="top" icon={STEPS.team.icon} content={STEPS.team.header} />
         <Segment attached padded="very">
-          <Header size="large" content={wizard.teamName} />
           <Table basic="very" size="large">
             <Table.Header>
               <Table.Row>

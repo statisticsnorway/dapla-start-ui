@@ -13,7 +13,9 @@ const panels = [
       content: (
         <>
           <p>
-            Forklarende tekst?
+            Her får du muligheten til å fylle teamet med medlemmer. Teamet er delt i fire roller som innehar
+            forskjellige tilgangsnivåer. Tabellen under forsøker å gi en oversikt over hvilke roller som gir hvilke
+            tilganger. Medlemmer i teamet angis innenfor de forskjellige områdene med vanlig kortform av SSB epost.
           </p>
           <Table definition celled>
             <Table.Header>
@@ -36,21 +38,21 @@ const panels = [
               </Table.Row>
               <Table.Row>
                 <Table.Cell>{WIZARD.dpo.title}</Table.Cell>
-                <Table.Cell />
+                <Table.Cell negative />
                 {Array.from({ length: 5 }, (v, i) =>
                   <Table.Cell key={i} textAlign="center"><Icon name="check" color="green" /></Table.Cell>
                 )}
               </Table.Row>
               <Table.Row>
                 <Table.Cell>{WIZARD.developer.title}</Table.Cell>
-                {Array.from({ length: 3 }, (v, i) => <Table.Cell key={i} />)}
+                {Array.from({ length: 3 }, (v, i) => <Table.Cell key={i} negative />)}
                 {Array.from({ length: 3 }, (v, i) =>
                   <Table.Cell key={i} textAlign="center"><Icon name="check" color="green" /></Table.Cell>
                 )}
               </Table.Row>
               <Table.Row>
                 <Table.Cell>{WIZARD.consumer.title}</Table.Cell>
-                {Array.from({ length: 5 }, (v, i) => <Table.Cell key={i} />)}
+                {Array.from({ length: 5 }, (v, i) => <Table.Cell key={i} negative />)}
                 <Table.Cell textAlign="center"><Icon name="check" color="green" /></Table.Cell>
               </Table.Row>
             </Table.Body>
@@ -62,7 +64,6 @@ const panels = [
 ]
 
 const emptyErrors = {
-  teamName: '',
   manager: '',
   dpo: '',
   developer: '',
@@ -101,13 +102,6 @@ function Step2 () {
   }, [wizard])
 
   const checkInput = (type, value) => {
-    if (type === 'teamName' && value.length > 22) {
-      setErrors({
-        ...errors,
-        [type]: `${WIZARD.teamName.title} kan ikke være lenger enn 22 tegn, nå er det ${value.length}`
-      })
-    }
-
     if (type === 'manager' && !value.endsWith('@ssb.no')) {
       setErrors({ ...errors, [type]: `${value} er ugyldig SSB epost` })
     }
@@ -145,19 +139,9 @@ function Step2 () {
       <Grid.Column width={3} />
       <Grid.Column width={10}>
         <Header dividing size="huge" icon={STEPS.team.icon} content={STEPS.team.header} />
-        <Accordion defaultActiveIndex={-1} panels={panels} fluid />
-        <Divider />
-        <Form size="big">
-          <Form.Input
-            value={wizard.teamName}
-            label={formHeader(WIZARD.teamName)}
-            placeholder={WIZARD.teamName.title}
-            onBlur={e => checkInput('teamName', e.target.value)}
-            error={errors.teamName !== '' && { content: errors.teamName, pointing: 'below' }}
-            onChange={(e, { value }) =>
-              setInput('teamName', 'setTeamName', value)
-            }
-          />
+        <Accordion defaultActiveIndex={-1} panels={panels} fluid styled />
+        <Divider hidden />
+        <Form size="large">
           <Form.Input
             value={wizard.manager}
             label={formHeader(WIZARD.manager)}

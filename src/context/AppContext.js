@@ -4,7 +4,6 @@ import { LANGUAGE } from '@statisticsnorway/dapla-js-utilities'
 const initWizard = initial => initial
 
 const initialWizard = {
-  teamName: '',
   manager: '',
   dataProtectionOfficers: [],
   developers: [],
@@ -14,9 +13,6 @@ const initialWizard = {
 
 const wizardReducer = (state, action) => {
   switch (action.type) {
-    case 'setTeamName':
-      return { ...state, teamName: action.payload }
-
     case 'setManager':
       return { ...state, manager: action.payload }
 

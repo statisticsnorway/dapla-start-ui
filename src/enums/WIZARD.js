@@ -1,14 +1,10 @@
 export const WIZARD = {
-  teamName: {
-    title: 'Teamnavn',
-    description: ''
-  },
   manager: {
-    title: 'Team-/domeneansvarlig',
+    title: 'Teamansvarlig',
     description: 'Alle tilgjengelige rettigheter i Google prosjekter og tilhørende tjenester og bøtter'
   },
   dpo: {
-    title: 'Databeskyttelsesansvarlige',
+    title: 'Dataansvarlige',
     description: 'Utvidede rettigheter og tilganger til alle datatilstander og administrering av bakke-sky synkronisering'
   },
   developer: {
