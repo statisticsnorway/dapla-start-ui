@@ -155,7 +155,7 @@ function Step1 () {
             <i data-tooltip="f. eks må Kundeservice involveres for å få opprettet tilgangsgrupper"> manuelle steg </i>
             vil det kunne ta noe tid fra du bestiller til du kan logge inn.
           </p>
-          <Image src="img/process-flowchart.png" fluid centered />
+          <Image src="img/process-flowchart.png" size="huge" centered />
           <p />
           <p>
             Nedenfor har vi samlet noen spørsmål og svar som forklarer litt mer om Dapla-team og prosessen med å komme

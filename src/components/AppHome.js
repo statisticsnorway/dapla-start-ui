@@ -9,7 +9,7 @@ function AppHome () {
 
   return (
     <>
-      <Step.Group size="big" widths={4}>
+      <Step.Group size="large" widths={4}>
         {Object.entries(STEPS).map(([key, step], index) =>
           <Step
             key={key}
