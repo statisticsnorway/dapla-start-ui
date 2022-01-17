@@ -4,18 +4,6 @@ import { STEPS, UI } from '../../enums'
 import { Link } from 'react-router-dom'
 import { LanguageContext, useWizardActions, useWizardContext } from '../../context/AppContext'
 
-const toHumanReadable = (name) => {
-  if (!name) {
-    return ''
-  }
-  const words = name.match(/[A-Za-z][^_\-A-Z]*/g) || []
-
-  return words.map(capitalize).join(' ')
-}
-
-const capitalize = (word) => {
-  return word.charAt(0).toUpperCase() + word.substring(1)
-}
 
 function Step3 () {
   const { wizard } = useWizardContext()
