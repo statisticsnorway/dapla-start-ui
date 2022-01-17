@@ -4,18 +4,6 @@ import { STEPS, UI } from '../../enums'
 import { Link } from 'react-router-dom'
 import { LanguageContext, useWizardActions, useWizardContext } from '../../context/AppContext'
 
-const toHumanReadable = (name) => {
-  if (!name) {
-    return ''
-  }
-  const words = name.match(/[A-Za-z][^_\-A-Z]*/g) || []
-
-  return words.map(capitalize).join(' ')
-}
-
-const capitalize = (word) => {
-  return word.charAt(0).toUpperCase() + word.substring(1)
-}
 
 function Step3 () {
   const { wizard } = useWizardContext()
@@ -68,7 +56,9 @@ function Step3 () {
       .then((response) => response.json())
       .then((newData) => {
         setCookiecutterData(newData)
-        setUserInputs({ ...userInputs, [newData.next_key]: newData.next_value })
+        if(!newData.done){
+          setUserInputs({ ...userInputs, [newData.next_key]: newData.next_value })
+        }
       })
   }
 
@@ -78,13 +68,13 @@ function Step3 () {
 
   const formBuilder = () =>
     Object.entries(userInputs).map(([key, value]) => {
-      if (Array.isArray(value)) {
+      if (cookiecutterData.form_schema[key].type === 'array') {
         return <Form.Dropdown
           selection
           value={userInputs[key]}
-          label={toHumanReadable(key)}
+          label={cookiecutterData.form_schema[key].title}
           placeholder={key}
-          options={value.map(option => ({
+          options={cookiecutterData.form_schema[key].items.enum.map(option => ({
             key: option,
             text: option,
             value: option
@@ -98,10 +88,10 @@ function Step3 () {
         />
       }
 
-      if (typeof value === 'string') {
+      if (cookiecutterData.form_schema[key].type === 'string') {
         return <Form.Input
           value={userInputs[key]}
-          label={toHumanReadable(key)}
+          label={cookiecutterData.form_schema[key].title}
           placeholder={key}
           onChange={(e, { value }) => {
             setUserInputs({ ...userInputs, [key]: value })
