@@ -2,13 +2,14 @@ import { useContext, useEffect, useState } from 'react'
 import { Button, Container, Divider, Form, Grid, Header, Icon } from 'semantic-ui-react'
 import { STEPS, UI } from '../../enums'
 import { Link } from 'react-router-dom'
-import { LanguageContext, useWizardActions, useWizardContext } from '../../context/AppContext'
+import { ApiContext, LanguageContext, useWizardActions, useWizardContext } from '../../context/AppContext'
 
 
 function Step3 () {
   const { wizard } = useWizardContext()
   const { setWizard } = useWizardActions()
 
+  const { api } = useContext(ApiContext)
   const { language } = useContext(LanguageContext)
 
   const [cookiecutterData, setCookiecutterData] = useState(null)
@@ -28,7 +29,7 @@ function Step3 () {
       }),
     }
     if (Object.keys(wizard.services).length === 0) {
-      fetch(`${window.__ENV.REACT_APP_API}/form`, requestOptions)
+      fetch(`${api}/form`, requestOptions)
         .then((response) => response.json())
         .then((data) => {
           setCookiecutterData(data)
@@ -52,7 +53,7 @@ function Step3 () {
         },
       ),
     }
-    fetch(`${window.__ENV.REACT_APP_API}/form`, requestOptions)
+    fetch(`${api}/form`, requestOptions)
       .then((response) => response.json())
       .then((newData) => {
         setCookiecutterData(newData)
