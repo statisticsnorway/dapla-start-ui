@@ -29,7 +29,7 @@ function Step4 () {
 
   const [done, setDone] = useState(false)
 
-  const [{ error, loading }, execute] = useAxios(`${api}${API.CREATE_JIRA}`, { manual: true, useCache: false })
+  const [{ error, loading }, execute] = useAxios({ method: 'POST' }, { manual: true, useCache: false })
 
   const sendOrder = async () => {
     const payload = {
@@ -43,7 +43,8 @@ function Step4 () {
     }
 
     await execute({
-      data: payload
+      data: payload,
+      url: `${api}${API.CREATE_JIRA}`
     }).then(response => {
       console.log(response)
       setDone(true)
