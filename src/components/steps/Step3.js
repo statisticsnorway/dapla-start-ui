@@ -77,18 +77,19 @@ function Step3 () {
   const formBuilder = () =>
     Object.entries(userInputs).map(([key, value]) => {
       if (cookiecutterData.form_schema[key].type === 'checklist') {
-        return <Form.Field>
+        return <Form.Field key={key}>
           <label>
             {formHeader(cookiecutterData.form_schema[key].title, cookiecutterData.form_schema[key].description)}
           </label>
           {cookiecutterData.form_schema[key].items.map(item =>
             <Form.Checkbox
+              key={item.label}
               style={{ marginTop: '1rem' }}
               label={`${item.label} (${item.description})`}
               checked={userInputs[key].includes(item.value)}
               onClick={() => {
                 if (userInputs[key].includes(item.value)) {
-                  setInput(key, 'setServices', userInputs[key].filter(element => element === item.value))
+                  setInput(key, 'setServices', userInputs[key].filter(element => element !== item.value))
                 } else {
                   setInput(key, 'setServices', userInputs[key].concat([item.value]))
                 }
@@ -100,6 +101,7 @@ function Step3 () {
 
       if (cookiecutterData.form_schema[key].type === 'string') {
         return <Form.Input
+          key={key}
           placeholder={key}
           value={userInputs[key]}
           disabled={cookiecutterData.form_schema[key].hasOwnProperty('deduced')}

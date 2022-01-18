@@ -7,20 +7,6 @@ import { ApiContext, LanguageContext, useWizardContext } from '../../context/App
 import { API } from '../../configurations'
 import { STEPS, UI, WIZARD } from '../../enums'
 
-function toHumanReadable (name) {
-  if (!name) {
-    return ''
-  }
-
-  const words = name.match(/[A-Za-z][^_\-A-Z]*/g) || []
-
-  return words.map(capitalize).join(' ')
-}
-
-function capitalize (word) {
-  return word.charAt(0).toUpperCase() + word.substring(1)
-}
-
 function Step4 () {
   const { wizard } = useWizardContext()
 
@@ -90,21 +76,25 @@ function Step4 () {
           <Table basic="very" size="large">
             <Table.Header>
               <Table.Row>
-                {
-                  (Object.entries(wizard.services).length > 0) &&
-                  Object.entries(wizard.services.user_inputs).map(([key, value]) => {
-                    return <Table.HeaderCell>{toHumanReadable(key)}</Table.HeaderCell>
-                  })
+                {(Object.entries(wizard.services).length > 0) && Object.entries(wizard.services.form_schema)
+                  .map(([key, value]) => <Table.HeaderCell>{value.title}</Table.HeaderCell>)
                 }
               </Table.Row>
             </Table.Header>
             <Table.Body>
               <Table.Row>
-                {
-                  (Object.entries(wizard.services).length > 0) &&
-                  Object.entries(wizard.services.user_inputs).map(([key, value]) => {
-                    return <Table.Cell verticalAlign="top">{value}</Table.Cell>
-                  })
+                {(Object.entries(wizard.services).length > 0) && Object.entries(wizard.services.user_inputs)
+                  .map(([key, value]) =>
+                    <Table.Cell>
+                      {Array.isArray(value) ?
+                        <List>
+                          {value.map(element => <List.Item>{element}</List.Item>)}
+                        </List>
+                        :
+                        value
+                      }
+                    </Table.Cell>
+                  )
                 }
               </Table.Row>
             </Table.Body>
