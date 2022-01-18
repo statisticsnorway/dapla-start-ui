@@ -4,6 +4,7 @@ import { STEPS, UI } from '../../enums'
 import { Link } from 'react-router-dom'
 import { ApiContext, LanguageContext, useWizardActions, useWizardContext } from '../../context/AppContext'
 
+const formHeader = (title, description) => <Header size="small" content={title} subheader={description} />
 
 function Step3 () {
   const { wizard } = useWizardContext()
@@ -22,16 +23,17 @@ function Step3 () {
       body: JSON.stringify({
         template: {
           repo: 'statisticsnorway/dapla-start-cookiecutter-config',
-          directory: '',
+          directory: ''
         },
         repo: '',
-        org: 'statisticsnorway',
-      }),
+        org: 'statisticsnorway'
+      })
     }
+
     if (Object.keys(wizard.services).length === 0) {
       fetch(`${api}/form`, requestOptions)
-        .then((response) => response.json())
-        .then((data) => {
+        .then(response => response.json())
+        .then(data => {
           setCookiecutterData(data)
           setUserInputs({ ...userInputs, [data.next_key]: data.next_value })
         })
@@ -49,56 +51,62 @@ function Step3 () {
       body: JSON.stringify(
         {
           ...cookiecutterData,
-          user_inputs: userInputs,
-        },
-      ),
+          user_inputs: userInputs
+        }
+      )
     }
+
     fetch(`${api}/form`, requestOptions)
-      .then((response) => response.json())
-      .then((newData) => {
+      .then(response => response.json())
+      .then(newData => {
         setCookiecutterData(newData)
-        if(!newData.done){
+
+        if (!newData.done) {
           setUserInputs({ ...userInputs, [newData.next_key]: newData.next_value })
+        } else {
+          setWizard({ type: 'setServices', payload: newData })
         }
       })
   }
 
-  const setInput = (input, type, value) => {
-    setWizard({ type: type, payload: value })
+  const setInput = (key, type, value) => {
+    setUserInputs({ ...userInputs, [key]: value })
+    setCookiecutterData({ ...cookiecutterData, user_inputs: { ...userInputs, [key]: value } })
   }
 
   const formBuilder = () =>
     Object.entries(userInputs).map(([key, value]) => {
-      if (cookiecutterData.form_schema[key].type === 'array') {
-        return <Form.Dropdown
-          selection
-          value={userInputs[key]}
-          label={cookiecutterData.form_schema[key].title}
-          placeholder={key}
-          options={cookiecutterData.form_schema[key].items.enum.map(option => ({
-            key: option,
-            text: option,
-            value: option
-          }))
-          }
-          onChange={(e, { value }) => {
-            setUserInputs({ ...userInputs, [key]: value })
-            setCookiecutterData({ ...cookiecutterData, user_inputs: { ...userInputs, [key]: value } })
-            setInput('services', 'setServices', { ...cookiecutterData, user_inputs: { ...userInputs, [key]: value } })
-          }}
-        />
+      if (cookiecutterData.form_schema[key].type === 'checklist') {
+        return <Form.Field>
+          <label>
+            {formHeader(cookiecutterData.form_schema[key].title, cookiecutterData.form_schema[key].description)}
+          </label>
+          {cookiecutterData.form_schema[key].items.map(item =>
+            <Form.Checkbox
+              style={{ marginTop: '1rem' }}
+              label={`${item.label} (${item.description})`}
+              checked={userInputs[key].includes(item.value)}
+              onClick={() => {
+                if (userInputs[key].includes(item.value)) {
+                  setInput(key, 'setServices', userInputs[key].filter(element => element === item.value))
+                } else {
+                  setInput(key, 'setServices', userInputs[key].concat([item.value]))
+                }
+              }}
+            />
+          )}
+        </Form.Field>
       }
 
       if (cookiecutterData.form_schema[key].type === 'string') {
         return <Form.Input
-          value={userInputs[key]}
-          label={cookiecutterData.form_schema[key].title}
           placeholder={key}
-          onChange={(e, { value }) => {
-            setUserInputs({ ...userInputs, [key]: value })
-            setCookiecutterData({ ...cookiecutterData, user_inputs: { ...userInputs, [key]: value } })
-            setInput('services', 'setServices', { ...cookiecutterData, user_inputs: { ...userInputs, [key]: value } })
-          }}
+          value={userInputs[key]}
+          disabled={cookiecutterData.form_schema[key].hasOwnProperty('deduced')}
+          label={formHeader(cookiecutterData.form_schema[key].title, cookiecutterData.form_schema[key].description)}
+          onChange={(e, { value }) =>
+            setInput(key, 'setServices', value)
+          }
         />
       }
 
@@ -117,7 +125,7 @@ function Step3 () {
       </Container>
     } else {
       return <Container fluid textAlign="left">
-        <Button primary size="huge" onClick={generateNextField}>
+        <Button primary size="huge" onClick={() => generateNextField()}>
           <Button.Content visible>{UI.CONTINUE[language]}</Button.Content>
           <Button.Content hidden>
           </Button.Content>
@@ -132,15 +140,11 @@ function Step3 () {
       <Grid.Column width={10}>
         <Header dividing size="huge" icon={STEPS.services.icon} content={STEPS.services.header} />
         <Divider hidden />
-        <Form>
-          {
-            (cookiecutterData !== null || userInputs !== null) && formBuilder()
-          }
-          {
-            displayButtons()
-          }
-
+        <Form size="large">
+          {(cookiecutterData !== null || userInputs !== null) && formBuilder()}
         </Form>
+        <Divider hidden />
+        {displayButtons()}
       </Grid.Column>
       <Grid.Column width={3} />
     </Grid>

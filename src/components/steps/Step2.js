@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useContext, useEffect, useState } from 'react'
-import { Accordion, Button, Container, Divider, Form, Grid, Header, Icon, Table } from 'semantic-ui-react'
+import { Accordion, Button, Container, Divider, Form, Grid, Header, Icon, Image, Table } from 'semantic-ui-react'
 
 import { LanguageContext, useWizardActions, useWizardContext } from '../../context/AppContext'
 import { STEPS, TEST_IDS, UI, WIZARD } from '../../enums'
@@ -22,11 +22,11 @@ const panels = [
               <Table.Row>
                 <Table.HeaderCell />
                 <Table.HeaderCell>Full kontroll</Table.HeaderCell>
-                <Table.HeaderCell>Upseudonymiserte data</Table.HeaderCell>
+                <Table.HeaderCell>Kildedata</Table.HeaderCell>
                 <Table.HeaderCell>Administrere bakke-sky synkronisering</Table.HeaderCell>
-                <Table.HeaderCell>Pseudonymiserte data</Table.HeaderCell>
+                <Table.HeaderCell>Inndata</Table.HeaderCell>
                 <Table.HeaderCell>Jupyter</Table.HeaderCell>
-                <Table.HeaderCell>Klargjorte utdata</Table.HeaderCell>
+                <Table.HeaderCell>Utdata</Table.HeaderCell>
               </Table.Row>
             </Table.Header>
             <Table.Body>
@@ -57,6 +57,7 @@ const panels = [
               </Table.Row>
             </Table.Body>
           </Table>
+          <Image src="img/data-states.png" size="huge" centered />
         </>
       )
     }

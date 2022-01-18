@@ -1,41 +1,39 @@
 export const WIZARD = {
   manager: {
     title: 'Teamansvarlig',
-    description: 'Alle tilgjengelige rettigheter i Google prosjekter og tilhørende tjenester og bøtter'
+    description: 'Alle tilgjengelige rettigheter i Google prosjekter og tilhørende tjenester og data'
   },
   dpo: {
     title: 'Dataansvarlige',
-    description: 'Utvidede rettigheter og tilganger til alle datatilstander og administrering av bakke-sky synkronisering'
+    description: 'Tilgang til alle data og administrering av bakke-sky synkronisering'
   },
   developer: {
     title: 'Utviklere',
-    description: 'Tilgang til Jupyter, lese- og skrivetilgang til alle teamets bøtter utenom bakke-sky synkronisering og upseudonymisert kildedata'
+    description: 'Tilgang til alle teamets data utenom bakke-sky synkroniserte data og kildedata'
   },
   consumer: {
     title: 'Konsumenter',
-    description: 'Lesetilgang til noen av teamets bøtter, primært klargjorte utdata'
+    description: 'Lesetilgang til utdata'
   }
 }
 
 export const STEPS = {
   welcome: {
-    icon: 'info',
-    header: 'Kom i gang',
-    description: 'Om denne veilederen'
+    header: 'Start',
+    description: 'Kom i gang'
   },
   team: {
     icon: 'users',
     header: 'Teamet',
-    description: 'Teamets oppbygning og tilganger'
+    description: 'Medlemmer og tilganger'
   },
   services: {
     icon: 'cogs',
     header: 'Tjenester',
-    description: 'Ytterligere informasjon og tjenesteaktivering'
+    description: 'Teamnavn og tjenesteaktivering'
   },
   summary: {
     icon: 'clipboard list',
-    header: 'Oppsummering',
-    description: 'Bekreftelse og bestilling'
+    header: 'Oppsummering'
   }
 }

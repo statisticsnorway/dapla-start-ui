@@ -31,7 +31,7 @@ const setup = () => {
 test('Renders correctly', () => {
   const { getByText } = setup()
 
-  Object.entries(STEPS).map(([key, step]) => {
+  Object.entries(STEPS).slice(0, -1).map(([key, step]) => {
     expect(getByText(step.header)).toBeInTheDocument()
   })
 })
