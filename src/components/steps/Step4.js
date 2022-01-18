@@ -33,13 +33,13 @@ function Step4 () {
 
   const sendOrder = async () => {
     const payload = {
-      display_team_name: wizard.services.display_team_name,
-      uniform_team_name: wizard.services.team_name,
+      display_team_name: wizard.services.user_inputs.display_team_name,
+      uniform_team_name: wizard.services.user_inputs.team_name,
       manager_email_list: [wizard.manager],
       dpo_email_list: wizard.dataProtectionOfficers,
       dev_email_list: wizard.developers,
       consumer_email_list: wizard.consumers,
-      service_list: wizard.services.enable_transfer_service === 'yes' ? ['transfer service'] : []
+      service_list: wizard.services.user_inputs.enable_transfer_service === 'yes' ? ['transfer service'] : []
     }
 
     await execute({
