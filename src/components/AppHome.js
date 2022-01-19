@@ -2,17 +2,17 @@ import { Link, Route, Routes, useLocation } from 'react-router-dom'
 import { Divider, Icon, Image, Segment, Step } from 'semantic-ui-react'
 import { dapla_long_rgb } from '@statisticsnorway/dapla-js-utilities'
 
-import { Step1, Step2, Step3, Step4 } from './steps'
+import { Step1, Step2, Step3, Step4, Step5 } from './steps'
 import { STEPS } from '../enums'
 
 function AppHome () {
   let location = useLocation()
 
   return (
-    <Segment basic>
-      {location.pathname !== '/4' &&
+    <Segment basic style={{ paddingBottom: '5rem' }}>
+      {location.pathname !== '/5' &&
         <Step.Group size="large" widths={4}>
-          {Object.entries(STEPS).slice(0, -1).map(([key, step], index) =>
+          {Object.entries(STEPS).map(([key, step], index) =>
             <Step
               key={key}
               as={Link}
@@ -39,6 +39,7 @@ function AppHome () {
         <Route path="/2" element={<Step2 />} />
         <Route path="/3" element={<Step3 />} />
         <Route path="/4" element={<Step4 />} />
+        <Route path="/5" element={<Step5 />} />
       </Routes>
     </Segment>
   )

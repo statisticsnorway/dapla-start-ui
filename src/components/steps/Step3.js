@@ -1,10 +1,33 @@
-import { useContext, useEffect, useState } from 'react'
-import { Button, Container, Divider, Form, Grid, Header, Icon } from 'semantic-ui-react'
-import { STEPS, UI } from '../../enums'
+import useAxios from 'axios-hooks'
 import { Link } from 'react-router-dom'
-import { ApiContext, LanguageContext, useWizardActions, useWizardContext } from '../../context/AppContext'
+import { useContext, useEffect, useRef, useState } from 'react'
+import {
+  Accordion,
+  Button,
+  Container,
+  Divider,
+  Form,
+  Grid,
+  Header,
+  Icon,
+  Message,
+  Ref,
+  Sticky
+} from 'semantic-ui-react'
+import { ErrorMessage } from '@statisticsnorway/dapla-js-utilities'
 
-const formHeader = (title, description) => <Header size="small" content={title} subheader={description} />
+import { ApiContext, LanguageContext, useWizardActions, useWizardContext } from '../../context/AppContext'
+import { FAQ, STEPS, UI } from '../../enums'
+
+const formHeader = (title, description) =>
+  <Header size="small">
+    <Header.Content>
+      {title}
+      <Header.Subheader>
+        <div dangerouslySetInnerHTML={{ __html: description }} />
+      </Header.Subheader>
+    </Header.Content>
+  </Header>
 
 function Step3 () {
   const { wizard } = useWizardContext()
@@ -13,14 +36,20 @@ function Step3 () {
   const { api } = useContext(ApiContext)
   const { language } = useContext(LanguageContext)
 
-  const [cookiecutterData, setCookiecutterData] = useState(null)
+  const [info, setInfo] = useState([])
   const [userInputs, setUserInputs] = useState({})
+  const [cookiecutterData, setCookiecutterData] = useState(null)
+
+  const [{ error, loading }, execute] = useAxios({ method: 'POST' }, { manual: true, useCache: false })
+
+  const appRefArea = useRef()
 
   useEffect(() => {
     const requestOptions = {
+      url: `${api}/form`,
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
+      data: JSON.stringify({
         template: {
           repo: 'statisticsnorway/dapla-start-cookiecutter-config',
           directory: ''
@@ -31,12 +60,12 @@ function Step3 () {
     }
 
     if (Object.keys(wizard.services).length === 0) {
-      fetch(`${api}/form`, requestOptions)
-        .then(response => response.json())
-        .then(data => {
-          setCookiecutterData(data)
-          setUserInputs({ ...userInputs, [data.next_key]: data.next_value })
-        })
+      execute(requestOptions).then(response => {
+        const data = response.data
+
+        setCookiecutterData(data)
+        setUserInputs({ ...userInputs, [data.next_key]: data.next_value })
+      })
     } else {
       setCookiecutterData(wizard.services)
       setUserInputs(wizard.services.user_inputs)
@@ -44,11 +73,41 @@ function Step3 () {
 // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  const formHeaderInfo = (title, description, infoField) =>
+    <>
+      <Header size="small">
+        <Header.Content>
+          {`${title} `}
+          <Icon
+            link
+            name="info circle"
+            color="blue"
+            onClick={() => {
+              if (info.includes(infoField)) {
+                setInfo(info.filter(element => element !== infoField))
+              } else {
+                setInfo(info.concat([infoField]))
+              }
+            }}
+          />
+          <Header.Subheader>
+            <div dangerouslySetInnerHTML={{ __html: description }} />
+          </Header.Subheader>
+        </Header.Content>
+      </Header>
+      {info.includes(infoField) &&
+        <Message info size="small">
+          <div dangerouslySetInnerHTML={{ __html: cookiecutterData.form_schema[infoField].help }} />
+        </Message>
+      }
+    </>
+
   const generateNextField = () => {
     const requestOptions = {
+      url: `${api}/form`,
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(
+      data: JSON.stringify(
         {
           ...cookiecutterData,
           user_inputs: userInputs
@@ -56,17 +115,17 @@ function Step3 () {
       )
     }
 
-    fetch(`${api}/form`, requestOptions)
-      .then(response => response.json())
-      .then(newData => {
-        setCookiecutterData(newData)
+    execute(requestOptions).then(response => {
+      const newData = response.data
 
-        if (!newData.done) {
-          setUserInputs({ ...userInputs, [newData.next_key]: newData.next_value })
-        } else {
-          setWizard({ type: 'setServices', payload: newData })
-        }
-      })
+      setCookiecutterData(newData)
+
+      if (!newData.done) {
+        setUserInputs({ ...userInputs, [newData.next_key]: newData.next_value })
+      } else {
+        setWizard({ type: 'setServices', payload: newData })
+      }
+    })
   }
 
   const setInput = (key, type, value) => {
@@ -76,11 +135,16 @@ function Step3 () {
 
   const formBuilder = () =>
     Object.entries(userInputs).map(([key, value]) => {
+      if (cookiecutterData.form_schema[key].hasOwnProperty('deduced')) {
+        return <Form.Field key={key} style={{ marginBottom: '2rem' }}>
+          {formHeader(cookiecutterData.form_schema[key].title, cookiecutterData.form_schema[key].description)}
+          <Message size="small" content={userInputs[key]} compact style={{ marginTop: 0 }} />
+        </Form.Field>
+      }
+
       if (cookiecutterData.form_schema[key].type === 'checklist') {
-        return <Form.Field key={key}>
-          <label>
-            {formHeader(cookiecutterData.form_schema[key].title, cookiecutterData.form_schema[key].description)}
-          </label>
+        return <Form.Field key={key} style={{ marginBottom: '1rem' }}>
+          {formHeader(cookiecutterData.form_schema[key].title, cookiecutterData.form_schema[key].description)}
           {cookiecutterData.form_schema[key].items.map(item =>
             <Form.Checkbox
               key={item.label}
@@ -104,10 +168,16 @@ function Step3 () {
           key={key}
           placeholder={key}
           value={userInputs[key]}
-          disabled={cookiecutterData.form_schema[key].hasOwnProperty('deduced')}
-          label={formHeader(cookiecutterData.form_schema[key].title, cookiecutterData.form_schema[key].description)}
-          onChange={(e, { value }) =>
-            setInput(key, 'setServices', value)
+          style={{ marginBottom: '1rem' }}
+          onChange={(e, { value }) => setInput(key, 'setServices', value)}
+          label={cookiecutterData.form_schema[key].hasOwnProperty('help') ?
+            formHeaderInfo(
+              cookiecutterData.form_schema[key].title,
+              cookiecutterData.form_schema[key].description,
+              key
+            )
+            :
+            formHeader(cookiecutterData.form_schema[key].title, cookiecutterData.form_schema[key].description)
           }
         />
       }
@@ -127,7 +197,7 @@ function Step3 () {
       </Container>
     } else {
       return <Container fluid textAlign="left">
-        <Button primary size="huge" onClick={() => generateNextField()}>
+        <Button primary size="huge" onClick={() => generateNextField()} disabled={loading || error} loading={loading}>
           <Button.Content visible>{UI.CONTINUE[language]}</Button.Content>
           <Button.Content hidden>
           </Button.Content>
@@ -138,17 +208,25 @@ function Step3 () {
 
   return (
     <Grid>
-      <Grid.Column width={3} />
-      <Grid.Column width={10}>
-        <Header dividing size="huge" icon={STEPS.services.icon} content={STEPS.services.header} />
-        <Divider hidden />
-        <Form size="large">
-          {(cookiecutterData !== null || userInputs !== null) && formBuilder()}
-        </Form>
-        <Divider hidden />
-        {displayButtons()}
+      <Grid.Column width={4} />
+      <Ref innerRef={appRefArea}>
+        <Grid.Column width={8}>
+          <Header dividing size="huge" icon={STEPS.services.icon} content={STEPS.services.header} />
+          <Divider hidden />
+          <Form size="large" loading={loading}>
+            {(cookiecutterData !== null || userInputs !== null) && formBuilder()}
+          </Form>
+          <Divider hidden />
+          {!loading && error && <ErrorMessage error={error} language={language} />}
+          <Divider hidden />
+          {displayButtons()}
+        </Grid.Column>
+      </Ref>
+      <Grid.Column width={4}>
+        <Sticky context={appRefArea}>
+          <Accordion defaultActiveIndex={-1} panels={FAQ} styled fluid />
+        </Sticky>
       </Grid.Column>
-      <Grid.Column width={3} />
     </Grid>
   )
 }

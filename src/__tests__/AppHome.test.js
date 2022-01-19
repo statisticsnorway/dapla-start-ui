@@ -10,6 +10,7 @@ jest.mock('../components/steps/Step1', () => () => null)
 jest.mock('../components/steps/Step2', () => () => null)
 jest.mock('../components/steps/Step3', () => () => null)
 jest.mock('../components/steps/Step4', () => () => null)
+jest.mock('../components/steps/Step5', () => () => null)
 
 const { language } = TEST_CONFIGURATIONS
 const apiContext = TEST_CONFIGURATIONS.apiContext(jest.fn())
@@ -31,7 +32,7 @@ const setup = () => {
 test('Renders correctly', () => {
   const { getByText } = setup()
 
-  Object.entries(STEPS).slice(0, -1).map(([key, step]) => {
+  Object.entries(STEPS).map(([key, step]) => {
     expect(getByText(step.header)).toBeInTheDocument()
   })
 })

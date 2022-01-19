@@ -8,6 +8,7 @@ const initialWizard = {
   dataProtectionOfficers: [],
   developers: [],
   consumers: [],
+  approver: '',
   services: {}
 }
 
@@ -27,6 +28,9 @@ const wizardReducer = (state, action) => {
 
     case 'setServices':
       return { ...state, services: action.payload }
+
+    case 'setApprover':
+      return { ...state, approver: action.payload }
 
     default:
       return state
