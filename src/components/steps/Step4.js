@@ -1,25 +1,25 @@
 import useAxios from 'axios-hooks'
+import { useNavigate } from 'react-router-dom'
 import { useContext, useState } from 'react'
 import { Button, Container, Divider, Grid, Header, Icon, List, Segment, Table } from 'semantic-ui-react'
 import { ErrorMessage } from '@statisticsnorway/dapla-js-utilities'
 
 import { ApiContext, LanguageContext, useWizardContext } from '../../context/AppContext'
 import { API } from '../../configurations'
-import { STEPS, UI, WIZARD } from '../../enums'
+import { APPROVER, STEPS, UI, WIZARD } from '../../enums'
 
-function toHumanReadable (name) {
-  if (!name) {
-    return ''
+const environments = ['dev', 'staging', 'prod', 'transfer-service']
+
+const technical = ttn => environments.reduce((a, v) => {
+  const thing = {
+    projectName: `${v}-${ttn}`,
+    buckets: v !== 'transfer-service' ?
+      ['kilde', 'produkt'].map(bucket => `ssb-${v}-${bucket}-data-${ttn}`)
+      :
+      ['transfer-service'].map(bucket => `${ttn}-${bucket}`)
   }
-
-  const words = name.match(/[A-Za-z][^_\-A-Z]*/g) || []
-
-  return words.map(capitalize).join(' ')
-}
-
-function capitalize (word) {
-  return word.charAt(0).toUpperCase() + word.substring(1)
-}
+  return { ...a, [v]: thing }
+}, {})
 
 function Step4 () {
   const { wizard } = useWizardContext()
@@ -27,9 +27,11 @@ function Step4 () {
   const { api } = useContext(ApiContext)
   const { language } = useContext(LanguageContext)
 
-  const [done, setDone] = useState(false)
+  const [technicalInfo] = useState(technical(wizard.services.user_inputs.team_name))
 
   const [{ error, loading }, execute] = useAxios({ method: 'POST' }, { manual: true, useCache: false })
+
+  let navigate = useNavigate()
 
   const sendOrder = async () => {
     const payload = {
@@ -39,7 +41,9 @@ function Step4 () {
       dpo_email_list: wizard.dataProtectionOfficers,
       dev_email_list: wizard.developers,
       consumer_email_list: wizard.consumers,
-      service_list: wizard.services.user_inputs.enable_transfer_service === 'yes' ? ['transfer service'] : []
+      service_list: wizard.services.user_inputs.enabled_services,
+      approver: wizard.approver,
+      technical_info: technicalInfo
     }
 
     await execute({
@@ -47,8 +51,9 @@ function Step4 () {
       url: `${api}${API.CREATE_JIRA}`
     }).then(response => {
       console.log(response)
-      setDone(true)
-    })
+
+      navigate('/5', { replace: true, state: response })
+    }).catch(err => console.log(err))
   }
 
   return (
@@ -57,7 +62,12 @@ function Step4 () {
       <Grid.Column width={10}>
         <Header dividing size="huge" icon={STEPS.summary.icon} content={STEPS.summary.header} />
         <Divider hidden />
-        <Header size="huge" attached="top" icon={STEPS.team.icon} content={STEPS.team.header} />
+        <Header
+          size="huge"
+          attached="top"
+          icon={STEPS.team.icon}
+          content={wizard.services.user_inputs.display_team_name}
+        />
         <Segment attached padded="very">
           <Table basic="very" size="large">
             <Table.Header>
@@ -72,48 +82,71 @@ function Step4 () {
               <Table.Row>
                 <Table.Cell verticalAlign="top">{wizard.manager}</Table.Cell>
                 <Table.Cell verticalAlign="top">
-                  <List>{wizard.dataProtectionOfficers.map(element => <List.Item>{element}</List.Item>)}</List>
+                  <List>
+                    {wizard.dataProtectionOfficers.map(element => <List.Item key={element}>{element}</List.Item>)}
+                  </List>
                 </Table.Cell>
                 <Table.Cell verticalAlign="top">
-                  <List>{wizard.developers.map(element => <List.Item>{element}</List.Item>)}</List>
+                  <List>{wizard.developers.map(element => <List.Item key={element}>{element}</List.Item>)}</List>
                 </Table.Cell>
                 <Table.Cell verticalAlign="top">
-                  <List>{wizard.consumers.map(element => <List.Item>{element}</List.Item>)}</List>
+                  <List>{wizard.consumers.map(element => <List.Item key={element}>{element}</List.Item>)}</List>
                 </Table.Cell>
               </Table.Row>
             </Table.Body>
           </Table>
+          <Divider hidden />
+          <i>{`${APPROVER.title}: `}</i>{wizard.approver}
         </Segment>
         <Divider hidden />
         <Header size="huge" attached="top" icon={STEPS.services.icon} content={STEPS.services.header} />
         <Segment attached padded="very">
-          <Table basic="very" size="large">
-            <Table.Header>
-              <Table.Row>
-                {
-                  (Object.entries(wizard.services).length > 0) &&
-                  Object.entries(wizard.services.user_inputs).map(([key, value]) => {
-                    return <Table.HeaderCell>{toHumanReadable(key)}</Table.HeaderCell>
-                  })
-                }
-              </Table.Row>
-            </Table.Header>
-            <Table.Body>
-              <Table.Row>
-                {
-                  (Object.entries(wizard.services).length > 0) &&
-                  Object.entries(wizard.services.user_inputs).map(([key, value]) => {
-                    return <Table.Cell verticalAlign="top">{value}</Table.Cell>
-                  })
-                }
-              </Table.Row>
-            </Table.Body>
-          </Table>
+          <List>
+            {wizard.services.user_inputs.enabled_services.map(service =>
+              <List.Item
+                key={service}
+                icon={{ name: 'check', color: 'green' }}
+                content={wizard.services.form_schema.enabled_services.items.filter(item => item.value === service)[0].label}
+              />
+            )}
+          </List>
+        </Segment>
+        <Divider hidden />
+        <Header size="huge" attached="top" icon="wrench" content="Teknisk" />
+        <Segment attached padded="very">
+          <Grid columns="equal">
+            <Grid.Column>
+              <Header size="medium" content="GCP prosjekter" />
+              <List relaxed="very">
+                {Object.entries(technicalInfo).map(([key, value]) =>
+                  <List.Item key={key}>
+                    <Header size="small" content={value.projectName} />
+                    <Header size="tiny" content="Bøtter:" style={{ fontWeight: 'normal' }} />
+                    <List.List>
+                      {value.buckets.map(bucket =>
+                        <List.Item key={bucket} content={bucket} />
+                      )}
+                    </List.List>
+                  </List.Item>
+                )}
+              </List>
+            </Grid.Column>
+            <Grid.Column>
+              <Header size="medium" content="GitHub infrastruktur-repo" />
+              <p>{`https://github.com/statisticsnorway/${wizard.services.user_inputs.project_name}`}</p>
+              <Header size="medium" content="AD-grupper" />
+              <List>
+                {Object.entries(WIZARD).map(([key, value]) =>
+                  <List.Item>{`${wizard.services.user_inputs.team_name}-${value.name}@ssb.no`}</List.Item>
+                )}
+              </List>
+            </Grid.Column>
+          </Grid>
         </Segment>
         <Divider hidden />
         {!loading && error && <ErrorMessage error={error} language={language} />}
         <Container fluid textAlign="right">
-          <Button animated primary size="huge" onClick={() => sendOrder()} disabled={done || loading} loading={loading}>
+          <Button animated primary size="huge" onClick={() => sendOrder()} disabled={loading} loading={loading}>
             <Button.Content visible>{UI.FINISH[language]}</Button.Content>
             <Button.Content hidden>
               <Icon name="check" />
