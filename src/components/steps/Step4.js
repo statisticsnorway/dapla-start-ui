@@ -50,9 +50,7 @@ function Step4 () {
       data: payload,
       url: `${api}${API.CREATE_JIRA}`
     }).then(response => {
-      console.log(response)
-
-      navigate('/5', { replace: true, state: response })
+      navigate('/5', { replace: false, state: response.data })
     }).catch(err => console.log(err))
   }
 
