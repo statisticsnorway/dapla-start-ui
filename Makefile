@@ -10,7 +10,7 @@ local-install: ## Installation steps for local development
 	yarn install
 
 .PHONY: local-build
-local-build: ## Build the app for local development
+local-build: ## Build the app for local serving
 	yarn build
 
 .PHONY: local-run
