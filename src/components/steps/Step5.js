@@ -1,6 +1,6 @@
 import { Divider } from 'primereact/divider'
 
-import { STEP_5 } from '../../enum'
+import { STEP_5 } from '../../content'
 
 function Step5 () {
   return (

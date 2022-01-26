@@ -4,7 +4,7 @@ import { Button } from 'primereact/button'
 import { Image } from 'primereact/image'
 
 import { FAQAccordion } from '../index'
-import { IMAGE_ALT_TEXT, STEP_0, STEPS, UI } from '../../enum'
+import { IMAGE_ALT_TEXT, STEP_0, STEPS, UI } from '../../content'
 
 function Step0 () {
   let navigate = useNavigate()

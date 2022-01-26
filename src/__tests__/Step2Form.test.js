@@ -4,7 +4,7 @@ import { MemoryRouter } from 'react-router-dom'
 
 import { AppContextProvider } from '../context/AppContext'
 import Step2Form from '../components/steps/Step2Form'
-import { STEP_2, UI, WIZARD } from '../enum'
+import { STEP_2, UI, WIZARD } from '../content'
 
 const setup = () => {
   const { getAllByPlaceholderText, getByPlaceholderText, getByText } = render(
@@ -18,12 +18,18 @@ const setup = () => {
   return { getAllByPlaceholderText, getByPlaceholderText, getByText }
 }
 
-test('User input works correctly', () => {
-  const { getByPlaceholderText } = setup()
+test('Required user input works correctly', () => {
+  const { getByPlaceholderText, getByText } = setup()
+
+  expect(getByText(UI.NEXT).closest('button')).toBeDisabled()
 
   userEvent.type(getByPlaceholderText(WIZARD.MANAGER.placeholder), 'manager@ssb.no')
 
   expect(getByPlaceholderText(WIZARD.MANAGER.placeholder)).toHaveValue('manager@ssb.no')
+
+  expect(getByText(UI.NEXT).closest('button')).not.toBeDisabled()
+
+  userEvent.click(getByText(UI.NEXT))
 })
 
 test('User multi-input (Chips) works correctly', () => {
@@ -38,10 +44,4 @@ test('User multi-input (Chips) works correctly', () => {
     expect(getByText(`${value}1@ssb.no`)).toBeInTheDocument()
     expect(getByText(`${value}2@ssb.no`)).toBeInTheDocument()
   })
-})
-
-test('Navigates to next step', () => {
-  const { getByText } = setup()
-
-  userEvent.click(getByText(UI.NEXT))
 })

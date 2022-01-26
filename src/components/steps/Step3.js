@@ -5,7 +5,7 @@ import { Button } from 'primereact/button'
 
 import { useWizardActions, useWizardContext } from '../../context/AppContext'
 import { ShowHideFAQ } from '../index'
-import { STEPS, UI, WIZARD } from '../../enum'
+import { STEPS, UI, WIZARD } from '../../content'
 
 function Step3 () {
   const { wizard } = useWizardContext()
@@ -32,6 +32,7 @@ function Step3 () {
           itemTemplate={serviceTemplate}
           options={WIZARD.SERVICES.items}
           value={wizard[WIZARD.SERVICES.ref]}
+          placeholder={WIZARD.SERVICES.placeholder}
           onChange={e => setWizard({ type: WIZARD.SERVICES.ref, payload: e.value })}
         />
         <div className="flex justify-content-end mt-6">

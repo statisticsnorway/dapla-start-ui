@@ -1,3 +1,5 @@
+const chipsPlaceholder = 'abc@ssb.no, def@ssb.no'
+
 export const WIZARD = {
   TEAM_NAME: {
     title: 'Teamnavn',
@@ -27,19 +29,19 @@ export const WIZARD = {
     title: 'Kildedataansvarlige',
     description: 'Tilgang til alle data og administrering av bakke-sky synkronisering.',
     ref: 'data_protection_officers',
-    placeholder: 'abc@ssb.no, def@ssb.no'
+    placeholder: chipsPlaceholder
   },
   DEVELOPERS: {
     title: 'Utviklere',
     description: 'Tilgang til alle teamets data utenom bakke-sky synkroniserte data og kildedata.',
     ref: 'developers',
-    placeholder: 'abc@ssb.no, def@ssb.no'
+    placeholder: chipsPlaceholder
   },
   CONSUMERS: {
     title: 'Konsumenter',
     description: 'Lesetilgang til utdata.',
     ref: 'consumers',
-    placeholder: 'abc@ssb.no, def@ssb.no'
+    placeholder: chipsPlaceholder
   },
   SERVICES: {
     title: 'Tjenester',
@@ -56,6 +58,6 @@ export const WIZARD = {
       }
     ],
     ref: 'enabled_services',
-    dataTestId: 'enabled_services_test_id'
+    placeholder: 'Transfer Service'
   }
 }

@@ -2,7 +2,7 @@ import userEvent from '@testing-library/user-event'
 import { render } from '@testing-library/react'
 
 import { ShowHideFAQ } from '../components'
-import { FAQ, UI } from '../enum'
+import { FAQ, UI } from '../content'
 
 const setup = () => {
   const { getByText } = render(<ShowHideFAQ />)

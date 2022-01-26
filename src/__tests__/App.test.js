@@ -4,7 +4,7 @@ import { MemoryRouter } from 'react-router-dom'
 
 import App from '../App'
 import { AppContextProvider } from '../context/AppContext'
-import { STEPS } from '../enum'
+import { STEPS } from '../content'
 
 jest.mock('../components/steps/Step0', () => () => null)
 jest.mock('../components/steps/Step1', () => () => null)

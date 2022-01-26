@@ -19,11 +19,13 @@ Use `make` for common tasks:
 
 ```
 local-install                  Installation steps for local devlopment
-local-build                    Build the app for local development
+local-build                    Build the app for local serving
 local-run                      Run the app locally
+local-test                     Run tests and get coverage report
 docker-build                   Build docker image
 docker-run                     Run app locally with docker
-docker-cleanup                 Cleanup locally running docker app
+docker-shell                   Enter shell of locally running docker container
+docker-cleanup                 Cleanup locally running docker container
 ```
 
 ## Technical
@@ -34,14 +36,14 @@ The application code is divided into 3 main parts:
 
 1. The application entry `/src/App.js` which handles routing and puts it all together
 2. The steps in the wizard, located in `/src/components/steps/`
-3. Any and all text content is located in `/src/enum/`
+3. Any and all text content is located in `/src/content/`
     * This means that if you wish to edit any text in the application, edit it here, **not** in the JSX anywhere else in
       the code
 
 The output JSON for the backend is stored in the applications' context, using
 [React Context](https://reactjs.org/docs/context.html). Found in `/src/context/AppContext.js`. This also means any input
 data from the user is available across the entire application, always. Because of this the user can go back and forth
-between steps in the wizard and not have their previous input lost.
+between steps in the wizard and not have their previous input lost. However, nothing is stored between sessions.
 
 ### UI Components
 
@@ -51,5 +53,5 @@ This application uses [PrimeReact](https://www.primefaces.org/primereact/).
 
 This application follows
 [General React Setup](https://github.com/statisticsnorway/cra-template-dapla-react-app#general-react-setup) from our
-dapla-react-app template when it comes to handling runtime environment variables, writing unit tests setup and
-everything related to CI/CD.
+dapla-react-app template when it comes to handling runtime environment variables, unit tests setup and everything
+related to CI/CD.

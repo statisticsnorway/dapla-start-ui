@@ -5,7 +5,7 @@ import { Column } from 'primereact/column'
 
 import Step2Form from './Step2Form'
 import { ShowHideFAQ } from '../'
-import { IMAGE_ALT_TEXT, STEP_2, STEPS, UI } from '../../enum'
+import { STEP_2, STEPS, UI } from '../../content'
 
 function Step2 () {
   const groupBodyTemplate = (rowData, { field }) => <b>{rowData[field]}</b>
@@ -44,11 +44,6 @@ function Step2 () {
                 />
               )}
             </DataTable>
-            <img
-              src={'img/data-states.png'}
-              alt={IMAGE_ALT_TEXT.DATA_STATES}
-              style={{ width: '-webkit-fill-available' }}
-            />
           </AccordionTab>
         </Accordion>
         <Divider />

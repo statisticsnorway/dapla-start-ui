@@ -11,7 +11,7 @@ import './App.css'
 
 import dapla_logo from './svg/dapla-long-rgb.svg'
 import { Step0, Step1, Step2, Step3, Step4, Step5 } from './components/steps'
-import { IMAGE_ALT_TEXT, STEPS } from './enum'
+import { IMAGE_ALT_TEXT, STEPS } from './content'
 
 function App () {
   let location = useLocation()
@@ -41,6 +41,11 @@ function App () {
           </div>
           <div className="flex-grow-1 align-self-center">
             <Steps model={items} activeIndex={activeIndex} readOnly={false} />
+          </div>
+          <div className="flex flex-shrink-0 align-items-end" style={{ fontSize: '0.7rem', opacity: 0.6 }}>
+            <a href={process.env.REACT_APP_SOURCE_URL} style={{ color: 'inherit', textDecoration: 'none' }}>
+              {`v${process.env.REACT_APP_VERSION}`}
+            </a>
           </div>
         </div>
       }

@@ -2,7 +2,7 @@ import userEvent from '@testing-library/user-event'
 import { render } from '@testing-library/react'
 
 import { Step2 } from '../components/steps'
-import { STEP_2, STEPS, UI } from '../enum'
+import { STEP_2, STEPS, UI } from '../content'
 
 jest.mock('../components/ShowHideFAQ', () => () => null)
 jest.mock('../components/steps/Step2Form', () => () => null)

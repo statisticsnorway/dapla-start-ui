@@ -3,7 +3,7 @@ import { Divider } from 'primereact/divider'
 import { Button } from 'primereact/button'
 
 import { useWizardContext } from '../../context/AppContext'
-import { STEPS, UI } from '../../enum'
+import { STEPS, UI } from '../../content'
 
 function Step4 () {
   const { wizard } = useWizardContext()

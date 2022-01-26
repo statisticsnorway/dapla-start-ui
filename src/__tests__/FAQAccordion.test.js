@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react'
 
 import { FAQAccordion } from '../components'
-import { FAQ } from '../enum'
+import { FAQ } from '../content'
 
 const setup = () => {
   const { getByText } = render(<FAQAccordion />)

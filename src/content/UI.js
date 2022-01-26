@@ -3,5 +3,6 @@ export const UI = {
   NEXT: 'Gå videre',
   WHAT: 'Hva skjer her egentlig?',
   COMPLETE: 'Ok, kjør på!',
-  FAQ: 'FAQ'
+  FAQ: 'FAQ',
+  REQUIRED: '#e24c4c'
 }

@@ -4,7 +4,7 @@ import { Button } from 'primereact/button'
 import { Chips } from 'primereact/chips'
 
 import { useWizardActions, useWizardContext } from '../../context/AppContext'
-import { STEP_2, UI, WIZARD } from '../../enum'
+import { STEP_2, UI, WIZARD } from '../../content'
 
 function Step2Form () {
   const { wizard } = useWizardContext()
@@ -15,7 +15,10 @@ function Step2Form () {
   return (
     <>
       <div className="field">
-        <label htmlFor={WIZARD.MANAGER.ref} className="block"><b>{WIZARD.MANAGER.title}</b></label>
+        <label htmlFor={WIZARD.MANAGER.ref} className="block">
+          <b>{WIZARD.MANAGER.title}</b>
+          <span style={{ color: UI.REQUIRED }}>*</span>
+        </label>
         <InputText
           className="block"
           id={WIZARD.MANAGER.ref}
@@ -38,7 +41,11 @@ function Step2Form () {
         </div>
       )}
       <div className="flex justify-content-end mt-6">
-        <Button label={UI.NEXT} icon="pi pi-arrow-right" iconPos="right" onClick={() => navigate('/3')} />
+        {wizard[WIZARD.MANAGER.ref] !== '' && wizard[WIZARD.MANAGER.ref] !== null ?
+          <Button label={UI.NEXT} iconPos="right" icon="pi pi-arrow-right" onClick={() => navigate('/3')} />
+          :
+          <Button label={UI.NEXT} iconPos="right" icon="pi pi-arrow-right" disabled />
+        }
       </div>
     </>
   )

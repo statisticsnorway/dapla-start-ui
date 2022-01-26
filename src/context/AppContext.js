@@ -1,6 +1,6 @@
 import { createContext, useContext, useReducer, useState } from 'react'
 
-import { WIZARD } from '../enum'
+import { WIZARD } from '../content'
 
 const initWizard = initial => initial
 

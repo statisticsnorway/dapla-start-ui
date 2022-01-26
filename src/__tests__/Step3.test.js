@@ -4,7 +4,7 @@ import { MemoryRouter } from 'react-router-dom'
 
 import { AppContextProvider } from '../context/AppContext'
 import { Step3 } from '../components/steps'
-import { UI, WIZARD } from '../enum'
+import { UI, WIZARD } from '../content'
 
 jest.mock('../components/ShowHideFAQ', () => () => null)
 

@@ -17,6 +17,10 @@ local-build: ## Build the app for local serving
 local-run: ## Run the app locally
 	yarn start
 
+.PHONY: local-test
+local-run: ## Run tests and get coverage report
+	yarn coverage
+
 .PHONY: docker-build
 docker-build: ## Build docker image
 	docker build -t dapla-start-ui .
@@ -26,10 +30,10 @@ docker-run: ## Run app locally with docker
 	 docker run -p 3000:8180 -e REACT_APP_API=http://localhost:8000 --name dapla-start-ui dapla-start-ui:latest
 
 .PHONY: docker-shell
-docker-shell: ## Enter shell of locally running docker app
+docker-shell: ## Enter shell of locally running docker container
 	docker exec -it dapla-start-ui bash
 
 .PHONY: docker-cleanup
-docker-cleanup: ## Cleanup locally running docker app
+docker-cleanup: ## Cleanup locally running docker container
 	docker kill dapla-start-ui
 	docker container rm dapla-start-ui

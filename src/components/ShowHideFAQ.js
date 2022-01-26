@@ -1,7 +1,7 @@
 import { Fieldset } from 'primereact/fieldset'
 
 import FAQAccordion from './FAQAccordion'
-import { UI } from '../enum'
+import { UI } from '../content'
 
 function ShowHideFAQ () {
   return (

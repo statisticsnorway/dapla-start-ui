@@ -5,7 +5,7 @@ import { Button } from 'primereact/button'
 
 import { useWizardActions, useWizardContext } from '../../context/AppContext'
 import { ShowHideFAQ } from '../index'
-import { STEPS, UI, WIZARD } from '../../enum'
+import { STEPS, UI, WIZARD } from '../../content'
 
 function Step1 () {
   const { wizard } = useWizardContext()
@@ -22,7 +22,10 @@ function Step1 () {
         <>
           {WIZARD.TEAM_NAME.help}
           <div className="field mt-4">
-            <label htmlFor={WIZARD.TEAM_NAME.ref} className="block"><b>{WIZARD.TEAM_NAME.title}</b></label>
+            <label htmlFor={WIZARD.TEAM_NAME.ref} className="block">
+              <b>{WIZARD.TEAM_NAME.title}</b>
+              <span style={{ color: UI.REQUIRED }}>*</span>
+            </label>
             <InputText
               className="block"
               id={WIZARD.TEAM_NAME.ref}
@@ -34,7 +37,11 @@ function Step1 () {
             <small id={`${WIZARD.TEAM_NAME.title}-help`} className="block">{WIZARD.TEAM_NAME.description}</small>
           </div>
           <div className="flex justify-content-end mt-6">
-            <Button label={UI.NEXT} icon="pi pi-arrow-right" iconPos="right" onClick={() => navigate('/2')} />
+            {wizard[WIZARD.TEAM_NAME.ref] !== '' && wizard[WIZARD.TEAM_NAME.ref] !== null ?
+              <Button label={UI.NEXT} iconPos="right" icon="pi pi-arrow-right" onClick={() => navigate('/2')} />
+              :
+              <Button label={UI.NEXT} iconPos="right" icon="pi pi-arrow-right" disabled />
+            }
           </div>
         </>
       </div>

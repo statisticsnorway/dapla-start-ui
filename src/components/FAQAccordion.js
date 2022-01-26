@@ -1,6 +1,6 @@
 import { Accordion, AccordionTab } from 'primereact/accordion'
 
-import { FAQ } from '../enum'
+import { FAQ } from '../content'
 
 function FAQAccordion ({ fontSize = '1rem' }) {
   return (
