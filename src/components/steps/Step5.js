@@ -1,8 +1,11 @@
+import { useLocation } from 'react-router-dom'
 import { Divider } from 'primereact/divider'
 
 import { STEP_5 } from '../../content'
 
 function Step5 () {
+  let location = useLocation()
+
   return (
     <div className="grid mt-6">
       <div className="col-4" />
@@ -10,7 +13,7 @@ function Step5 () {
         <h1>{STEP_5.HEADER}</h1>
         <p>
           {STEP_5.SUBHEADER}
-          <a href={'location.state.self'}>{'location.state.key'}</a>
+          <a href={`https://statistics-norway.atlassian.net/browse/${location.state.key}`}>{location.state.key}</a>
         </p>
         <Divider />
         {STEP_5.TEXT}
