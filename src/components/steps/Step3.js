@@ -32,7 +32,6 @@ function Step3 () {
           itemTemplate={serviceTemplate}
           options={WIZARD.SERVICES.items}
           value={wizard[WIZARD.SERVICES.ref]}
-          placeholder={WIZARD.SERVICES.placeholder}
           onChange={e => setWizard({ type: WIZARD.SERVICES.ref, payload: e.value })}
         />
         <div className="flex justify-content-end mt-6">

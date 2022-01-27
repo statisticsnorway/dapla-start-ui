@@ -57,7 +57,6 @@ export const WIZARD = {
         description: 'Overføre filer mellom prodsonen og Dapla'
       }
     ],
-    ref: 'enabled_services',
-    placeholder: 'Transfer Service'
+    ref: 'enabled_services'
   }
 }

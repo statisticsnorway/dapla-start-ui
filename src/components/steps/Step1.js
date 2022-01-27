@@ -28,6 +28,7 @@ function Step1 () {
             </label>
             <InputText
               className="block"
+              style={{ width: '30%' }}
               id={WIZARD.TEAM_NAME.ref}
               value={wizard[WIZARD.TEAM_NAME.ref]}
               placeholder={WIZARD.TEAM_NAME.placeholder}

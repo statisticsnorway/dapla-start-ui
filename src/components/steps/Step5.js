@@ -16,7 +16,7 @@ function Step5 () {
           <a href={`https://statistics-norway.atlassian.net/browse/${location.state.key}`}>{location.state.key}</a>
         </p>
         <Divider />
-        {STEP_5.TEXT}
+        {STEP_5.TEXT(`https://statistics-norway.atlassian.net/browse/${location.state.key}`)}
       </div>
       <div className="col-4" />
     </div>
