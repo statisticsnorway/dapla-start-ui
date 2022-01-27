@@ -1,48 +1,28 @@
 import userEvent from '@testing-library/user-event'
 import { render } from '@testing-library/react'
-import { MemoryRouter } from 'react-router-dom'
 
 import { Step2 } from '../components/steps'
-import { AppContextProvider } from '../context/AppContext'
-import { TEST_CONFIGURATIONS } from '../configurations'
-import { STEPS, TEST_IDS, UI } from '../enums'
+import { STEP_2, STEPS, UI } from '../content'
 
-const { language } = TEST_CONFIGURATIONS
+jest.mock('../components/ShowHideFAQ', () => () => null)
+jest.mock('../components/steps/Step2Form', () => () => null)
 
 const setup = () => {
-  const { getByText, getByTestId, getAllByPlaceholderText } = render(
-    <AppContextProvider>
-      <MemoryRouter initialEntries={['/']}>
-        <Step2 />
-      </MemoryRouter>
-    </AppContextProvider>
-  )
+  const { getByText } = render(<Step2 />)
 
-  return { getByText, getByTestId, getAllByPlaceholderText }
+  return { getByText }
 }
 
 test('Renders correctly', () => {
-  const { getByText, getAllByPlaceholderText, getByTestId } = setup()
+  const { getByText } = setup()
 
-  expect(getByText(STEPS.team.header)).toBeInTheDocument()
-  expect(getAllByPlaceholderText(UI.EMAIL_PLACEHOLDER)).toHaveLength(2)
-  expect(getByTestId(TEST_IDS.DPO_DROPDOWN)).toBeInTheDocument()
-  expect(getByTestId(TEST_IDS.DEVELOPER_DROPDOWN)).toBeInTheDocument()
-  expect(getByTestId(TEST_IDS.CONSUMER_DROPDOWN)).toBeInTheDocument()
+  expect(getByText(STEPS[2].pageTitle)).toBeInTheDocument()
 })
 
-test('Editing values works correctly', () => {
-  const { getByText, getByTestId } = setup()
+test('Renders data states help correctly', () => {
+  const { getByText } = setup()
 
-  userEvent.type(getByTestId(TEST_IDS.DPO_DROPDOWN).children[0], 'test-dpo@test.com')
-  userEvent.click(getByText(UI.ADD[language]))
-  expect(getByTestId(TEST_IDS.DPO_DROPDOWN).children[0]).toHaveTextContent('test-dpo@test.com')
+  userEvent.click(getByText(UI.WHAT))
 
-  userEvent.type(getByTestId(TEST_IDS.DEVELOPER_DROPDOWN).children[0], 'test-developer@test.com')
-  userEvent.click(getByText(UI.ADD[language]))
-  expect(getByTestId(TEST_IDS.DEVELOPER_DROPDOWN).children[0]).toHaveTextContent('test-developer@test.com')
-
-  userEvent.type(getByTestId(TEST_IDS.CONSUMER_DROPDOWN).children[0], 'test-consumer@test.com')
-  userEvent.click(getByText(UI.ADD[language]))
-  expect(getByTestId(TEST_IDS.CONSUMER_DROPDOWN).children[0]).toHaveTextContent('test-consumer@test.com')
+  STEP_2.GROUPS.forEach(group => expect(getByText(group.group)).toBeInTheDocument())
 })

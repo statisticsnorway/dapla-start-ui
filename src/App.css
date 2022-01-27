@@ -1,0 +1,15 @@
+.p-accordion .p-accordion-header .p-accordion-header-link {
+  padding: 1rem;
+}
+
+.p-fieldset.p-fieldset-toggleable .p-fieldset-legend a {
+  padding: 0.5rem;
+}
+
+.p-fieldset.p-fieldset-toggleable .p-fieldset-legend a:focus {
+  padding: 0.5rem;
+}
+
+.p-fieldset.p-fieldset-toggleable .p-fieldset-legend a .p-fieldset-toggler {
+  font-size: 0.7rem;
+}
