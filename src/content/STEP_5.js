@@ -3,10 +3,10 @@ export const STEP_5 = {
   SUBHEADER: 'Du kan følge fremdrift her: ',
   TEXT: (link) => <>
     <h4>Hva skjer nå?</h4>
-    Før ditt nye Dapla-team er klart er det dessverre noen manuelle steg som må til:
+    Før ditt nye Dapla-team er klart er det noen manuelle steg som må til:
     <ul>
       <li>Kundeservice må opprette nødvendige AD-grupper og brukerne legges til</li>
-      <li>GCP-ressurser må provisjoneres etter at AD-gruppene er tilgjengelig</li>
+      <li>Google-ressurser og tilganger settes opp etter at AD-gruppene er tilgjengelig</li>
     </ul>
     <p>
       Teamansvarlig vil få beskjed når alt er klart.
