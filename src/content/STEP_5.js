@@ -1,7 +1,7 @@
 export const STEP_5 = {
   HEADER: 'Takk! Vi har mottatt bestillingen din! 🎉',
   SUBHEADER: 'Du kan følge fremdrift her: ',
-  TEXT: <>
+  TEXT: (link) => <>
     <h4>Hva skjer nå?</h4>
     Før ditt nye Dapla-team er klart er det dessverre noen manuelle steg som må til:
     <ul>
@@ -13,7 +13,7 @@ export const STEP_5 = {
     </p>
     <p>
       Spør oss på <a href="https://ssb-norge.slack.com/archives/C015E7B4YS0">#hjelp_dapla</a> om du lurer på noe,
-      eller legg inn en kommentar på <a href={'location.state.self'}>saken</a>.
+      eller legg inn en kommentar på <a href={link}>saken</a>.
     </p>
     <p>
       Hilsen dine venner i Team Argus 😊

@@ -20,6 +20,16 @@ const testWizardData = {
   wizard: {
     [WIZARD.TEAM_NAME.ref]: 'Team Test',
     [WIZARD.MANAGER.ref]: 'manager@ssb.no',
+    [WIZARD.DATA_PROTECTION_OFFICERS.ref]: ['dpo@ssb.no'],
+    [WIZARD.DEVELOPERS.ref]: ['developer@ssb.no'],
+    [WIZARD.CONSUMERS.ref]: ['consumer@ssb.no'],
+    [WIZARD.SERVICES.ref]: ['transfer_service']
+  }
+}
+const testWizardDataEmpty = {
+  wizard: {
+    [WIZARD.TEAM_NAME.ref]: '',
+    [WIZARD.MANAGER.ref]: '',
     [WIZARD.DATA_PROTECTION_OFFICERS.ref]: null,
     [WIZARD.DEVELOPERS.ref]: null,
     [WIZARD.CONSUMERS.ref]: null,
@@ -41,6 +51,15 @@ const setup = () => {
 
 test('Renders correctly', () => {
   useWizardContext.mockImplementation(() => testWizardData)
+  useAxios.mockReturnValue([{ loading: false, error: undefined }, execute])
+
+  const { getByText } = setup()
+
+  expect(getByText(STEPS[4].pageTitle)).toBeInTheDocument()
+})
+
+test('Renders correctly on empty context', () => {
+  useWizardContext.mockImplementation(() => testWizardDataEmpty)
   useAxios.mockReturnValue([{ loading: false, error: undefined }, execute])
 
   const { getByText } = setup()

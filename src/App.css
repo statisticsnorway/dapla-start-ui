@@ -13,3 +13,16 @@
 .p-fieldset.p-fieldset-toggleable .p-fieldset-legend a .p-fieldset-toggler {
   font-size: 0.7rem;
 }
+
+.p-chips .p-chips-multiple-container .p-chips-input-token input {
+  width: 350px;
+}
+
+.p-multiselect-label-empty {
+  width: 250px;
+}
+
+.p-chip.custom-chip {
+  background: var(--primary-color);
+  color: var(--primary-color-text);
+}

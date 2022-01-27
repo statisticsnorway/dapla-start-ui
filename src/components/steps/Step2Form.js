@@ -22,6 +22,7 @@ function Step2Form () {
         <InputText
           className="block"
           id={WIZARD.MANAGER.ref}
+          style={{ width: '25%' }}
           value={wizard[WIZARD.MANAGER.ref]}
           placeholder={WIZARD.MANAGER.placeholder}
           aria-describedby={`${WIZARD.MANAGER.title}-help`}
@@ -33,6 +34,7 @@ function Step2Form () {
         <div key={input} className="field mt-4">
           <label htmlFor={WIZARD[input].ref} className="block"><b>{WIZARD[input].title}</b></label>
           <Chips
+            separator=","
             value={wizard[WIZARD[input].ref]}
             placeholder={WIZARD[input].placeholder}
             onChange={e => setWizard({ type: WIZARD[input].ref, payload: e.value })}
