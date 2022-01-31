@@ -8,20 +8,12 @@ export const WIZARD = {
       <b> Dette kan ikke endres senere. </b>
       Det er OK å bruke store bokstaver og mellomrom her. Brukes kun for visning.
     </>,
-    help: <>
-      Navnet på et Dapla-team bør reflektere <em>domene - subdomene</em>. Her er noen eksempler:
-      <ul>
-        <li>Skatt Person</li>
-        <li>Skatt Næring</li>
-        <li>Kostra KVM</li>
-      </ul>
-    </>,
     ref: 'display_team_name',
     placeholder: 'Team Brunost'
   },
   MANAGER: {
     title: 'Teamansvarlig',
-    description: 'Alle tilgjengelige rettigheter i Google prosjekter og tilhørende tjenester og data.',
+    description: 'Full tilgang til teamets prosjekt med tilhørende tjenester og data.',
     ref: 'manager',
     placeholder: 'abc@ssb.no'
   },

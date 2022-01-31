@@ -1,11 +1,12 @@
 import { useNavigate } from 'react-router-dom'
+import { Accordion, AccordionTab } from 'primereact/accordion'
 import { InputText } from 'primereact/inputtext'
 import { Divider } from 'primereact/divider'
 import { Button } from 'primereact/button'
 
 import { useWizardActions, useWizardContext } from '../../context/AppContext'
 import { ShowHideFAQ } from '../index'
-import { STEPS, UI, WIZARD } from '../../content'
+import { FAQ, STEP_1, STEPS, UI, WIZARD } from '../../content'
 
 function Step1 () {
   const { wizard } = useWizardContext()
@@ -20,7 +21,11 @@ function Step1 () {
         <h1>{STEPS[1].pageTitle}</h1>
         <Divider />
         <>
-          {WIZARD.TEAM_NAME.help}
+          <Accordion style={{ fontSize: '0.85rem' }}>
+            <AccordionTab header={FAQ[1].header}>
+              {STEP_1.TEXT}
+            </AccordionTab>
+          </Accordion>
           <div className="field mt-4">
             <label htmlFor={WIZARD.TEAM_NAME.ref} className="block">
               <b>{WIZARD.TEAM_NAME.title}</b>

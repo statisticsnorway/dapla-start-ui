@@ -14,6 +14,7 @@ function Step2Form () {
 
   return (
     <>
+      {STEP_2.HELP}
       <div className="field">
         <label htmlFor={WIZARD.MANAGER.ref} className="block">
           <b>{WIZARD.MANAGER.title}</b>

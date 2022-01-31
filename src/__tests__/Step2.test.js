@@ -2,7 +2,7 @@ import userEvent from '@testing-library/user-event'
 import { render } from '@testing-library/react'
 
 import { Step2 } from '../components/steps'
-import { STEP_2, STEPS, UI } from '../content'
+import { STEP_2, STEPS } from '../content'
 
 jest.mock('../components/ShowHideFAQ', () => () => null)
 jest.mock('../components/steps/Step2Form', () => () => null)
@@ -22,7 +22,7 @@ test('Renders correctly', () => {
 test('Renders data states help correctly', () => {
   const { getByText } = setup()
 
-  userEvent.click(getByText(UI.WHAT))
+  userEvent.click(getByText(STEP_2.HELP_HEADER))
 
   STEP_2.GROUPS.forEach(group => expect(getByText(group.group)).toBeInTheDocument())
 })

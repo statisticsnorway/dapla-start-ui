@@ -1,12 +1,18 @@
 import { WIZARD } from './WIZARD'
 
 export const STEP_2 = {
-  TEXT: <p>
-    Her får du muligheten til å fylle teamet med medlemmer. Teamet er delt i fire roller som innehar forskjellige
-    tilgangsnivåer. Tabellen under forsøker å gi en oversikt over hvilke roller som gir hvilke tilganger. Medlemmer i
-    teamet angis innenfor de forskjellige områdene med vanlig kortform av SSB epost.
-    <b> Det som fylles inn her kan endres senere.</b>
-  </p>,
+  TEXT: <>
+    <p>
+      Her angir du teamets medlemmer. Teamet er delt i fire grupper som innehar forskjellige
+      tilgangsnivåer. Tabellen under viser hvilke grupper som har hvilke tilganger.
+    </p>
+    <p>
+      Et medlem kan ha flere roller, som kan reflektere medlemmets flere funksjoner i et team. Men ingen roller med
+      lavere tilganger har tilganger som en rolle med høyere tilganger ikke også har.
+    </p>
+  </>,
+  HELP_HEADER: 'Hvordan bør jeg sette opp teamet egentlig?',
+  HELP: <p style={{ fontSize: '0.85rem', marginBottom: '2rem' }}><b> Det som fylles inn her kan endres senere.</b></p>,
   GROUPS: [
     {
       group: WIZARD.MANAGER.title,

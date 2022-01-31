@@ -5,14 +5,14 @@ import { Column } from 'primereact/column'
 
 import Step2Form from './Step2Form'
 import { ShowHideFAQ } from '../'
-import { STEP_2, STEPS, UI } from '../../content'
+import { STEP_2, STEPS } from '../../content'
 
 function Step2 () {
   const groupBodyTemplate = (rowData, { field }) => <b>{rowData[field]}</b>
 
   const accessBodyTemplate = (rowData, { field }) => {
     if (rowData[field]) {
-      return <i className="pi pi-check" style={{ color: '#22C55E' }} />
+      return <i className="pi pi-check" style={{ color: '#22C55E', fontWeight: 'bold' }} />
     } else {
       return null
     }
@@ -25,7 +25,7 @@ function Step2 () {
         <h1>{STEPS[2].pageTitle}</h1>
         <Divider />
         <Accordion style={{ fontSize: '0.85rem' }}>
-          <AccordionTab header={UI.WHAT}>
+          <AccordionTab header={STEP_2.HELP_HEADER}>
             {STEP_2.TEXT}
             <DataTable
               showGridlines

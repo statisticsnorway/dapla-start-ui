@@ -29,6 +29,7 @@ function Step3 () {
         <MultiSelect
           display="chip"
           optionLabel="label"
+          showSelectAll={false}
           itemTemplate={serviceTemplate}
           options={WIZARD.SERVICES.items}
           value={wizard[WIZARD.SERVICES.ref]}
