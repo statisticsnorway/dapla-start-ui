@@ -2,11 +2,13 @@ export const WIZARD = {
   TEAM_NAME: {
     title: 'Teamnavn',
     description: <>
-      Teamets navn (f. eks: Team Brunost).
+      Teamets navn (f. eks: "Team Pålegg Brunost").
       <b> Dette kan ikke endres senere. </b>
-      Det er OK å bruke store bokstaver og mellomrom her. Maks 25 tegn.
+
+      Det er OK å bruke store bokstaver, Æ/Ø/Å, og mellomrom her. Maks 25 tegn.
     </>,
-    ref: 'display_team_name'
+    ref: 'display_team_name',
+    placeholder: 'Team Pålegg Brunost'
   },
   MANAGER: {
     title: 'Teamansvarlig',
