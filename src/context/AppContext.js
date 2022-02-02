@@ -6,11 +6,13 @@ const initWizard = initial => initial
 
 const initialWizard = {
   [WIZARD.TEAM_NAME.ref]: '',
-  [WIZARD.MANAGER.ref]: '',
+  [WIZARD.MANAGER.ref]: null,
   [WIZARD.DATA_PROTECTION_OFFICERS.ref]: null,
   [WIZARD.DEVELOPERS.ref]: null,
   [WIZARD.CONSUMERS.ref]: null,
-  [WIZARD.SERVICES.ref]: null
+  [WIZARD.OTHER_INFO.ref]: '',
+  [WIZARD.SERVICES.ref]: null,
+  ui_version: process.env.REACT_APP_VERSION
 }
 
 const wizardReducer = (state, action) => {
@@ -29,6 +31,9 @@ const wizardReducer = (state, action) => {
 
     case WIZARD.CONSUMERS.ref:
       return { ...state, [WIZARD.CONSUMERS.ref]: action.payload }
+
+    case WIZARD.OTHER_INFO.ref:
+      return { ...state, [WIZARD.OTHER_INFO.ref]: action.payload }
 
     case WIZARD.SERVICES.ref:
       return { ...state, [WIZARD.SERVICES.ref]: action.payload }

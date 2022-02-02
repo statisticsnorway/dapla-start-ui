@@ -6,7 +6,7 @@ import { Button } from 'primereact/button'
 
 import { useWizardActions, useWizardContext } from '../../context/AppContext'
 import { ShowHideFAQ } from '../index'
-import { FAQ, STEP_1, STEPS, UI, WIZARD } from '../../content'
+import { FAQ, STEPS, UI, WIZARD } from '../../content'
 
 function Step1 () {
   const { wizard } = useWizardContext()
@@ -23,7 +23,7 @@ function Step1 () {
         <>
           <Accordion style={{ fontSize: '0.85rem' }}>
             <AccordionTab header={FAQ[1].header}>
-              {STEP_1.TEXT}
+              {FAQ[1].text}
             </AccordionTab>
           </Accordion>
           <div className="field mt-4">
@@ -33,16 +33,15 @@ function Step1 () {
             </label>
             <InputText
               className="block"
-              style={{ width: '30%' }}
               id={WIZARD.TEAM_NAME.ref}
+              style={{ minWidth: '300px' }}
               value={wizard[WIZARD.TEAM_NAME.ref]}
-              placeholder={WIZARD.TEAM_NAME.placeholder}
               aria-describedby={`${WIZARD.TEAM_NAME.title}-help`}
               onChange={e => setWizard({ type: WIZARD.TEAM_NAME.ref, payload: e.target.value })}
             />
             <small id={`${WIZARD.TEAM_NAME.title}-help`} className="block">{WIZARD.TEAM_NAME.description}</small>
           </div>
-          <div className="flex justify-content-end mt-6">
+          <div className="flex justify-content-end mt-4">
             {wizard[WIZARD.TEAM_NAME.ref] !== '' && wizard[WIZARD.TEAM_NAME.ref] !== null ?
               <Button label={UI.NEXT} iconPos="right" icon="pi pi-arrow-right" onClick={() => navigate('/2')} />
               :

@@ -4,12 +4,12 @@ import { MemoryRouter } from 'react-router-dom'
 
 import { AppContextProvider } from '../context/AppContext'
 import { Step1 } from '../components/steps'
-import { UI, WIZARD } from '../content'
+import { UI } from '../content'
 
 jest.mock('../components/ShowHideFAQ', () => () => null)
 
 const setup = () => {
-  const { getByPlaceholderText, getByText } = render(
+  const { container, getByText } = render(
     <AppContextProvider>
       <MemoryRouter initialEntries={['/1']}>
         <Step1 />
@@ -17,17 +17,17 @@ const setup = () => {
     </AppContextProvider>
   )
 
-  return { getByPlaceholderText, getByText }
+  return { container, getByText }
 }
 
 test('Required user input works correctly', () => {
-  const { getByPlaceholderText, getByText } = setup()
+  const { container, getByText } = setup()
 
   expect(getByText(UI.NEXT).closest('button')).toBeDisabled()
 
-  userEvent.type(getByPlaceholderText(WIZARD.TEAM_NAME.placeholder), 'Team Test')
+  userEvent.type(container.querySelector('input'), 'Team Test')
 
-  expect(getByPlaceholderText(WIZARD.TEAM_NAME.placeholder)).toHaveValue('Team Test')
+  expect(container.querySelector('input')).toHaveValue('Team Test')
 
   expect(getByText(UI.NEXT).closest('button')).not.toBeDisabled()
 
