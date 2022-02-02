@@ -15,7 +15,7 @@ export const STEP_1 = {
       Delen av navnet som beskriver domene og subdomene (for eksempel "Skatt Person"), kan i seg selv IKKE overskride 25 tegn!
       Dersom navnet til teamet er langt anbefaler vi å forkorte den mest generelle delen av navnet til et trebokstavers "flyplassnavn".
       For eksempel, "Grunnopplæring Grunnskole" som er 25 tegn kan bli til "GRO Grunnskole" som er 14 tegn.
-      Dersom domenet allerede er en forkortelse eller sammenslåing (f.eks. "Kostra" for "Kommune Stat Raportering") kan
+      Dersom domenet allerede er en forkortelse eller sammenslåing (f.eks. "Kostra" for "Kommune Stat Rapportering") kan
       man bruke en "flyplassnavn" for subdomenet istedenfor for å korte ned navnet, slik "Kostra KVM" har gjort.
     </p>
     <p>
