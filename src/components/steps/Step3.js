@@ -35,7 +35,7 @@ function Step3 () {
           value={wizard[WIZARD.SERVICES.ref]}
           onChange={e => setWizard({ type: WIZARD.SERVICES.ref, payload: e.value })}
         />
-        <div className="flex justify-content-end mt-6">
+        <div className="flex justify-content-end mt-4">
           <Button label={UI.NEXT} icon="pi pi-arrow-right" iconPos="right" onClick={() => navigate('/4')} />
         </div>
       </div>

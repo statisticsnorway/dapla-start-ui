@@ -9,6 +9,11 @@ import { ApiContext, useWizardContext } from '../../context/AppContext'
 import { API } from '../../configurations'
 import { STEP_2, STEP_4, STEPS, UI, WIZARD } from '../../content'
 
+const resolveMembers = member => <>
+  {`${member[API.MEMBER_OBJECT.NAME]} `}
+  <span style={{ opacity: 0.6 }}>{`(${member[API.MEMBER_OBJECT.EMAIL]})`}</span>
+</>
+
 function Step4 () {
   const { wizard } = useWizardContext()
   const { api } = useContext(ApiContext)
@@ -30,8 +35,8 @@ function Step4 () {
   }
 
   const readyToGo = () =>
-    wizard[WIZARD.TEAM_NAME.ref] !== '' && wizard[WIZARD.TEAM_NAME.ref] !== null &&
-    wizard[WIZARD.MANAGER.ref] !== '' && wizard[WIZARD.MANAGER.ref] !== null
+    wizard[WIZARD.TEAM_NAME.ref] !== null && wizard[WIZARD.TEAM_NAME.ref] !== '' &&
+    wizard[WIZARD.MANAGER.ref] !== null && wizard[WIZARD.MANAGER.ref] !== ''
 
   return (
     <div className="grid">
@@ -39,30 +44,43 @@ function Step4 () {
       <div className="col-6">
         <h1>{STEPS[4].pageTitle}</h1>
         <Divider />
+        <pre>{JSON.stringify(wizard, null, 2)}</pre>
         {STEP_4.TEXT}
         <h2>{wizard[WIZARD.TEAM_NAME.ref]}</h2>
         <ul className="list-none p-0 m-0">
-          {wizard[WIZARD.MANAGER.ref] !== '' &&
+          {wizard[WIZARD.MANAGER.ref] !== null &&
             <li className="flex align-items-center py-3 px-2 border-top-1 border-300 flex-wrap">
               <div className="text-500 w-6 md:w-3 font-medium">{WIZARD.MANAGER.title}</div>
               <div className="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">
-                <div className="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">{wizard[WIZARD.MANAGER.ref]}</div>
-              </div>
-            </li>
-          }
-          {STEP_2.FORM_FIELDS.map(element => wizard[WIZARD[element].ref] !== null &&
-            <li
-              key={WIZARD[element].ref}
-              className="flex align-items-center py-3 px-2 border-top-1 border-300 flex-wrap"
-            >
-              <div className="text-500 w-6 md:w-3 font-medium">{WIZARD[element].title}</div>
-              <div className="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">
                 <div className="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">
-                  {wizard[WIZARD[element].ref].join(', ')}
+                  {resolveMembers(wizard[WIZARD.MANAGER.ref])}
                 </div>
               </div>
             </li>
-          )}
+          }
+          {STEP_2.FORM_FIELDS.map(element => {
+            if (wizard[WIZARD[element].ref] !== null) {
+              return (
+                <li
+                  key={WIZARD[element].ref}
+                  className="flex align-items-center py-3 px-2 border-top-1 border-300 flex-wrap"
+                >
+                  <div className="text-500 w-6 md:w-3 font-medium">{WIZARD[element].title}</div>
+                  <div className="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">
+                    <div className="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">
+                      <ul className="list-none p-0 m-0">
+                        {wizard[WIZARD[element].ref].map(innerElement =>
+                          <li key={innerElement[API.MEMBER_OBJECT.EMAIL]}>{resolveMembers(innerElement)}</li>
+                        )}
+                      </ul>
+                    </div>
+                  </div>
+                </li>
+              )
+            } else {
+              return null
+            }
+          })}
           {wizard[WIZARD.SERVICES.ref] !== null &&
             <li className="flex align-items-center py-3 px-2 border-top-1 border-300 flex-wrap">
               <div className="text-500 w-6 md:w-3 font-medium">{WIZARD.SERVICES.title}</div>
@@ -79,8 +97,20 @@ function Step4 () {
               </div>
             </li>
           }
+          {wizard[WIZARD.OTHER_INFO.ref] !== '' &&
+            <li className="flex align-items-center py-3 px-2 border-top-1 border-300 flex-wrap">
+              <div className="text-500 w-6 md:w-3 font-medium">{WIZARD.OTHER_INFO.title}</div>
+              <div className="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">
+                <div className="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">
+                  <p style={{ whiteSpace: 'pre-line' }}>
+                    {wizard[WIZARD.OTHER_INFO.ref]}
+                  </p>
+                </div>
+              </div>
+            </li>
+          }
         </ul>
-        <div className="flex justify-content-end mt-6">
+        <div className="flex justify-content-end mt-4">
           {readyToGo() ?
             loading ?
               <Button disabled loading label={UI.COMPLETE} icon="pi pi-thumbs-up" iconPos="right" />

@@ -33,16 +33,15 @@ function Step1 () {
             </label>
             <InputText
               className="block"
-              style={{ width: '30%' }}
               id={WIZARD.TEAM_NAME.ref}
+              style={{ minWidth: '300px' }}
               value={wizard[WIZARD.TEAM_NAME.ref]}
-              placeholder={WIZARD.TEAM_NAME.placeholder}
               aria-describedby={`${WIZARD.TEAM_NAME.title}-help`}
               onChange={e => setWizard({ type: WIZARD.TEAM_NAME.ref, payload: e.target.value })}
             />
             <small id={`${WIZARD.TEAM_NAME.title}-help`} className="block">{WIZARD.TEAM_NAME.description}</small>
           </div>
-          <div className="flex justify-content-end mt-6">
+          <div className="flex justify-content-end mt-4">
             {wizard[WIZARD.TEAM_NAME.ref] !== '' && wizard[WIZARD.TEAM_NAME.ref] !== null ?
               <Button label={UI.NEXT} iconPos="right" icon="pi pi-arrow-right" onClick={() => navigate('/2')} />
               :

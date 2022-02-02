@@ -8,9 +8,9 @@ jest.mock('../components/ShowHideFAQ', () => () => null)
 jest.mock('../components/steps/Step2Form', () => () => null)
 
 const setup = () => {
-  const { getByText } = render(<Step2 />)
+  const { getByText, getAllByText } = render(<Step2 />)
 
-  return { getByText }
+  return { getByText, getAllByText }
 }
 
 test('Renders correctly', () => {
@@ -20,9 +20,15 @@ test('Renders correctly', () => {
 })
 
 test('Renders data states help correctly', () => {
-  const { getByText } = setup()
+  const { getByText, getAllByText } = setup()
 
   userEvent.click(getByText(STEP_2.HELP_HEADER))
 
-  STEP_2.GROUPS.forEach(group => expect(getByText(group.group)).toBeInTheDocument())
+  STEP_2.GROUPS.forEach((group, index) => {
+    if (index % 2 === 0) {
+      expect(getByText(group.group)).toBeInTheDocument()
+    } else {
+      expect(getAllByText(group.group)).toHaveLength(2)
+    }
+  })
 })

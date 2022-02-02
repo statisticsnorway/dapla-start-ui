@@ -30,7 +30,7 @@ function Step2 () {
             <DataTable
               showGridlines
               value={STEP_2.GROUPS}
-              style={{ fontSize: '0.8rem', marginTop: '1.5rem', marginBottom: '1.5rem' }}
+              style={{ fontSize: '0.8rem', marginTop: '1.5rem' }}
             >
               <Column field="group" body={groupBodyTemplate} />
               {Object.keys(STEP_2.ACCESS_LEVELS).map(key =>

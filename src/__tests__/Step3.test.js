@@ -9,7 +9,7 @@ import { UI, WIZARD } from '../content'
 jest.mock('../components/ShowHideFAQ', () => () => null)
 
 const setup = () => {
-  const { container, getByTestId, getByText } = render(
+  const { container, getByText, getAllByText } = render(
     <AppContextProvider>
       <MemoryRouter initialEntries={['/3']}>
         <Step3 />
@@ -17,18 +17,18 @@ const setup = () => {
     </AppContextProvider>
   )
 
-  return { container, getByTestId, getByText }
+  return { container, getByText, getAllByText }
 }
 
 test('User select works correctly', () => {
-  const { container, getByText } = setup()
+  const { container, getByText, getAllByText } = setup()
 
   WIZARD.SERVICES.items.forEach(item => {
     userEvent.click(container.querySelector('.p-multiselect'))
     userEvent.click(getByText(`${item.label} -`))
     userEvent.click(container.querySelector('.p-multiselect'))
 
-    expect(getByText(item.label)).toBeInTheDocument()
+    expect(getAllByText(item.label)).toHaveLength(2)
   })
 })
 

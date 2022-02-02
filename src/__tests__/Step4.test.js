@@ -5,6 +5,7 @@ import { MemoryRouter } from 'react-router-dom'
 
 import { AppContextProvider, useWizardContext } from '../context/AppContext'
 import { Step4 } from '../components/steps'
+import { API } from '../configurations'
 import { STEPS, UI, WIZARD } from '../content'
 
 jest.mock('../context/AppContext', () => {
@@ -19,21 +20,28 @@ const execute = jest.fn()
 const testWizardData = {
   wizard: {
     [WIZARD.TEAM_NAME.ref]: 'Team Test',
-    [WIZARD.MANAGER.ref]: 'manager@ssb.no',
-    [WIZARD.DATA_PROTECTION_OFFICERS.ref]: ['dpo@ssb.no'],
-    [WIZARD.DEVELOPERS.ref]: ['developer@ssb.no'],
-    [WIZARD.CONSUMERS.ref]: ['consumer@ssb.no'],
-    [WIZARD.SERVICES.ref]: ['transfer_service']
+    [WIZARD.MANAGER.ref]: [{ [API.MEMBER_OBJECT.NAME]: 'Manager', [API.MEMBER_OBJECT.EMAIL]: 'man@ssb.no' }],
+    [WIZARD.DATA_PROTECTION_OFFICERS.ref]: [{
+      [API.MEMBER_OBJECT.NAME]: 'DPO',
+      [API.MEMBER_OBJECT.EMAIL]: 'dpo@ssb.no'
+    }],
+    [WIZARD.DEVELOPERS.ref]: [{ [API.MEMBER_OBJECT.NAME]: 'Developer', [API.MEMBER_OBJECT.EMAIL]: 'dev@ssb.no' }],
+    [WIZARD.CONSUMERS.ref]: [{ [API.MEMBER_OBJECT.NAME]: 'Consumer', [API.MEMBER_OBJECT.EMAIL]: 'con@ssb.no' }],
+    [WIZARD.OTHER_INFO.ref]: '',
+    [WIZARD.SERVICES.ref]: ['transfer_service'],
+    ui_version: process.env.REACT_APP_VERSION
   }
 }
 const testWizardDataEmpty = {
   wizard: {
     [WIZARD.TEAM_NAME.ref]: '',
-    [WIZARD.MANAGER.ref]: '',
+    [WIZARD.MANAGER.ref]: null,
     [WIZARD.DATA_PROTECTION_OFFICERS.ref]: null,
     [WIZARD.DEVELOPERS.ref]: null,
     [WIZARD.CONSUMERS.ref]: null,
-    [WIZARD.SERVICES.ref]: null
+    [WIZARD.OTHER_INFO.ref]: '',
+    [WIZARD.SERVICES.ref]: null,
+    ui_version: process.env.REACT_APP_VERSION
   }
 }
 

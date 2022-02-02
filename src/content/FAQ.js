@@ -7,12 +7,11 @@ export const FAQ = [
       <p>
         Et Dapla-team fokuserer på statistikkproduksjon innen et eller flere emneområder på Dapla. Teamet er egentlig et
         arbeidsområde på Dapla, som gir medlemmene av teamet tilgang på teamet sine felles datalagre, roller og
-        bakke-sky synkroniserings områder.
+        bakke-sky synkroniseringsområder.
       </p>
       <p>
         Dapla er en <dfn>dataplattform</dfn> fordi den bygges basert på en arkitektur og et sett med tjenester som
-        fasiliterer for effektive verktøy og prosesser for statistikkproduksjon og datautveksling. Du kan finne mye mer
-        om Dapla og tjenestene <a href="https://docs.dapla.ssb.no/">her</a>.
+        fasiliterer for effektive verktøy og prosesser for statistikkproduksjon og datautveksling.
       </p>
     </>
   },
@@ -22,10 +21,11 @@ export const FAQ = [
       {STEP_1.TEXT}
       <p>
         Når man skal finne navn for et team, kan det kan være greit å legge til grunn at arbeidsgrupper og
-        konstellasjoner av mennesker er mer flyktige enn emneområdene de jobber med. Dermed bør man unngå å benytte navn
-        som for eksempel "Team A", "Prosjekt Vinter 2021" eller "Regnbue". Teamnavn bør ha et mer langsiktig perspektiv.
-        Helst bør en velge navn som er selvstendige, meningsfulle og korte. Vi oppfordrer til at det benyttes
-        forkortelelser eller akronymer dersom disse er innarbeidede eller selvforklarende.
+        konstellasjoner av mennesker er mer flyktige enn emneområdene (domenene) de jobber med. Dermed bør man unngå å
+        benytte navn som for eksempel "Team A", "Prosjekt Vinter 2021" eller "Regnbue". Teamnavn bør ha et mer
+        langsiktig perspektiv. Helst bør en velge navn som er selvstendige, meningsfulle og korte. Vi oppfordrer til at
+        det benyttes forkortelser eller akronymer dersom disse er innarbeidede eller selvforklarende. Det er noen
+        tekniske begrensninger som gjør at et teamnavn ikke kan være lenger enn 25 tegn.
       </p>
     </>
   },
@@ -41,7 +41,7 @@ export const FAQ = [
     text: <p>
       Du kan følge bestillingen din i
       vårt <a href="https://statistics-norway.atlassian.net/browse/DS">saksbehandlingssystem</a>,
-      som følger hele løpet fra du sender inn bestillingen, til du kan logge inn.
+      som følger hele løpet fra du sender inn bestillingen, til alt er på plass.
     </p>
   },
   {
@@ -63,14 +63,15 @@ export const FAQ = [
     header: 'Hvordan settes et Dapla-team opp?',
     text: <>
       <p>
-        Hvert Dapla-team får opprettet et eget prosjekt i Google Cloud Platform (GCP) som er knyttet til Byråets
-        IT-plattform (BiP). Videre får hvert prosjekt et sett med tjenester og tilganger som knyttes til teamet. Det
-        opprettes et sett med datalagringsområder (kalt "bøtter" i GCP) som bare kan aksesseres av brukere som er med i
-        teamets tilgangsgrupper.
+        Hvert Dapla-team får opprettet et eller flere prosjekter i Google Cloud Platform (GCP) som er knyttet til
+        Byråets IT-plattform (BiP). Videre får hvert prosjekt et sett med tjenester og tilganger som knyttes til teamet.
+        Det opprettes et sett med datalagringsområder (kalt "bøtter" i GCP) som bare kan aksesseres av brukere som er
+        med i teamets tilgangsgrupper.
       </p>
       <p>
         For å få gjort dette trenger vi en oversikt over teamets medlemmer og hvilke tilgangsgrupper medlemmene skal
-        være med i. Vi trenger også informasjon om hvilke Dapla-tjenester som er aktuelle for teamet å ta i bruk.
+        være med i. Vi trenger også informasjon om hvilke Dapla-tjenester som er aktuelle for teamet å ta i bruk. Derfor
+        denne veilederen for bestilling av et Dapla-team.
       </p>
     </>
   },
@@ -81,8 +82,8 @@ export const FAQ = [
       opprettes det et Infrastructure as Code (IaC) repository i GitHub. Her defineres i detalj hvordan
       GCP-infrastrukturen skal være ved hjelp av kodespråket Terraform. Det sendes en forespørsel til Kundeservice for å
       få opprettet tilgangsgrupper i Active Directory (AD) som synkroniseres til GCP. Når alt dette er på plass,
-      benyttes Atlantis for å foreta selve provisjoneringen av tjenestene. Etter at Atlantis-jobben er kjørt vil
-      brukerne kunne logge inn og aksessere Dapla-tjenestene.
+      benyttes Atlantis for å foreta selve opprettelsen av tjenestene. Etter at Atlantis-jobben er kjørt vil brukerne
+      kunne logge inn og aksessere Dapla-tjenestene.
     </p>
   }
 ]

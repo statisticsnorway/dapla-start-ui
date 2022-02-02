@@ -23,7 +23,7 @@ function Step0 () {
             <Image src="img/process-flowchart.png" alt={IMAGE_ALT_TEXT.DAPLA_START_FLOWCHART} width="250" preview />
           </div>
         </div>
-        <div className="flex justify-content-end mt-4">
+        <div className="flex justify-content-end mt-4 mb-4">
           <Button label={UI.START} icon="pi pi-arrow-right" iconPos="right" onClick={() => navigate('/1')} />
         </div>
         <Divider />
