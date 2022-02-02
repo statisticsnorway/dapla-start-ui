@@ -44,7 +44,6 @@ function Step4 () {
       <div className="col-6">
         <h1>{STEPS[4].pageTitle}</h1>
         <Divider />
-        <pre>{JSON.stringify(wizard, null, 2)}</pre>
         {STEP_4.TEXT}
         <h2>{wizard[WIZARD.TEAM_NAME.ref]}</h2>
         <ul className="list-none p-0 m-0">
