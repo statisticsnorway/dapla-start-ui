@@ -22,7 +22,11 @@ export const STEP_0 = {
     <p>
       Nedenfor har vi samlet noen spørsmål og svar som forklarer litt mer om Dapla-team og prosessen med å komme
       i gang. Vi anbefaler at du leser gjennom disse før du starter veilederen. Send oss gjerne flere spørsmål
-      på <a href="https://ssb-norge.slack.com/archives/C015E7B4YS0">#hjelp_dapla</a> dersom noe er uklart.
+      i kanalen <a href="https://ssb-norge.slack.com/archives/C015E7B4YS0">#hjelp_dapla</a> på Slack dersom noe er
+      uklart.
+    </p>
+    <p>Hvis du ikke har tilgang til Slack kan du alternativt sende en epost
+      til <a href="mailto:hjelp_dapla-aaaace52ybb7ih4k4mdp5sj7yy@ssb-norge.slack.com">denne adressen</a>.
     </p>
   </>
 }
