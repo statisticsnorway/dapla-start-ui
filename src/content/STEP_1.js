@@ -20,7 +20,7 @@ export const STEP_1 = {
     </p>
     <p>
       <b>NB:</b> Dersom det finnes andre team i deres domene som er eller skal på Dapla,
-      vær sikker på at dere bruker samme "flyplassnavn" for domenet når dere opretter team.
+      vær sikker på at dere bruker samme "flyplassnavn" for domenet når dere oppretter team.
     </p>
   </>
 }
