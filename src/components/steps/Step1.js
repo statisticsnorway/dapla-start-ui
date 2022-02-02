@@ -6,7 +6,7 @@ import { Button } from 'primereact/button'
 
 import { useWizardActions, useWizardContext } from '../../context/AppContext'
 import { ShowHideFAQ } from '../index'
-import { FAQ, STEP_1, STEPS, UI, WIZARD } from '../../content'
+import { FAQ, STEPS, UI, WIZARD } from '../../content'
 
 function Step1 () {
   const { wizard } = useWizardContext()
@@ -23,7 +23,7 @@ function Step1 () {
         <>
           <Accordion style={{ fontSize: '0.85rem' }}>
             <AccordionTab header={FAQ[1].header}>
-              {STEP_1.TEXT}
+              {FAQ[1].text}
             </AccordionTab>
           </Accordion>
           <div className="field mt-4">
