@@ -1,8 +1,9 @@
 import useAxios from 'axios-hooks'
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { AutoComplete } from 'primereact/autocomplete'
 import { InputTextarea } from 'primereact/inputtextarea'
+import { AutoComplete } from 'primereact/autocomplete'
+import { Messages } from 'primereact/messages'
 import { Divider } from 'primereact/divider'
 import { Button } from 'primereact/button'
 
@@ -21,6 +22,7 @@ function Step2Form () {
   const { wizard } = useWizardContext()
   const { setWizard } = useWizardActions()
   const { api } = useContext(ApiContext)
+  const errorMsg = useRef(null)
 
   let navigate = useNavigate()
 
@@ -38,6 +40,17 @@ function Step2Form () {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  useEffect(() => {
+    if (error) {
+      const errorObject = error.toJSON()
+      const errorString = `${errorObject.name}: ${errorObject.message}`
+
+      errorMsg.current.show([{
+        severity: 'warn', summary: 'Noe gikk galt', detail: errorString, sticky: true
+      }])
+    }
+  }, [error])
 
   const nameTemplate = item => <>
     {`${item[API.MEMBER_OBJECT.NAME]} `}
@@ -66,6 +79,7 @@ function Step2Form () {
 
   return (
     <>
+      {error && <Messages ref={errorMsg} />}
       {STEP_2.HELP}
       <div className="field">
         <label htmlFor={WIZARD.MANAGER.ref} className="block">
