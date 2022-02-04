@@ -25,7 +25,7 @@ function Step1 () {
 
   useEffect(() => {
     setUniformTeamName(createUniformWord(wizard[WIZARD.TEAM_NAME.ref]))
-  }, [wizard[WIZARD.TEAM_NAME.ref]])
+  }, [wizard])
 
   return (
     <div className="grid">
