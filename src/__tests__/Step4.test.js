@@ -21,7 +21,7 @@ const testWizardData = {
   wizard: {
     [WIZARD.TEAM_NAME.ref]: 'Team Test',
     [WIZARD.MANAGER.ref]: [{ [API.MEMBER_OBJECT.NAME]: 'Manager', [API.MEMBER_OBJECT.EMAIL]: 'man@ssb.no' }],
-    [WIZARD.DATA_PROTECTION_OFFICERS.ref]: [{
+    [WIZARD.DATA_ADMINS.ref]: [{
       [API.MEMBER_OBJECT.NAME]: 'DPO',
       [API.MEMBER_OBJECT.EMAIL]: 'dpo@ssb.no'
     }],
@@ -36,7 +36,7 @@ const testWizardDataEmpty = {
   wizard: {
     [WIZARD.TEAM_NAME.ref]: '',
     [WIZARD.MANAGER.ref]: null,
-    [WIZARD.DATA_PROTECTION_OFFICERS.ref]: null,
+    [WIZARD.DATA_ADMINS.ref]: null,
     [WIZARD.DEVELOPERS.ref]: null,
     [WIZARD.CONSUMERS.ref]: null,
     [WIZARD.OTHER_INFO.ref]: '',
