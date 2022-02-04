@@ -12,7 +12,7 @@ import { STEP_2, UI, WIZARD } from '../../content'
 
 const OPTIONS_GROUPS = [
   WIZARD.MANAGER.ref,
-  WIZARD.DATA_PROTECTION_OFFICERS.ref,
+  WIZARD.DATA_ADMINS.ref,
   WIZARD.DEVELOPERS.ref,
   WIZARD.CONSUMERS.ref
 ]
