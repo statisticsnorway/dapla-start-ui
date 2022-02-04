@@ -16,7 +16,7 @@ async function asyncForEach (array, callback) {
 
 const testData = [
   { [API.MEMBER_OBJECT.NAME]: 'Manager', [API.MEMBER_OBJECT.EMAIL]: 'man@ssb.no' },
-  { [API.MEMBER_OBJECT.NAME]: 'DPO', [API.MEMBER_OBJECT.EMAIL]: 'dpo@ssb.no' },
+  { [API.MEMBER_OBJECT.NAME]: 'Data Admin', [API.MEMBER_OBJECT.EMAIL]: 'dad@ssb.no' },
   { [API.MEMBER_OBJECT.NAME]: 'Developer', [API.MEMBER_OBJECT.EMAIL]: 'dev@ssb.no' },
   { [API.MEMBER_OBJECT.NAME]: 'Consumer', [API.MEMBER_OBJECT.EMAIL]: 'con@ssb.no' }
 ]
@@ -36,7 +36,7 @@ const setup = () => {
 test('Required user input works correctly', async () => {
   useAxios.mockReturnValue([{ loading: false, error: undefined, data: testData }])
 
-  const { getByText, getAllByRole } = setup()
+  const { getByText, getAllByRole, getAllByText } = setup()
 
   expect(getByText(UI.NEXT).closest('button')).toBeDisabled()
 
@@ -47,7 +47,9 @@ test('Required user input works correctly', async () => {
   userEvent.keyboard('{ArrowDown}')
   userEvent.keyboard('{Enter}')
 
-  expect(getAllByRole('searchbox')[0]).toHaveValue('Manager')
+  await new Promise(r => setTimeout(r, 100))
+
+  expect(getAllByText('Manager')).toHaveLength(1)
 
   expect(getByText(UI.NEXT).closest('button')).not.toBeDisabled()
 
@@ -60,7 +62,7 @@ test('User multi-input (Chips) works correctly', async () => {
   const { getAllByText, getAllByRole } = setup()
 
   await asyncForEach(STEP_2.FORM_FIELDS, async (value, index) => {
-    userEvent.type(getAllByRole('searchbox')[index + 1], `dpo@ssb.no`)
+    userEvent.type(getAllByRole('searchbox')[index + 1], `dad@ssb.no`)
 
     await new Promise(r => setTimeout(r, 300))
 
@@ -69,7 +71,7 @@ test('User multi-input (Chips) works correctly', async () => {
 
     await new Promise(r => setTimeout(r, 100))
 
-    expect(getAllByText(`DPO`)).toHaveLength(index + 1)
+    expect(getAllByText(`Data Admin`)).toHaveLength(index + 1)
   })
 })
 

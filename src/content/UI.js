@@ -3,5 +3,6 @@ export const UI = {
   NEXT: 'Gå videre',
   COMPLETE: 'Fullfør bestilling',
   FAQ: 'FAQ',
-  REQUIRED: '#e24c4c'
+  REQUIRED: '#ff5757',
+  WARNING: '#cc8925'
 }
