@@ -11,7 +11,7 @@ export const STEP_2 = {
       lavere tilganger har tilganger som en rolle med høyere tilganger ikke også har.
     </p>
     <p>
-      Færrest mulig personer i teamet burde være <b>{WIZARD.DATA_PROTECTION_OFFICERS.title}</b> ettersom denne rollen
+      Færrest mulig personer i teamet burde være <b>{WIZARD.DATA_ADMINS.title}</b> ettersom denne rollen
       gir tilgang til upseudonymiserte data. <b>{WIZARD.CONSUMERS.title}</b> er typisk folk/grupper utenfor teamet.
     </p>
   </>,
@@ -32,7 +32,7 @@ export const STEP_2 = {
       outdata: true
     },
     {
-      group: WIZARD.DATA_PROTECTION_OFFICERS.title,
+      group: WIZARD.DATA_ADMINS.title,
       fullAccess: false,
       sensitiveData: true,
       cloudSync: true,
@@ -63,5 +63,5 @@ export const STEP_2 = {
     indata: 'Inndata',
     outdata: 'Utdata'
   },
-  FORM_FIELDS: ['DATA_PROTECTION_OFFICERS', 'DEVELOPERS', 'CONSUMERS']
+  FORM_FIELDS: ['DATA_ADMINS', 'DEVELOPERS', 'CONSUMERS']
 }

@@ -13,10 +13,10 @@ export const WIZARD = {
     description: 'Full tilgang til teamets Google prosjekter med tilhørende tjenester og data.',
     ref: 'manager'
   },
-  DATA_PROTECTION_OFFICERS: {
+  DATA_ADMINS: {
     title: 'Kildedataansvarlige',
     description: 'Tilgang til alle data og administrering av bakke-sky synkronisering.',
-    ref: 'data_protection_officers'
+    ref: 'data_admins'
   },
   DEVELOPERS: {
     title: 'Utviklere',
