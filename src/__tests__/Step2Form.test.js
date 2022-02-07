@@ -15,10 +15,26 @@ async function asyncForEach (array, callback) {
 }
 
 const testData = [
-  { [API.MEMBER_OBJECT.NAME]: 'Manager', [API.MEMBER_OBJECT.EMAIL]: 'man@ssb.no' },
-  { [API.MEMBER_OBJECT.NAME]: 'Data Admin', [API.MEMBER_OBJECT.EMAIL]: 'dad@ssb.no' },
-  { [API.MEMBER_OBJECT.NAME]: 'Developer', [API.MEMBER_OBJECT.EMAIL]: 'dev@ssb.no' },
-  { [API.MEMBER_OBJECT.NAME]: 'Consumer', [API.MEMBER_OBJECT.EMAIL]: 'con@ssb.no' }
+  {
+    [API.MEMBER_OBJECT.NAME]: 'Manager',
+    [API.MEMBER_OBJECT.EMAIL_SHORT]: 'man@ssb.no',
+    [API.MEMBER_OBJECT.EMAIL]: 'Manager@ssb.no'
+  },
+  {
+    [API.MEMBER_OBJECT.NAME]: 'Data Admin',
+    [API.MEMBER_OBJECT.EMAIL_SHORT]: 'dad@ssb.no',
+    [API.MEMBER_OBJECT.EMAIL]: 'Data.Admin@ssb.no'
+  },
+  {
+    [API.MEMBER_OBJECT.NAME]: 'Developer',
+    [API.MEMBER_OBJECT.EMAIL_SHORT]: 'dev@ssb.no',
+    [API.MEMBER_OBJECT.EMAIL]: 'Developer@ssb.no'
+  },
+  {
+    [API.MEMBER_OBJECT.NAME]: 'Consumer',
+    [API.MEMBER_OBJECT.EMAIL_SHORT]: 'con@ssb.no',
+    [API.MEMBER_OBJECT.EMAIL]: 'Consumer@ssb.no'
+  }
 ]
 
 const setup = () => {
@@ -83,4 +99,32 @@ test('Regular user input works correctly', () => {
   userEvent.type(getByTestId(`${WIZARD.OTHER_INFO.ref}-testid`), 'Test')
 
   expect(getByTestId(`${WIZARD.OTHER_INFO.ref}-testid`)).toHaveValue('Test')
+})
+
+test('Error handling works correctly', () => {
+  class ErrorClass {
+    object = { name: 'Error', message: 'Network error' }
+
+    toJSON () {
+      return this.object
+    }
+  }
+
+  const errorMessage = new ErrorClass()
+
+  useAxios.mockReturnValue([{ loading: false, error: errorMessage, data: undefined }])
+
+  const { getByText } = setup()
+
+  expect(getByText('Error: Network error')).toBeInTheDocument()
+})
+
+test('Error response handling works correctly', () => {
+  const errorMessage = { response: { data: { detail: 'Something went wrong!' } } }
+
+  useAxios.mockReturnValue([{ loading: false, error: errorMessage, data: undefined }])
+
+  const { getByText } = setup()
+
+  expect(getByText('Something went wrong!')).toBeInTheDocument()
 })

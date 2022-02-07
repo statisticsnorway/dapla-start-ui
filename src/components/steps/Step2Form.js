@@ -8,7 +8,7 @@ import { Divider } from 'primereact/divider'
 import { Button } from 'primereact/button'
 
 import { ApiContext, useWizardActions, useWizardContext } from '../../context/AppContext'
-import { API } from '../../configurations'
+import { API, ERROR_MESSAGE } from '../../configurations'
 import { STEP_2, UI, WIZARD } from '../../content'
 
 const OPTIONS_GROUPS = [
@@ -22,7 +22,8 @@ function Step2Form () {
   const { wizard } = useWizardContext()
   const { setWizard } = useWizardActions()
   const { api } = useContext(ApiContext)
-  const errorMsg = useRef(null)
+
+  const displayMessages = useRef(null)
 
   let navigate = useNavigate()
 
@@ -30,7 +31,7 @@ function Step2Form () {
     return { ...acc, [group]: [] }
   }, {}))
 
-  const [{ loading, error, data }] = useAxios(`${api}${API.GET_USERS}`)
+  const [{ loading, error, data }, refetch] = useAxios(`${api}${API.GET_USERS}`)
 
   useEffect(() => {
     if (!loading && !error) {
@@ -43,18 +44,22 @@ function Step2Form () {
 
   useEffect(() => {
     if (error) {
-      const errorObject = error.toJSON()
-      const errorString = `${errorObject.name}: ${errorObject.message}`
-
-      errorMsg.current.show([{
-        severity: 'warn', summary: 'Noe gikk galt', detail: errorString, sticky: true
-      }])
+      if (error.response) {
+        displayMessages.current.show([ERROR_MESSAGE(error, refetch, error.response.data.detail)])
+      } else {
+        displayMessages.current.show([ERROR_MESSAGE(error, refetch)])
+      }
+    } else {
+      if (displayMessages.current) {
+        displayMessages.current.clear()
+      }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [error])
 
   const nameTemplate = item => <>
     {`${item[API.MEMBER_OBJECT.NAME]} `}
-    <span style={{ opacity: 0.6 }}>{`(${item[API.MEMBER_OBJECT.EMAIL]})`}</span>
+    <span style={{ opacity: 0.6 }}>{`(${item[API.MEMBER_OBJECT.EMAIL_SHORT]})`}</span>
   </>
 
   const searchNames = (event, field) => {
@@ -69,7 +74,7 @@ function Step2Form () {
         return (
           option[API.MEMBER_OBJECT.NAME].toLowerCase().includes(query)
           ||
-          option[API.MEMBER_OBJECT.EMAIL].toLowerCase().includes(query)
+          option[API.MEMBER_OBJECT.EMAIL_SHORT].toLowerCase().includes(query)
         )
       })
     }
@@ -79,7 +84,7 @@ function Step2Form () {
 
   return (
     <>
-      {error && <Messages ref={errorMsg} />}
+      {error && <Messages ref={displayMessages} />}
       {STEP_2.HELP}
       <div className="field">
         <label htmlFor={WIZARD.MANAGER.ref} className="block">

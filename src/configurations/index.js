@@ -1,1 +1,1 @@
-export { API } from './API'
+export { API, ERROR_MESSAGE } from './API'

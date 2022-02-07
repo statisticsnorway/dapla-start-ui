@@ -1,7 +1,7 @@
 export const STEP_5 = {
   HEADER: 'Takk! Vi har mottatt bestillingen din! 🎉',
   SUBHEADER: 'Du kan følge fremdrift her: ',
-  TEXT: (link) => <>
+  TEXT: link => <>
     <h4>Hva skjer nå?</h4>
     Før ditt nye Dapla-team er klart er det noe småtteri som må til:
     <ol>
