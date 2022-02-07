@@ -87,15 +87,24 @@ function Step2Form () {
           <span style={{ color: UI.REQUIRED }}>*</span>
         </label>
         <AutoComplete
+          multiple
           field="name"
           id={WIZARD.MANAGER.ref}
           itemTemplate={nameTemplate}
           disabled={loading || error}
-          data-testid="some-magnificent-id"
-          value={wizard[WIZARD.MANAGER.ref]}
           suggestions={filteredNames[WIZARD.MANAGER.ref]}
           completeMethod={e => searchNames(e, WIZARD.MANAGER.ref)}
-          onChange={e => setWizard({ type: WIZARD.MANAGER.ref, payload: e.value })}
+          value={wizard[WIZARD.MANAGER.ref] !== null && [wizard[WIZARD.MANAGER.ref]]}
+          onChange={e => setWizard({
+            type: WIZARD.MANAGER.ref,
+            payload: e.value !== null ?
+              e.value.length !== 0 ?
+                e.value.length > 1 ?
+                  e.value[e.value.length - 1]
+                  : e.value[0]
+                : null
+              : null
+          })}
         />
         <small id={`${WIZARD.MANAGER.title}-help`} className="block">{WIZARD.MANAGER.description}</small>
       </div>
@@ -130,7 +139,7 @@ function Step2Form () {
         <small id={`${WIZARD.OTHER_INFO.title}-help`} className="block">{WIZARD.OTHER_INFO.description}</small>
       </div>
       <div className="flex justify-content-end mt-4">
-        {wizard[WIZARD.MANAGER.ref] !== null && wizard[WIZARD.MANAGER.ref] !== '' ?
+        {wizard[WIZARD.MANAGER.ref] !== null ?
           <Button label={UI.NEXT} iconPos="right" icon="pi pi-arrow-right" onClick={() => navigate('/3')} />
           :
           <Button label={UI.NEXT} iconPos="right" icon="pi pi-arrow-right" disabled />
