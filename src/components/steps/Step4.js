@@ -34,9 +34,7 @@ function Step4 () {
     })
   }
 
-  const readyToGo = () =>
-    wizard[WIZARD.TEAM_NAME.ref] !== null && wizard[WIZARD.TEAM_NAME.ref] !== '' &&
-    wizard[WIZARD.MANAGER.ref] !== null && wizard[WIZARD.MANAGER.ref] !== ''
+  const readyToGo = () => wizard[WIZARD.TEAM_NAME.ref].length > 6 && wizard[WIZARD.MANAGER.ref] !== null
 
   return (
     <div className="grid">
@@ -45,7 +43,7 @@ function Step4 () {
         <h1>{STEPS[4].pageTitle}</h1>
         <Divider />
         {STEP_4.TEXT}
-        <h2>{wizard[WIZARD.TEAM_NAME.ref]}</h2>
+        {wizard[WIZARD.TEAM_NAME.ref].length > 6 && <h2>{wizard[WIZARD.TEAM_NAME.ref]}</h2>}
         <ul className="list-none p-0 m-0">
           {wizard[WIZARD.MANAGER.ref] !== null &&
             <li className="flex align-items-center py-3 px-2 border-top-1 border-300 flex-wrap">
