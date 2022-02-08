@@ -47,7 +47,7 @@ const testWizardData = {
 }
 const emptyTestWizardData = {
   wizard: {
-    [WIZARD.TEAM_NAME.ref]: 'Team ',
+    [WIZARD.TEAM_NAME.ref]: '',
     [WIZARD.MANAGER.ref]: null,
     [WIZARD.DATA_ADMINS.ref]: null,
     [WIZARD.DEVELOPERS.ref]: null,

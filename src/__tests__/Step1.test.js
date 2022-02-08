@@ -25,21 +25,13 @@ test('Required user input works correctly', () => {
 
   expect(getByText(UI.NEXT).closest('button')).toBeDisabled()
 
-  userEvent.type(container.querySelector('input'), 'Test')
+  userEvent.type(container.querySelector('input'), 'Team Test')
 
   expect(container.querySelector('input')).toHaveValue('Team Test')
 
   expect(getByText(UI.NEXT).closest('button')).not.toBeDisabled()
 
   userEvent.click(getByText(UI.NEXT))
-})
-
-test('Required user input forces Team prefix', () => {
-  const { container } = setup()
-
-  userEvent.type(container.querySelector('input'), '{backspace}')
-
-  expect(container.querySelector('input')).toHaveValue('Team Team')
 })
 
 test('User input approaching max character length changes color to rgb(255, 87, 87)', () => {

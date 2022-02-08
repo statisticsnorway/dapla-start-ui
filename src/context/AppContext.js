@@ -5,7 +5,7 @@ import { WIZARD } from '../content'
 const initWizard = initial => initial
 
 const initialWizard = {
-  [WIZARD.TEAM_NAME.ref]: 'Team ',
+  [WIZARD.TEAM_NAME.ref]: '',
   [WIZARD.MANAGER.ref]: null,
   [WIZARD.DATA_ADMINS.ref]: null,
   [WIZARD.DEVELOPERS.ref]: null,
