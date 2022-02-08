@@ -51,7 +51,11 @@ function Step1 () {
               keyfilter={/^[a-zæøåA-ZÆØÅ ]*$/}
               value={wizard[WIZARD.TEAM_NAME.ref]}
               aria-describedby={`${WIZARD.TEAM_NAME.title}-help`}
-              onChange={e => setWizard({ type: WIZARD.TEAM_NAME.ref, payload: e.target.value })}
+              onChange={e => {
+                if (createUniformWord(e.target.value).length <= 25) {
+                  setWizard({ type: WIZARD.TEAM_NAME.ref, payload: e.target.value })
+                }
+              }}
             />
             <small id={`${WIZARD.TEAM_NAME.title}-help`} className="block">{WIZARD.TEAM_NAME.description}</small>
           </div>
