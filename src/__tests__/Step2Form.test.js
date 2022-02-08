@@ -14,6 +14,7 @@ async function asyncForEach (array, callback) {
   }
 }
 
+const refetch = jest.fn()
 const testData = [
   {
     [API.MEMBER_OBJECT.NAME]: 'Manager',
@@ -50,7 +51,7 @@ const setup = () => {
 }
 
 test('Required user input works correctly', async () => {
-  useAxios.mockReturnValue([{ loading: false, error: undefined, data: testData }])
+  useAxios.mockReturnValue([{ loading: false, error: null, data: testData }, refetch])
 
   const { getByText, getAllByRole, getAllByText } = setup()
 
@@ -73,7 +74,7 @@ test('Required user input works correctly', async () => {
 })
 
 test('User multi-input (Chips) works correctly', async () => {
-  useAxios.mockReturnValue([{ loading: false, error: undefined, data: testData }])
+  useAxios.mockReturnValue([{ loading: false, error: null, data: testData }, refetch])
 
   const { getAllByText, getAllByRole } = setup()
 
@@ -92,7 +93,7 @@ test('User multi-input (Chips) works correctly', async () => {
 })
 
 test('Regular user input works correctly', () => {
-  useAxios.mockReturnValue([{ loading: false, error: undefined, data: testData }])
+  useAxios.mockReturnValue([{ loading: false, error: null, data: testData }, refetch])
 
   const { getByTestId } = setup()
 
@@ -112,7 +113,7 @@ test('Error handling works correctly', () => {
 
   const errorMessage = new ErrorClass()
 
-  useAxios.mockReturnValue([{ loading: false, error: errorMessage, data: undefined }])
+  useAxios.mockReturnValue([{ loading: false, error: errorMessage, data: null }, refetch])
 
   const { getByText } = setup()
 
@@ -122,9 +123,24 @@ test('Error handling works correctly', () => {
 test('Error response handling works correctly', () => {
   const errorMessage = { response: { data: { detail: 'Something went wrong!' } } }
 
-  useAxios.mockReturnValue([{ loading: false, error: errorMessage, data: undefined }])
+  useAxios.mockReturnValue([{ loading: false, error: errorMessage, data: null }, refetch])
 
   const { getByText } = setup()
 
   expect(getByText('Something went wrong!')).toBeInTheDocument()
+})
+
+test('Try again after error works correctly', () => {
+  const errorMessage = { response: { data: { detail: 'Something went wrong!' } } }
+
+  useAxios.mockReturnValueOnce([{ loading: false, error: errorMessage, data: null }, refetch])
+    .mockReturnValueOnce([{ loading: false, error: null, data: testData }, refetch])
+
+  const { getByText } = setup()
+
+  expect(getByText('Something went wrong!')).toBeInTheDocument()
+
+  userEvent.click(getByText(UI.TRY_AGAIN))
+
+  expect(refetch).toHaveBeenCalled()
 })

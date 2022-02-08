@@ -40,3 +40,19 @@ export const ERROR_MESSAGE = (error, refetch, response = null) => {
     />
   })
 }
+
+export const HELP_MESSAGE = data => {
+  return ({
+    sticky: true,
+    closable: false,
+    severity: 'info',
+    summary: 'Ettersom noe gikk galt så kan du kopiere den tekniske bestillingen og sende den til oss.',
+    detail: <Button
+      label="Kopier"
+      iconPos="right"
+      icon="pi pi-copy"
+      className="p-button-text ml-2"
+      onClick={() => navigator.clipboard.writeText(JSON.stringify(data, null, 2))}
+    />
+  })
+}

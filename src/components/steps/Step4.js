@@ -7,7 +7,7 @@ import { Button } from 'primereact/button'
 import { Chip } from 'primereact/chip'
 
 import { ApiContext, useWizardContext } from '../../context/AppContext'
-import { API, ERROR_MESSAGE } from '../../configurations'
+import { API, ERROR_MESSAGE, HELP_MESSAGE } from '../../configurations'
 import { STEP_2, STEP_4, STEPS, UI, WIZARD } from '../../content'
 
 const resolveMembers = member => <>
@@ -41,9 +41,15 @@ function Step4 () {
 
     if (error) {
       if (error.response) {
-        displayMessages.current.show([ERROR_MESSAGE(error, doExecute, error.response.data.detail)])
+        displayMessages.current.show([
+          ERROR_MESSAGE(error, doExecute, error.response.data.detail),
+          HELP_MESSAGE(wizard)
+        ])
       } else {
-        displayMessages.current.show([ERROR_MESSAGE(error, doExecute)])
+        displayMessages.current.show([
+          ERROR_MESSAGE(error, doExecute),
+          HELP_MESSAGE(wizard)
+        ])
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

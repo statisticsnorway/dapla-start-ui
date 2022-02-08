@@ -72,7 +72,7 @@ const setup = () => {
 
 test('Renders correctly', () => {
   useWizardContext.mockImplementation(() => testWizardData)
-  useAxios.mockReturnValue([{ loading: false, error: undefined }, execute])
+  useAxios.mockReturnValue([{ loading: false, error: null }, execute])
 
   const { getByText } = setup()
 
@@ -81,7 +81,7 @@ test('Renders correctly', () => {
 
 test('Renders correctly on empty context', () => {
   useWizardContext.mockImplementation(() => emptyTestWizardData)
-  useAxios.mockReturnValue([{ loading: false, error: undefined }, execute])
+  useAxios.mockReturnValue([{ loading: false, error: null }, execute])
 
   const { getByText } = setup()
 
@@ -90,7 +90,7 @@ test('Renders correctly on empty context', () => {
 
 test('Navigates to next step', () => {
   useWizardContext.mockImplementation(() => testWizardData)
-  useAxios.mockReturnValue([{ loading: false, error: undefined }, execute])
+  useAxios.mockReturnValue([{ loading: false, error: null }, execute])
   execute.mockResolvedValue({ data: { key: 'DS-1' } })
 
   const { getByText } = setup()
@@ -112,7 +112,7 @@ test('Error handling works correctly', () => {
   const errorMessage = new ErrorClass()
 
   useWizardContext.mockImplementation(() => testWizardData)
-  useAxios.mockReturnValue([{ loading: false, error: errorMessage, data: undefined }, execute])
+  useAxios.mockReturnValue([{ loading: false, error: errorMessage, data: null }, execute])
 
   const { getByText } = setup()
 
@@ -123,7 +123,7 @@ test('Error response handling works correctly', () => {
   const errorMessage = { response: { data: { detail: 'Something went wrong!' } } }
 
   useWizardContext.mockImplementation(() => testWizardData)
-  useAxios.mockReturnValue([{ loading: false, error: errorMessage, data: undefined }, execute])
+  useAxios.mockReturnValue([{ loading: false, error: errorMessage, data: null }, execute])
 
   const { getByText } = setup()
 
@@ -134,8 +134,8 @@ test('Try again after error works correctly', () => {
   const errorMessage = { response: { data: { detail: 'Something went wrong!' } } }
 
   useWizardContext.mockImplementation(() => testWizardData)
-  useAxios.mockReturnValueOnce([{ loading: false, error: errorMessage, data: undefined }, execute])
-    .mockReturnValueOnce([{ loading: false, error: undefined, data: undefined }, execute])
+  useAxios.mockReturnValueOnce([{ loading: false, error: errorMessage, data: null }, execute])
+    .mockReturnValueOnce([{ loading: false, error: null, data: null }, execute])
   execute.mockResolvedValue({ data: { key: 'DS-1' } })
 
   const { getByText } = setup()

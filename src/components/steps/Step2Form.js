@@ -43,15 +43,15 @@ function Step2Form () {
   }, [])
 
   useEffect(() => {
+    if (!error && displayMessages.current) {
+      displayMessages.current.clear()
+    }
+
     if (error) {
       if (error.response) {
         displayMessages.current.show([ERROR_MESSAGE(error, refetch, error.response.data.detail)])
       } else {
         displayMessages.current.show([ERROR_MESSAGE(error, refetch)])
-      }
-    } else {
-      if (displayMessages.current) {
-        displayMessages.current.clear()
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
