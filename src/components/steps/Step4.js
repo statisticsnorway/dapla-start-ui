@@ -1,22 +1,25 @@
 import useAxios from 'axios-hooks'
-import { useContext } from 'react'
+import { useContext, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { Messages } from 'primereact/messages'
 import { Divider } from 'primereact/divider'
 import { Button } from 'primereact/button'
 import { Chip } from 'primereact/chip'
 
 import { ApiContext, useWizardContext } from '../../context/AppContext'
-import { API } from '../../configurations'
+import { API, ERROR_MESSAGE, HELP_MESSAGE } from '../../configurations'
 import { STEP_2, STEP_4, STEPS, UI, WIZARD } from '../../content'
 
 const resolveMembers = member => <>
   {`${member[API.MEMBER_OBJECT.NAME]} `}
-  <span style={{ opacity: 0.6 }}>{`(${member[API.MEMBER_OBJECT.EMAIL]})`}</span>
+  <span style={{ opacity: 0.6 }}>{`(${member[API.MEMBER_OBJECT.EMAIL_SHORT]})`}</span>
 </>
 
 function Step4 () {
   const { wizard } = useWizardContext()
   const { api } = useContext(ApiContext)
+
+  const displayMessages = useRef(null)
 
   let navigate = useNavigate()
 
@@ -28,11 +31,29 @@ function Step4 () {
       url: `${api}${API.CREATE_JIRA}`
     }).then(response => {
       navigate('/5', { state: response.data })
-    }).catch(err => {
-      console.log(err)
-      console.log(error)
     })
   }
+
+  useEffect(() => {
+    if (!error && displayMessages.current) {
+      displayMessages.current.clear()
+    }
+
+    if (error) {
+      if (error.response) {
+        displayMessages.current.show([
+          ERROR_MESSAGE(error, doExecute, error.response.data.detail),
+          HELP_MESSAGE(wizard)
+        ])
+      } else {
+        displayMessages.current.show([
+          ERROR_MESSAGE(error, doExecute),
+          HELP_MESSAGE(wizard)
+        ])
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [error])
 
   const readyToGo = () => wizard[WIZARD.TEAM_NAME.ref].length > 6 && wizard[WIZARD.MANAGER.ref] !== null
 
@@ -43,6 +64,7 @@ function Step4 () {
         <h1>{STEPS[4].pageTitle}</h1>
         <Divider />
         {STEP_4.TEXT}
+        {error && <Messages ref={displayMessages} />}
         {wizard[WIZARD.TEAM_NAME.ref].length > 6 && <h2>{wizard[WIZARD.TEAM_NAME.ref]}</h2>}
         <ul className="list-none p-0 m-0">
           {wizard[WIZARD.MANAGER.ref] !== null &&
@@ -67,7 +89,7 @@ function Step4 () {
                     <div className="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">
                       <ul className="list-none p-0 m-0">
                         {wizard[WIZARD[element].ref].map(innerElement =>
-                          <li key={innerElement[API.MEMBER_OBJECT.EMAIL]}>{resolveMembers(innerElement)}</li>
+                          <li key={innerElement[API.MEMBER_OBJECT.EMAIL_SHORT]}>{resolveMembers(innerElement)}</li>
                         )}
                       </ul>
                     </div>

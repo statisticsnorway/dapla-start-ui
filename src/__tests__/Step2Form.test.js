@@ -14,11 +14,28 @@ async function asyncForEach (array, callback) {
   }
 }
 
+const refetch = jest.fn()
 const testData = [
-  { [API.MEMBER_OBJECT.NAME]: 'Manager', [API.MEMBER_OBJECT.EMAIL]: 'man@ssb.no' },
-  { [API.MEMBER_OBJECT.NAME]: 'Data Admin', [API.MEMBER_OBJECT.EMAIL]: 'dad@ssb.no' },
-  { [API.MEMBER_OBJECT.NAME]: 'Developer', [API.MEMBER_OBJECT.EMAIL]: 'dev@ssb.no' },
-  { [API.MEMBER_OBJECT.NAME]: 'Consumer', [API.MEMBER_OBJECT.EMAIL]: 'con@ssb.no' }
+  {
+    [API.MEMBER_OBJECT.NAME]: 'Manager',
+    [API.MEMBER_OBJECT.EMAIL_SHORT]: 'man@ssb.no',
+    [API.MEMBER_OBJECT.EMAIL]: 'Manager@ssb.no'
+  },
+  {
+    [API.MEMBER_OBJECT.NAME]: 'Data Admin',
+    [API.MEMBER_OBJECT.EMAIL_SHORT]: 'dad@ssb.no',
+    [API.MEMBER_OBJECT.EMAIL]: 'Data.Admin@ssb.no'
+  },
+  {
+    [API.MEMBER_OBJECT.NAME]: 'Developer',
+    [API.MEMBER_OBJECT.EMAIL_SHORT]: 'dev@ssb.no',
+    [API.MEMBER_OBJECT.EMAIL]: 'Developer@ssb.no'
+  },
+  {
+    [API.MEMBER_OBJECT.NAME]: 'Consumer',
+    [API.MEMBER_OBJECT.EMAIL_SHORT]: 'con@ssb.no',
+    [API.MEMBER_OBJECT.EMAIL]: 'Consumer@ssb.no'
+  }
 ]
 
 const setup = () => {
@@ -34,7 +51,7 @@ const setup = () => {
 }
 
 test('Required user input works correctly', async () => {
-  useAxios.mockReturnValue([{ loading: false, error: undefined, data: testData }])
+  useAxios.mockReturnValue([{ loading: false, error: null, data: testData }, refetch])
 
   const { getByText, getAllByRole, getAllByText } = setup()
 
@@ -57,7 +74,7 @@ test('Required user input works correctly', async () => {
 })
 
 test('User multi-input (Chips) works correctly', async () => {
-  useAxios.mockReturnValue([{ loading: false, error: undefined, data: testData }])
+  useAxios.mockReturnValue([{ loading: false, error: null, data: testData }, refetch])
 
   const { getAllByText, getAllByRole } = setup()
 
@@ -76,11 +93,54 @@ test('User multi-input (Chips) works correctly', async () => {
 })
 
 test('Regular user input works correctly', () => {
-  useAxios.mockReturnValue([{ loading: false, error: undefined, data: testData }])
+  useAxios.mockReturnValue([{ loading: false, error: null, data: testData }, refetch])
 
   const { getByTestId } = setup()
 
   userEvent.type(getByTestId(`${WIZARD.OTHER_INFO.ref}-testid`), 'Test')
 
   expect(getByTestId(`${WIZARD.OTHER_INFO.ref}-testid`)).toHaveValue('Test')
+})
+
+test('Error handling works correctly', () => {
+  class ErrorClass {
+    object = { name: 'Error', message: 'Network error' }
+
+    toJSON () {
+      return this.object
+    }
+  }
+
+  const errorMessage = new ErrorClass()
+
+  useAxios.mockReturnValue([{ loading: false, error: errorMessage, data: null }, refetch])
+
+  const { getByText } = setup()
+
+  expect(getByText('Error: Network error')).toBeInTheDocument()
+})
+
+test('Error response handling works correctly', () => {
+  const errorMessage = { response: { data: { detail: 'Something went wrong!' } } }
+
+  useAxios.mockReturnValue([{ loading: false, error: errorMessage, data: null }, refetch])
+
+  const { getByText } = setup()
+
+  expect(getByText('Something went wrong!')).toBeInTheDocument()
+})
+
+test('Try again after error works correctly', () => {
+  const errorMessage = { response: { data: { detail: 'Something went wrong!' } } }
+
+  useAxios.mockReturnValueOnce([{ loading: false, error: errorMessage, data: null }, refetch])
+    .mockReturnValueOnce([{ loading: false, error: null, data: testData }, refetch])
+
+  const { getByText } = setup()
+
+  expect(getByText('Something went wrong!')).toBeInTheDocument()
+
+  userEvent.click(getByText(UI.TRY_AGAIN))
+
+  expect(refetch).toHaveBeenCalled()
 })

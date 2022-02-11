@@ -13,10 +13,10 @@ function Step5 () {
         <h1>{STEP_5.HEADER}</h1>
         <p>
           {STEP_5.SUBHEADER}
-          <a href={`https://statistics-norway.atlassian.net/browse/${location.state.key}`}>{location.state.key}</a>
+          <a href={`${STEP_5.JIRA_URL}${location.state.key}`}>{location.state.key}</a>
         </p>
         <Divider />
-        {STEP_5.TEXT(`https://statistics-norway.atlassian.net/browse/${location.state.key}`)}
+        {STEP_5.TEXT(`${STEP_5.JIRA_URL}${location.state.key}`)}
       </div>
       <div className="col-4" />
     </div>

@@ -1,10 +1,13 @@
+import { UI } from './UI'
+
 export const WIZARD = {
   TEAM_NAME: {
     title: 'Teamnavn',
     description: <>
       Teamets navn (for eksempel: "Team Pålegg Brunost").
-      <b> Dette kan ikke endres senere. </b>
-      Det er OK å bruke store bokstaver, Æ/Ø/Å, og mellomrom her.
+      <b> Dette kan endres senere. </b>
+      Det er OK å bruke store bokstaver, Æ/Ø/Å, og mellomrom her. Det genererte tekniske teamnavnet du kan se nedenfor
+      vil <b>ikke kunne endres</b> senere.
     </>,
     ref: 'display_team_name',
     prefix: 'Team ',
@@ -22,7 +25,7 @@ export const WIZARD = {
   },
   DEVELOPERS: {
     title: 'Utviklere',
-    description: 'Tilgang til alle teamets data utenom og kildedata. Ikke tilgang til bakke-sky synkronisering',
+    description: 'Tilgang til alle teamets data utenom og kildedata. Ikke tilgang til bakke-sky synkronisering.',
     ref: 'developers'
   },
   CONSUMERS: {
@@ -40,7 +43,7 @@ export const WIZARD = {
     description: <p style={{ fontSize: '0.85rem' }} className="mb-4">
       Velg tjenestene teamet har behov for. Det er mulig å legge til tjenester senere, men det er en fordel om du
       identifiserer de du trenger allerede nå. Dersom du er usikker, spør oss
-      på <a href="https://ssb-norge.slack.com/archives/C015E7B4YS0\">#hjelp_dapla</a>. Det vil komme flere tjenester
+      på <a href={UI.SLACK_URL}>#hjelp_dapla</a>. Det vil komme flere tjenester
       etterhvert, som kan legges til for teamet når som helst. Foreløpig er det kun <em>Transfer Service</em> som
       finnes.
     </p>,

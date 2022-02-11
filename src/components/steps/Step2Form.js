@@ -1,13 +1,14 @@
 import useAxios from 'axios-hooks'
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { AutoComplete } from 'primereact/autocomplete'
 import { InputTextarea } from 'primereact/inputtextarea'
+import { AutoComplete } from 'primereact/autocomplete'
+import { Messages } from 'primereact/messages'
 import { Divider } from 'primereact/divider'
 import { Button } from 'primereact/button'
 
 import { ApiContext, useWizardActions, useWizardContext } from '../../context/AppContext'
-import { API } from '../../configurations'
+import { API, ERROR_MESSAGE } from '../../configurations'
 import { STEP_2, UI, WIZARD } from '../../content'
 
 const OPTIONS_GROUPS = [
@@ -22,13 +23,15 @@ function Step2Form () {
   const { setWizard } = useWizardActions()
   const { api } = useContext(ApiContext)
 
+  const displayMessages = useRef(null)
+
   let navigate = useNavigate()
 
   const [filteredNames, setFilteredNames] = useState(OPTIONS_GROUPS.reduce((acc, group) => {
     return { ...acc, [group]: [] }
   }, {}))
 
-  const [{ loading, error, data }] = useAxios(`${api}${API.GET_USERS}`)
+  const [{ loading, error, data }, refetch] = useAxios(`${api}${API.GET_USERS}`)
 
   useEffect(() => {
     if (!loading && !error) {
@@ -39,9 +42,24 @@ function Step2Form () {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  useEffect(() => {
+    if (!error && displayMessages.current) {
+      displayMessages.current.clear()
+    }
+
+    if (error) {
+      if (error.response) {
+        displayMessages.current.show([ERROR_MESSAGE(error, refetch, error.response.data.detail)])
+      } else {
+        displayMessages.current.show([ERROR_MESSAGE(error, refetch)])
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [error])
+
   const nameTemplate = item => <>
     {`${item[API.MEMBER_OBJECT.NAME]} `}
-    <span style={{ opacity: 0.6 }}>{`(${item[API.MEMBER_OBJECT.EMAIL]})`}</span>
+    <span style={{ opacity: 0.6 }}>{`(${item[API.MEMBER_OBJECT.EMAIL_SHORT]})`}</span>
   </>
 
   const searchNames = (event, field) => {
@@ -56,7 +74,7 @@ function Step2Form () {
         return (
           option[API.MEMBER_OBJECT.NAME].toLowerCase().includes(query)
           ||
-          option[API.MEMBER_OBJECT.EMAIL].toLowerCase().includes(query)
+          option[API.MEMBER_OBJECT.EMAIL_SHORT].toLowerCase().includes(query)
         )
       })
     }
@@ -66,6 +84,7 @@ function Step2Form () {
 
   return (
     <>
+      {error && <Messages ref={displayMessages} />}
       {STEP_2.HELP}
       <div className="field">
         <label htmlFor={WIZARD.MANAGER.ref} className="block">
