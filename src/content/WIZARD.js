@@ -25,7 +25,7 @@ export const WIZARD = {
   },
   DEVELOPERS: {
     title: 'Utviklere',
-    description: 'Tilgang til alle teamets data utenom og kildedata. Ikke tilgang til bakke-sky synkronisering.',
+    description: 'Tilgang til alle teamets data utenom kildedata. Ikke tilgang til bakke-sky synkronisering.',
     ref: 'developers'
   },
   CONSUMERS: {
