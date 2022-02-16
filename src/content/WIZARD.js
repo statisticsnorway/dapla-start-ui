@@ -25,12 +25,12 @@ export const WIZARD = {
   },
   DEVELOPERS: {
     title: 'Utviklere',
-    description: 'Tilgang til alle teamets data utenom og kildedata. Ikke tilgang til bakke-sky synkronisering.',
+    description: 'Tilgang til alle teamets data utenom kildedata. Ikke tilgang til bakke-sky synkronisering.',
     ref: 'developers'
   },
   CONSUMERS: {
     title: 'Konsumenter',
-    description: 'Kun Lesetilgang til utdata.',
+    description: 'Kun lesetilgang til delte data.',
     ref: 'consumers'
   },
   OTHER_INFO: {
@@ -51,7 +51,7 @@ export const WIZARD = {
       {
         label: 'Transfer Service',
         value: 'transfer_service',
-        description: 'Overføre filer mellom prodsonen og Dapla'
+        description: 'Overføre filer mellom Produksjonssonen og Dapla'
       }
     ],
     ref: 'enabled_services'

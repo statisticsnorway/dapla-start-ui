@@ -26,42 +26,42 @@ export const STEP_2 = {
     {
       group: WIZARD.MANAGER.title,
       fullAccess: true,
-      sensitiveData: true,
       cloudSync: true,
+      sensitiveData: true,
       indata: true,
       outdata: true
     },
     {
       group: WIZARD.DATA_ADMINS.title,
       fullAccess: false,
-      sensitiveData: true,
       cloudSync: true,
+      sensitiveData: true,
       indata: true,
       outdata: true
     },
     {
       group: WIZARD.DEVELOPERS.title,
       fullAccess: false,
-      sensitiveData: false,
       cloudSync: false,
+      sensitiveData: false,
       indata: true,
       outdata: true
     },
     {
       group: WIZARD.CONSUMERS.title,
       fullAccess: false,
-      sensitiveData: false,
       cloudSync: false,
+      sensitiveData: false,
       indata: false,
       outdata: true
     }
   ],
   ACCESS_LEVELS: {
     fullAccess: 'Full kontroll',
-    sensitiveData: 'Kildedata (upseudonymisert)',
     cloudSync: 'Administrere bakke-sky synkronisering',
-    indata: 'Inndata',
-    outdata: 'Utdata'
+    sensitiveData: 'Kildedata (upseudonymisert)',
+    indata: 'Produktdata',
+    outdata: 'Delte data'
   },
   FORM_FIELDS: ['DATA_ADMINS', 'DEVELOPERS', 'CONSUMERS']
 }
