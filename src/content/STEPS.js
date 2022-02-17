@@ -8,8 +8,8 @@ export const STEPS = [
     pageTitle: 'Teamnavn'
   },
   {
-    stepHeader: 'Teamet',
-    pageTitle: 'Teamet'
+    stepHeader: 'Medlemmer',
+    pageTitle: 'Medlemmer'
   },
   {
     stepHeader: 'Tjenester',

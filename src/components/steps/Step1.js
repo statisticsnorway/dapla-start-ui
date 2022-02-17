@@ -10,7 +10,7 @@ import { ShowHideFAQ } from '../index'
 import { FAQ, STEPS, UI, WIZARD } from '../../content'
 
 const createUniformWord = word => {
-  const removePrefixAndSpaces = word.toLowerCase().replaceAll(' ', '-')
+  const removePrefixAndSpaces = word.toLowerCase().replaceAll('team ', '').replaceAll(' ', '-')
 
   return removePrefixAndSpaces.replaceAll('æ', 'ae').replaceAll('ø', 'oe').replaceAll('å', 'aa')
 }
