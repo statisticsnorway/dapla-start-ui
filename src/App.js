@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import { Steps } from 'primereact/steps'
 import { Image } from 'primereact/image'
+import { dapla_long_rgb } from '@statisticsnorway/dapla-js-utilities'
 import 'primereact/resources/themes/lara-light-blue/theme.css'
 import 'primereact/resources/primereact.min.css'
 import 'primeicons/primeicons.css'
@@ -9,7 +10,6 @@ import 'primeflex/primeflex.css'
 
 import './App.css'
 
-import dapla_logo from './svg/dapla-long-rgb.svg'
 import { Step0, Step1, Step2, Step3, Step4, Step5 } from './components/steps'
 import { IMAGE_ALT_TEXT, STEPS } from './content'
 
@@ -37,7 +37,7 @@ function App () {
       {location.pathname !== '/5' &&
         <div className="p-3 mb-4 box shadow-3 flex">
           <div className="flex-shrink-0 pr-3">
-            <Image src={dapla_logo} alt={IMAGE_ALT_TEXT.DAPLA_LOGO} width="130" />
+            <Image src={dapla_long_rgb} alt={IMAGE_ALT_TEXT.DAPLA_LOGO} width="130" />
           </div>
           <div className="flex-grow-1 align-self-center">
             <Steps model={items} activeIndex={activeIndex} readOnly={false} />
