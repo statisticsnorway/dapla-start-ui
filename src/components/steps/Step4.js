@@ -6,7 +6,7 @@ import { Divider } from 'primereact/divider'
 import { Button } from 'primereact/button'
 import { Chip } from 'primereact/chip'
 
-import { ApiContext, useWizardContext } from '../../context/AppContext'
+import { ApiContext, useWizardActions, useWizardContext } from '../../context/AppContext'
 import { API, ERROR_MESSAGE, HELP_MESSAGE } from '../../configurations'
 import { STEP_2, STEP_4, STEPS, UI, WIZARD } from '../../content'
 
@@ -55,7 +55,7 @@ function Step4 () {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [error])
 
-  const readyToGo = () => wizard[WIZARD.TEAM_NAME.ref].length > 6 && wizard[WIZARD.MANAGER.ref] !== null
+  const readyToGo = () => wizard[WIZARD.TEAM_NAME.ref].length > 2 && wizard[WIZARD.MANAGER.ref] !== null
 
   return (
     <div className="grid">

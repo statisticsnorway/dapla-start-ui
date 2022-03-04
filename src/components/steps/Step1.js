@@ -10,7 +10,8 @@ import { ShowHideFAQ } from '../index'
 import { FAQ, STEPS, UI, WIZARD } from '../../content'
 
 const createUniformWord = word => {
-  const removePrefixAndSpaces = word.toLowerCase().replaceAll('team ', '').replaceAll(' ', '-')
+  const trimSpaces = word.toLowerCase().trimStart().trimEnd()
+  const removePrefixAndSpaces = trimSpaces.replaceAll('team ', '').replaceAll(' ', '-')
 
   return removePrefixAndSpaces.replaceAll('æ', 'ae').replaceAll('ø', 'oe').replaceAll('å', 'aa')
 }
@@ -52,7 +53,7 @@ function Step1 () {
               value={wizard[WIZARD.TEAM_NAME.ref]}
               aria-describedby={`${WIZARD.TEAM_NAME.title}-help`}
               onChange={e => {
-                if (createUniformWord(e.target.value).length <= 25) {
+                if (createUniformWord(e.target.value).length <= WIZARD.TEAM_NAME.max_chars) {
                   setWizard({ type: WIZARD.TEAM_NAME.ref, payload: e.target.value })
                 }
               }}
@@ -65,19 +66,30 @@ function Step1 () {
             {uniformTeamName}
           </span>
           {uniformTeamName.length > 0 &&
-            <span
-              style={{
-                opacity: 0.7,
-                fontSize: '0.7rem',
-                color: uniformTeamName.length > 18 ? uniformTeamName.length > 22 ? UI.REQUIRED : UI.WARNING : '#495057'
-              }}
-            >
-            {` (${uniformTeamName.length} / ${WIZARD.TEAM_NAME.max_chars})`}
+          <span
+            style={{
+              opacity: 0.7,
+              fontSize: '0.7rem',
+              color: uniformTeamName.length >= WIZARD.TEAM_NAME.max_chars ? UI.REQUIRED : '#495057'
+            }}
+          >
+            {` (${uniformTeamName.length} / ${WIZARD.TEAM_NAME.max_chars} ${UI.CHARS})`}
           </span>
           }
           <div className="flex justify-content-end mt-4">
-            {wizard[WIZARD.TEAM_NAME.ref].length > 6 ?
-              <Button label={UI.NEXT} iconPos="right" icon="pi pi-arrow-right" onClick={() => navigate('/2')} />
+            {wizard[WIZARD.TEAM_NAME.ref].length > 2 ?
+              <Button
+                label={UI.NEXT}
+                iconPos="right"
+                icon="pi pi-arrow-right"
+                onClick={() => {
+                  setWizard({
+                    type: WIZARD.TEAM_NAME.ref,
+                    payload: wizard[WIZARD.TEAM_NAME.ref].trimStart().trimEnd()
+                  })
+                  navigate('/2')
+                }}
+              />
               :
               <Button label={UI.NEXT} iconPos="right" icon="pi pi-arrow-right" disabled />
             }
