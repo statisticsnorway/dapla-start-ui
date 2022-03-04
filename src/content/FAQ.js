@@ -1,5 +1,6 @@
 import { STEP_1 } from './STEP_1'
 import { UI } from './UI'
+import { WIZARD } from './WIZARD'
 
 export const FAQ = [
   {
@@ -30,11 +31,11 @@ export const FAQ = [
       <h3>Lengde og forkortelser</h3>
       <p>
         Delen av navnet som beskriver domene og subdomene (for eksempel "Skatt Person"), kan i seg selv IKKE overskride
-        25 tegn! Dersom navnet til teamet er langt anbefaler vi å forkorte den mest generelle delen av navnet til et
-        trebokstavers "flyplassnavn". For eksempel, "Grunnopplæring Grunnskole" som er 25 tegn kan bli til "GRO
-        Grunnskole" som er 14 tegn. Dersom domenet allerede er en forkortelse eller sammenslåing (for eksempel "Kostra"
-        for "Kommune Stat Rapportering") kan man bruke et "flyplassnavn" for subdomenet istedenfor for å korte ned
-        navnet, slik "Kostra KVM" har gjort.
+        {` ${WIZARD.TEAM_NAME.max_chars}`} tegn! Dersom navnet til teamet er langt anbefaler vi å forkorte den mest
+        generelle delen av navnet til et trebokstavers "flyplassnavn". For eksempel, "Grunnopplæring Grunnskole" som er
+        25 tegn kan bli til "GRO Grunnskole" som er 14 tegn. Dersom domenet allerede er en forkortelse eller
+        sammenslåing (for eksempel "Kostra" for "Kommune Stat Rapportering") kan man bruke et "flyplassnavn" for
+        subdomenet istedenfor for å korte ned navnet, slik "Kostra KVM" har gjort.
       </p>
       <p>
         <b>NB!</b> Dersom det finnes andre team i deres domene som er eller skal på Dapla, vær sikker på at dere bruker

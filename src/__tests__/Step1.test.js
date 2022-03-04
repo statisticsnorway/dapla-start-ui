@@ -34,21 +34,14 @@ test('Required user input works correctly', () => {
   userEvent.click(getByText(UI.NEXT))
 })
 
-test('User input approaching max character length changes color to rgb(255, 87, 87)', () => {
+test('User input has reached max character length changes color to rgb(255, 87, 87)', () => {
   const { container, getByText } = setup()
 
-  userEvent.type(container.querySelector('input'), 'A Long Name For This')
+  userEvent.type(container.querySelector('input'), 'A Very Long Name Thing')
 
-  expect(getByText(`(20 / ${WIZARD.TEAM_NAME.max_chars})`)).toBeInTheDocument()
-  expect(getByText(`(20 / ${WIZARD.TEAM_NAME.max_chars})`)).toHaveStyle('color: rgb(204, 137, 37)')
-})
+  expect(container.querySelector('input')).toHaveValue('A Very Long Name T')
 
-test('User input very close to max character length changes color to rgb(255, 87, 87)', () => {
-  const { container, getByText } = setup()
+  expect(getByText(`(18 / ${WIZARD.TEAM_NAME.max_chars} ${UI.CHARS})`)).toBeInTheDocument()
+  expect(getByText(`(18 / ${WIZARD.TEAM_NAME.max_chars} ${UI.CHARS})`)).toHaveStyle('color: rgb(255, 87, 87)')
 
-  userEvent.type(container.querySelector('input'), 'A Very Long Name Thing For This Test')
-
-  expect(container.querySelector('input')).toHaveValue('A Very Long Name Thing Fo')
-  expect(getByText(`(25 / ${WIZARD.TEAM_NAME.max_chars})`)).toBeInTheDocument()
-  expect(getByText(`(25 / ${WIZARD.TEAM_NAME.max_chars})`)).toHaveStyle('color: rgb(255, 87, 87)')
 })

@@ -55,7 +55,7 @@ function Step4 () {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [error])
 
-  const readyToGo = () => wizard[WIZARD.TEAM_NAME.ref].length > 6 && wizard[WIZARD.MANAGER.ref] !== null
+  const readyToGo = () => wizard[WIZARD.TEAM_NAME.ref].length > 2 && wizard[WIZARD.MANAGER.ref] !== null
 
   return (
     <div className="grid">
