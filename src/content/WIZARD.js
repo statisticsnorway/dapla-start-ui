@@ -10,7 +10,7 @@ export const WIZARD = {
       vil <b>ikke kunne endres</b> senere.
     </>,
     ref: 'display_team_name',
-    max_chars: 18
+    max_chars: 17
   },
   MANAGER: {
     title: 'Teamansvarlig',

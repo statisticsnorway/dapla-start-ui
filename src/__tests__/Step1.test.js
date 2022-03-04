@@ -37,11 +37,11 @@ test('Required user input works correctly', () => {
 test('User input has reached max character length changes color to rgb(255, 87, 87)', () => {
   const { container, getByText } = setup()
 
-  userEvent.type(container.querySelector('input'), 'A Very Long Name Thing')
+  userEvent.type(container.querySelector('input'), 'Bilparken Nybilreg')
 
-  expect(container.querySelector('input')).toHaveValue('A Very Long Name T')
+  expect(container.querySelector('input')).toHaveValue('Bilparken Nybilre')
 
-  expect(getByText(`(18 / ${WIZARD.TEAM_NAME.max_chars} ${UI.CHARS})`)).toBeInTheDocument()
-  expect(getByText(`(18 / ${WIZARD.TEAM_NAME.max_chars} ${UI.CHARS})`)).toHaveStyle('color: rgb(255, 87, 87)')
+  expect(getByText(`(17 / ${WIZARD.TEAM_NAME.max_chars} ${UI.CHARS})`)).toBeInTheDocument()
+  expect(getByText(`(17 / ${WIZARD.TEAM_NAME.max_chars} ${UI.CHARS})`)).toHaveStyle('color: rgb(255, 87, 87)')
 
 })
