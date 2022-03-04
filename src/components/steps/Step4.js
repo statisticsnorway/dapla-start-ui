@@ -6,7 +6,7 @@ import { Divider } from 'primereact/divider'
 import { Button } from 'primereact/button'
 import { Chip } from 'primereact/chip'
 
-import { ApiContext, useWizardActions, useWizardContext } from '../../context/AppContext'
+import { ApiContext, useWizardContext } from '../../context/AppContext'
 import { API, ERROR_MESSAGE, HELP_MESSAGE } from '../../configurations'
 import { STEP_2, STEP_4, STEPS, UI, WIZARD } from '../../content'
 
