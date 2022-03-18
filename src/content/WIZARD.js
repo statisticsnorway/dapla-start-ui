@@ -14,7 +14,7 @@ export const WIZARD = {
   },
   MANAGER: {
     title: 'Teamansvarlig',
-    description: 'Full tilgang til teamets Google prosjekter med tilhørende tjenester og data.',
+    description: 'Ingen tilganger.',
     ref: 'manager'
   },
   DATA_ADMINS: {
@@ -31,6 +31,9 @@ export const WIZARD = {
     title: 'Konsumenter',
     description: 'Kun lesetilgang til delte data.',
     ref: 'consumers'
+  },
+  SUPPORT: {
+    ref: 'support'
   },
   OTHER_INFO: {
     title: 'Annen informasjon',

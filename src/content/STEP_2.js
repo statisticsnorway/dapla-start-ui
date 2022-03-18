@@ -20,20 +20,18 @@ export const STEP_2 = {
     <b>Det som fylles inn her kan endres senere. </b>
     Boksene gir søk på navn og epost. Fra listen som dukker opp under boksen kan du velge person eller bruke piltastene
     og trykke Enter. Hvis en person ikke finnes i søket kan du legge inn kommentar i siste
-    boksen <b>{WIZARD.OTHER_INFO.title}</b> om dette og i hvilken gruppe den skal inn.
+    boksen '<b>{WIZARD.OTHER_INFO.title}</b>' om dette og i hvilken gruppe den skal inn.
   </p>,
   GROUPS: [
     {
       group: WIZARD.MANAGER.title,
-      fullAccess: true,
-      cloudSync: true,
-      sensitiveData: true,
-      indata: true,
-      outdata: true
+      cloudSync: false,
+      sensitiveData: false,
+      indata: false,
+      outdata: false
     },
     {
       group: WIZARD.DATA_ADMINS.title,
-      fullAccess: false,
       cloudSync: true,
       sensitiveData: true,
       indata: true,
@@ -41,7 +39,6 @@ export const STEP_2 = {
     },
     {
       group: WIZARD.DEVELOPERS.title,
-      fullAccess: false,
       cloudSync: false,
       sensitiveData: false,
       indata: true,
@@ -49,7 +46,6 @@ export const STEP_2 = {
     },
     {
       group: WIZARD.CONSUMERS.title,
-      fullAccess: false,
       cloudSync: false,
       sensitiveData: false,
       indata: false,
@@ -57,7 +53,6 @@ export const STEP_2 = {
     }
   ],
   ACCESS_LEVELS: {
-    fullAccess: 'Full kontroll',
     cloudSync: 'Administrere bakke-sky synkronisering',
     sensitiveData: 'Kildedata (upseudonymisert)',
     indata: 'Produktdata',
