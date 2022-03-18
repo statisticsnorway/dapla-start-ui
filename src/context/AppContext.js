@@ -10,6 +10,7 @@ const initialWizard = {
   [WIZARD.DATA_ADMINS.ref]: null,
   [WIZARD.DEVELOPERS.ref]: null,
   [WIZARD.CONSUMERS.ref]: null,
+  [WIZARD.SUPPORT.ref]: null,
   [WIZARD.OTHER_INFO.ref]: '',
   [WIZARD.SERVICES.ref]: null,
   ui_version: process.env.REACT_APP_VERSION
