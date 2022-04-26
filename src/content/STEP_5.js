@@ -18,6 +18,10 @@ export const STEP_5 = {
       eller legg inn en kommentar på <a href={link}>saken</a>.
     </p>
     <p>
+      Når du og teamet ditt er i gang på Dapla kan det være lurt å ta en titt
+      innom <a href={UI.DAPLA_GUIDE_URL}>veilederen</a> som har mye nyttig informasjon om hvordan komme i gang på Dapla.
+    </p>
+    <p>
       Hilsen dine venner i Team Argus 😊
     </p>
   </>,
