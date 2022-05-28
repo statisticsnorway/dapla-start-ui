@@ -1,4 +1,4 @@
-FROM nginx:alpine
+FROM nginx:1.22.0-alpine
 
 RUN apk add --no-cache nodejs yarn
 RUN yarn global add @beam-australia/react-env
