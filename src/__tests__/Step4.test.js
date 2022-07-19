@@ -130,6 +130,17 @@ test('Error response handling works correctly', () => {
   expect(getByText('Something went wrong!')).toBeInTheDocument()
 })
 
+test('Error array response data handling works correctly', () => {
+  const errorMessage = { response: { data: { detail: [{ loc: 69, msg: 'Not a valid dict!' }] } } }
+
+  useWizardContext.mockImplementation(() => testWizardData)
+  useAxios.mockReturnValue([{ loading: false, error: errorMessage, data: null }, execute])
+
+  const { getByText } = setup()
+
+  expect(getByText('[ { "loc": 69, "msg": "Not a valid dict!" } ]')).toBeInTheDocument()
+})
+
 test('Try again after error works correctly', async () => {
   const errorMessage = { response: { data: { detail: 'Something went wrong!' } } }
 

@@ -41,17 +41,10 @@ function Step4 () {
 
     if (error) {
       if (error.response) {
-        if (error.response.data === undefined) {
-          displayMessages.current.show([
-            ERROR_MESSAGE(error, doExecute, error.response.data),
-            HELP_MESSAGE(wizard)
-          ])
-        } else {
-          displayMessages.current.show([
-            ERROR_MESSAGE(error, doExecute, error.response.data.detail),
-            HELP_MESSAGE(wizard)
-          ])
-        }
+        displayMessages.current.show([
+          ERROR_MESSAGE(error, doExecute, error.response.data.detail), //TODO: This fails is backend is offline
+          HELP_MESSAGE(wizard)
+        ])
       } else {
         displayMessages.current.show([
           ERROR_MESSAGE(error, doExecute),
