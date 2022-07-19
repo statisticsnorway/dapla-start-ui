@@ -88,14 +88,14 @@ test('Renders correctly on empty context', () => {
   expect(getByText(STEPS[4].pageTitle)).toBeInTheDocument()
 })
 
-test('Navigates to next step', () => {
+test('Navigates to next step', async () => {
   useWizardContext.mockImplementation(() => testWizardData)
   useAxios.mockReturnValue([{ loading: false, error: null }, execute])
   execute.mockResolvedValue({ data: { key: 'DS-1' } })
 
   const { getByText } = setup()
 
-  userEvent.click(getByText(UI.COMPLETE))
+  await userEvent.click(getByText(UI.COMPLETE))
 
   expect(execute).toHaveBeenCalled()
 })
@@ -130,7 +130,7 @@ test('Error response handling works correctly', () => {
   expect(getByText('Something went wrong!')).toBeInTheDocument()
 })
 
-test('Try again after error works correctly', () => {
+test('Try again after error works correctly', async () => {
   const errorMessage = { response: { data: { detail: 'Something went wrong!' } } }
 
   useWizardContext.mockImplementation(() => testWizardData)
@@ -140,7 +140,7 @@ test('Try again after error works correctly', () => {
 
   const { getByText } = setup()
 
-  userEvent.click(getByText(UI.TRY_AGAIN))
+  await userEvent.click(getByText(UI.TRY_AGAIN))
 
   expect(execute).toHaveBeenCalled()
 })

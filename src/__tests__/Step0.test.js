@@ -26,8 +26,8 @@ test('Renders correctly', () => {
   expect(getByText(STEPS[0].pageTitle)).toBeInTheDocument()
 })
 
-test('Navigates to next step', () => {
+test('Navigates to next step', async () => {
   const { getByText } = setup()
 
-  userEvent.click(getByText(UI.START))
+  await userEvent.click(getByText(UI.START))
 })

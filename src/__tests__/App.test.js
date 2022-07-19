@@ -31,10 +31,10 @@ test('Renders correctly', () => {
   STEPS.forEach(step => expect(getByText(step.stepHeader)).toBeInTheDocument())
 })
 
-test('Navigages correctly', () => {
+test('Navigates correctly', async () => {
   const { getByText } = setup()
 
-  userEvent.click(getByText(STEPS[1].stepHeader))
+  await userEvent.click(getByText(STEPS[1].stepHeader))
 
   expect(getByText(STEPS[1].stepHeader).closest('a')).toHaveFocus()
 })

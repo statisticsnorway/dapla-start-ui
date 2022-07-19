@@ -49,7 +49,11 @@ function Step2Form () {
 
     if (error) {
       if (error.response) {
-        displayMessages.current.show([ERROR_MESSAGE(error, refetch, error.response.data.detail)])
+        if (error.response.data === undefined) {
+          displayMessages.current.show([ERROR_MESSAGE(error, refetch, error.response.data)])
+        } else {
+          displayMessages.current.show([ERROR_MESSAGE(error, refetch, error.response.data.detail)])
+        }
       } else {
         displayMessages.current.show([ERROR_MESSAGE(error, refetch)])
       }
@@ -99,7 +103,7 @@ function Step2Form () {
           disabled={loading || error}
           suggestions={filteredNames[WIZARD.MANAGER.ref]}
           completeMethod={e => searchNames(e, WIZARD.MANAGER.ref)}
-          value={wizard[WIZARD.MANAGER.ref] !== null && [wizard[WIZARD.MANAGER.ref]]}
+          value={wizard[WIZARD.MANAGER.ref] !== null ? [wizard[WIZARD.MANAGER.ref]] : null}
           onChange={e => setWizard({
             type: WIZARD.MANAGER.ref,
             payload: e.value !== null ?

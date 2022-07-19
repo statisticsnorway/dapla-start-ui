@@ -17,7 +17,11 @@ export const ERROR_MESSAGE = (error, refetch, response = null) => {
   let severity = 'warn'
 
   if (response) {
-    summary = response
+    if (Array.isArray(response)) {
+      summary = JSON.stringify(response, null, 2)
+    } else {
+      summary = response
+    }
   } else {
     const errorObject = error.toJSON()
 
