@@ -10,10 +10,10 @@ const setup = () => {
   return { getByText }
 }
 
-test('Renders correctly', () => {
+test('Renders correctly', async () => {
   const { getByText } = setup()
 
-  userEvent.click(getByText(UI.FAQ))
+  await userEvent.click(getByText(UI.FAQ))
 
   FAQ.forEach(q => expect(getByText(q.header)).toBeInTheDocument())
 })

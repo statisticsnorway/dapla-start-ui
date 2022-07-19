@@ -8,6 +8,12 @@ import { UI, WIZARD } from '../content'
 
 jest.mock('../components/ShowHideFAQ', () => () => null)
 
+async function asyncForEach (array, callback) {
+  for (let index = 0; index < array.length; index++) {
+    await callback(array[index], index, array)
+  }
+}
+
 const setup = () => {
   const { container, getByText, getAllByText } = render(
     <AppContextProvider>
@@ -20,20 +26,20 @@ const setup = () => {
   return { container, getByText, getAllByText }
 }
 
-test('User select works correctly', () => {
+test('User select works correctly', async () => {
   const { container, getByText, getAllByText } = setup()
 
-  WIZARD.SERVICES.items.forEach(item => {
-    userEvent.click(container.querySelector('.p-multiselect'))
-    userEvent.click(getByText(`${item.label} -`))
-    userEvent.click(container.querySelector('.p-multiselect'))
+  await asyncForEach(WIZARD.SERVICES.items, async (value) => {
+    await userEvent.click(container.querySelector('.p-multiselect'))
+    await userEvent.click(getByText(value.label))
+    await userEvent.click(container.querySelector('.p-multiselect'))
 
-    expect(getAllByText(item.label)).toHaveLength(2)
+    expect(getAllByText(value.label)).toHaveLength(1)
   })
 })
 
-test('Navigates to next step', () => {
+test('Navigates to next step', async () => {
   const { getByText } = setup()
 
-  userEvent.click(getByText(UI.NEXT))
+  await userEvent.click(getByText(UI.NEXT))
 })

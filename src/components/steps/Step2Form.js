@@ -49,7 +49,7 @@ function Step2Form () {
 
     if (error) {
       if (error.response) {
-        displayMessages.current.show([ERROR_MESSAGE(error, refetch, error.response.data.detail)])
+        displayMessages.current.show([ERROR_MESSAGE(error, refetch, error.response.data.detail)]) //TODO: This fails is backend is offline
       } else {
         displayMessages.current.show([ERROR_MESSAGE(error, refetch)])
       }
@@ -99,7 +99,7 @@ function Step2Form () {
           disabled={loading || error}
           suggestions={filteredNames[WIZARD.MANAGER.ref]}
           completeMethod={e => searchNames(e, WIZARD.MANAGER.ref)}
-          value={wizard[WIZARD.MANAGER.ref] !== null && [wizard[WIZARD.MANAGER.ref]]}
+          value={wizard[WIZARD.MANAGER.ref] !== null ? [wizard[WIZARD.MANAGER.ref]] : null}
           onChange={e => setWizard({
             type: WIZARD.MANAGER.ref,
             payload: e.value !== null ?

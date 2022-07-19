@@ -20,28 +20,28 @@ const setup = () => {
   return { container, getByText }
 }
 
-test('Required user input works correctly', () => {
+test('Required user input works correctly', async () => {
   const { container, getByText } = setup()
 
   expect(getByText(UI.NEXT).closest('button')).toBeDisabled()
 
-  userEvent.type(container.querySelector('input'), 'Team Test')
+  await userEvent.type(container.querySelector('input'), 'Team Test')
 
   expect(container.querySelector('input')).toHaveValue('Team Test')
 
   expect(getByText(UI.NEXT).closest('button')).not.toBeDisabled()
 
-  userEvent.click(getByText(UI.NEXT))
+  await userEvent.click(getByText(UI.NEXT))
 })
 
-test('User input has reached max character length changes color to rgb(255, 87, 87)', () => {
+test('User input has reached max character length changes color to rgb(255, 87, 87)', async () => {
   const { container, getByText } = setup()
 
-  userEvent.type(container.querySelector('input'), 'A Very Long Name Thing')
+  await userEvent.type(container.querySelector('input'), 'Tremendous Scallywags')
 
-  expect(container.querySelector('input')).toHaveValue('A Very Long Name T')
+  expect(container.querySelector('input')).toHaveValue('Tremendous Scally')
 
-  expect(getByText(`(18 / ${WIZARD.TEAM_NAME.max_chars} ${UI.CHARS})`)).toBeInTheDocument()
-  expect(getByText(`(18 / ${WIZARD.TEAM_NAME.max_chars} ${UI.CHARS})`)).toHaveStyle('color: rgb(255, 87, 87)')
+  expect(getByText(`(17 / ${WIZARD.TEAM_NAME.max_chars} ${UI.CHARS})`)).toBeInTheDocument()
+  expect(getByText(`(17 / ${WIZARD.TEAM_NAME.max_chars} ${UI.CHARS})`)).toHaveStyle('color: rgb(255, 87, 87)')
 
 })

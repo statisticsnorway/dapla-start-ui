@@ -11,7 +11,7 @@ Functionality includes:
 
 * Defining a team name
 * Choosing services to be enabled for the team
-* Mapping team members to different levels of data and services access
+* Mapping team members to different levels of services and data access
 
 ## Development
 
@@ -53,5 +53,5 @@ This application uses [PrimeReact](https://www.primefaces.org/primereact/).
 
 This application follows
 [General React Setup](https://github.com/statisticsnorway/cra-template-dapla-react-app#general-react-setup) from our
-dapla-react-app template when it comes to handling runtime environment variables, unit tests setup and everything
+_dapla-react-app_ template when it comes to handling runtime environment variables, unit tests setup and everything
 related to CI/CD.

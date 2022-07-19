@@ -42,7 +42,7 @@ function Step4 () {
     if (error) {
       if (error.response) {
         displayMessages.current.show([
-          ERROR_MESSAGE(error, doExecute, error.response.data.detail),
+          ERROR_MESSAGE(error, doExecute, error.response.data.detail), //TODO: This fails is backend is offline
           HELP_MESSAGE(wizard)
         ])
       } else {

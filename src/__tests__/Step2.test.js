@@ -19,10 +19,10 @@ test('Renders correctly', () => {
   expect(getByText(STEPS[2].pageTitle)).toBeInTheDocument()
 })
 
-test('Renders data states help correctly', () => {
+test('Renders data states help correctly', async () => {
   const { getByText, getAllByText } = setup()
 
-  userEvent.click(getByText(STEP_2.HELP_HEADER))
+  await userEvent.click(getByText(STEP_2.HELP_HEADER))
 
   STEP_2.GROUPS.forEach((group, index) => {
     if (index % 2 === 0) {
