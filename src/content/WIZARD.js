@@ -7,9 +7,15 @@ export const WIZARD = {
       Teamets navn (for eksempel: "Pålegg Brunost").
       <b> Dette kan endres senere. </b>
       Det er OK å bruke store bokstaver, Æ/Ø/Å, og mellomrom her. Det genererte tekniske teamnavnet du kan se nedenfor
-      vil <b>ikke kunne endres</b> senere.
+      vil <b>ikke kunne endres</b> senere men kan overstyres her og nå hvis ønskelig.
     </>,
-    ref: 'display_team_name',
+    ref: 'display_team_name'
+  },
+  UNIFORM_TEAM_NAME: {
+    title: 'Teknisk teamnavn',
+    description: 'Her tillates bare små bokstaver, bindestrek og ikke æ/ø/å.',
+    override: 'override_uniform_team_name',
+    ref: 'uniform_team_name',
     max_chars: 17
   },
   MANAGER: {
