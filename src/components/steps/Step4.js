@@ -6,7 +6,7 @@ import { Divider } from 'primereact/divider'
 import { Button } from 'primereact/button'
 import { Chip } from 'primereact/chip'
 
-import { ApiContext, useWizardContext } from '../../context/AppContext'
+import { ApiContext, useWizardContext, useWizardOverrideContext } from '../../context/AppContext'
 import { API, ERROR_MESSAGE, HELP_MESSAGE } from '../../configurations'
 import { STEP_2, STEP_4, STEPS, UI, WIZARD } from '../../content'
 
@@ -18,6 +18,7 @@ const resolveMembers = member => <>
 function Step4 () {
   const { wizard } = useWizardContext()
   const { api } = useContext(ApiContext)
+  const { wizardOverride } = useWizardOverrideContext()
 
   const displayMessages = useRef(null)
 
@@ -26,8 +27,14 @@ function Step4 () {
   const [{ loading, error }, execute] = useAxios({ method: 'POST' }, { manual: true, useCache: false })
 
   const doExecute = () => {
+    let data = wizard
+
+    if (wizardOverride[WIZARD.UNIFORM_TEAM_NAME.override]) {
+      data = { ...data, [WIZARD.UNIFORM_TEAM_NAME.ref]: wizardOverride[WIZARD.UNIFORM_TEAM_NAME.ref] }
+    }
+
     execute({
-      data: wizard,
+      data: data,
       url: `${api}${API.CREATE_JIRA}`
     }).then(response => {
       navigate('/5', { state: response.data })
@@ -40,15 +47,21 @@ function Step4 () {
     }
 
     if (error) {
+      let data = wizard
+
+      if (wizardOverride[WIZARD.UNIFORM_TEAM_NAME.override]) {
+        data = { ...data, [WIZARD.UNIFORM_TEAM_NAME.ref]: wizardOverride[WIZARD.UNIFORM_TEAM_NAME.ref] }
+      }
+
       if (error.response) {
         displayMessages.current.show([
           ERROR_MESSAGE(error, doExecute, error.response.data.detail), //TODO: This fails is backend is offline
-          HELP_MESSAGE(wizard)
+          HELP_MESSAGE(data)
         ])
       } else {
         displayMessages.current.show([
           ERROR_MESSAGE(error, doExecute),
-          HELP_MESSAGE(wizard)
+          HELP_MESSAGE(data)
         ])
       }
     }
@@ -65,8 +78,13 @@ function Step4 () {
         <Divider />
         {STEP_4.TEXT}
         {error && <Messages ref={displayMessages} />}
-        {wizard[WIZARD.TEAM_NAME.ref].length > 6 && <h2>{wizard[WIZARD.TEAM_NAME.ref]}</h2>}
-        <ul className="list-none p-0 m-0">
+        {wizard[WIZARD.TEAM_NAME.ref].length > 6 &&
+          <>
+            <h2 className="mb-0">{wizard[WIZARD.TEAM_NAME.ref]}</h2>
+            <span style={{ opacity: 0.8 }}>{wizardOverride[WIZARD.UNIFORM_TEAM_NAME.ref]}</span>
+          </>
+        }
+        <ul className="list-none p-0 m-0 mt-3">
           {wizard[WIZARD.MANAGER.ref] !== null &&
             <li className="flex align-items-center py-3 px-2 border-top-1 border-300 flex-wrap">
               <div className="text-500 w-6 md:w-3 font-medium">{WIZARD.MANAGER.title}</div>

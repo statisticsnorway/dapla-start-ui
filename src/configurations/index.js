@@ -1,1 +1,1 @@
-export { API, ERROR_MESSAGE, HELP_MESSAGE } from './API'
+export { API, ERROR_MESSAGE, HELP_MESSAGE, createUniformWord } from './API'

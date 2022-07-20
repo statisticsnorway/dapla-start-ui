@@ -60,3 +60,10 @@ export const HELP_MESSAGE = data => {
     />
   })
 }
+
+export const createUniformWord = word => {
+  const trimSpaces = word.toLowerCase().trimStart().trimEnd()
+  const removePrefixAndSpaces = trimSpaces.replaceAll('team ', '').replaceAll(' ', '-')
+
+  return removePrefixAndSpaces.replaceAll('æ', 'ae').replaceAll('ø', 'oe').replaceAll('å', 'aa')
+}

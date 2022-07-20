@@ -39,7 +39,7 @@ const testData = [
 ]
 
 const setup = () => {
-  const { getByText, getAllByRole, getAllByText, getByTestId } = render(
+  const { getByText, getAllByRole, getByTestId } = render(
     <AppContextProvider>
       <MemoryRouter initialEntries={['/2']}>
         <Step2Form />
@@ -47,27 +47,28 @@ const setup = () => {
     </AppContextProvider>
   )
 
-  return { getByText, getAllByRole, getAllByText, getByTestId }
+  return { getByText, getAllByRole, getByTestId }
 }
 
 test('Required user input works correctly', async () => {
   useAxios.mockReturnValue([{ loading: false, error: null, data: testData }, refetch])
 
-  const { getByText, getAllByRole, getAllByText } = setup()
+  const { getByText, getAllByRole } = setup()
 
   expect(getByText(UI.NEXT).closest('button')).toBeDisabled()
 
-  await userEvent.type(getAllByRole('combobox')[0], 'man@ssb.no')
+  await userEvent.type(getAllByRole('combobox')[0], testData[0][API.MEMBER_OBJECT.EMAIL_SHORT])
 
   await new Promise(r => setTimeout(r, 300))
 
   await userEvent.keyboard('{ArrowDown}')
   await userEvent.keyboard('{Enter}')
-  await userEvent.click(getAllByText('Manager')[0])
+  await userEvent.click(getByText(testData[0][API.MEMBER_OBJECT.NAME]))
+  await userEvent.keyboard('{Escape}')
 
-  await new Promise(r => setTimeout(r, 100))
+  await new Promise(r => setTimeout(r, 200))
 
-  expect(getAllByText('Manager')).toHaveLength(2) // PrimeReact bug where combobox stays open?
+  expect(getByText('Manager')).toBeInTheDocument()
 
   expect(getByText(UI.NEXT).closest('button')).not.toBeDisabled()
 
@@ -77,20 +78,21 @@ test('Required user input works correctly', async () => {
 test('User multi-input (Chips) works correctly', async () => {
   useAxios.mockReturnValue([{ loading: false, error: null, data: testData }, refetch])
 
-  const { getAllByText, getAllByRole } = setup()
+  const { getByText, getAllByRole } = setup()
 
   await asyncForEach(STEP_2.FORM_FIELDS, async (value, index) => {
-    await userEvent.type(getAllByRole('combobox')[index + 1], `dad@ssb.no`)
+    await userEvent.type(getAllByRole('combobox')[index + 1], testData[index + 1][API.MEMBER_OBJECT.EMAIL_SHORT])
 
     await new Promise(r => setTimeout(r, 300))
 
     await userEvent.keyboard('{ArrowDown}')
     await userEvent.keyboard('{Enter}')
-    await userEvent.click(getAllByText('Data Admin')[index + 1])
+    await userEvent.click(getByText(testData[index + 1][API.MEMBER_OBJECT.NAME]))
+    await userEvent.keyboard('{Escape}')
 
-    await new Promise(r => setTimeout(r, 100))
+    await new Promise(r => setTimeout(r, 200))
 
-    expect(getAllByText(`Data Admin`)).toHaveLength(1)
+    expect(getByText(testData[index + 1][API.MEMBER_OBJECT.NAME])).toBeInTheDocument()
   })
 })
 

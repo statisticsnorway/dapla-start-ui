@@ -30,11 +30,11 @@ test('User select works correctly', async () => {
   const { container, getByText, getAllByText } = setup()
 
   await asyncForEach(WIZARD.SERVICES.items, async (value) => {
-    await userEvent.click(container.querySelector('.p-multiselect'))
-    await userEvent.click(getByText(value.label))
-    await userEvent.click(container.querySelector('.p-multiselect'))
+    await userEvent.click(container.querySelector('.p-multiselect-trigger'))
+    await userEvent.click(getByText(`${value.label} -`))
+    await userEvent.click(container.querySelector('.p-multiselect-trigger'))
 
-    expect(getAllByText(value.label)).toHaveLength(1)
+    expect(getAllByText(value.label)).toHaveLength(2)
   })
 })
 

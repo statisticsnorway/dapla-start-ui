@@ -1,32 +1,27 @@
-import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Accordion, AccordionTab } from 'primereact/accordion'
 import { InputText } from 'primereact/inputtext'
 import { Divider } from 'primereact/divider'
 import { Button } from 'primereact/button'
 
-import { useWizardActions, useWizardContext } from '../../context/AppContext'
+import Step1Override from './Step1Override'
 import { ShowHideFAQ } from '../index'
+import {
+  useWizardActions,
+  useWizardContext,
+  useWizardOverrideActions,
+  useWizardOverrideContext
+} from '../../context/AppContext'
+import { createUniformWord } from '../../configurations'
 import { FAQ, STEPS, UI, WIZARD } from '../../content'
-
-const createUniformWord = word => {
-  const trimSpaces = word.toLowerCase().trimStart().trimEnd()
-  const removePrefixAndSpaces = trimSpaces.replaceAll('team ', '').replaceAll(' ', '-')
-
-  return removePrefixAndSpaces.replaceAll('æ', 'ae').replaceAll('ø', 'oe').replaceAll('å', 'aa')
-}
 
 function Step1 () {
   const { wizard } = useWizardContext()
   const { setWizard } = useWizardActions()
+  const { wizardOverride } = useWizardOverrideContext()
+  const { setWizardOverride } = useWizardOverrideActions()
 
   let navigate = useNavigate()
-
-  const [uniformTeamName, setUniformTeamName] = useState(createUniformWord(wizard[WIZARD.TEAM_NAME.ref]))
-
-  useEffect(() => {
-    setUniformTeamName(createUniformWord(wizard[WIZARD.TEAM_NAME.ref]))
-  }, [wizard])
 
   return (
     <div className="grid">
@@ -51,31 +46,27 @@ function Step1 () {
               style={{ minWidth: '300px' }}
               keyfilter={/^[a-zæøåA-ZÆØÅ ]*$/}
               value={wizard[WIZARD.TEAM_NAME.ref]}
-              aria-describedby={`${WIZARD.TEAM_NAME.title}-help`}
+              aria-describedby={`${WIZARD.TEAM_NAME.ref}-help`}
               onChange={e => {
-                if (createUniformWord(e.target.value).length <= WIZARD.TEAM_NAME.max_chars) {
+                if (createUniformWord(e.target.value).length <= WIZARD.UNIFORM_TEAM_NAME.max_chars) {
                   setWizard({ type: WIZARD.TEAM_NAME.ref, payload: e.target.value })
+                  if (!wizardOverride[WIZARD.UNIFORM_TEAM_NAME.override]) {
+                    setWizardOverride({
+                      type: WIZARD.UNIFORM_TEAM_NAME.ref,
+                      payload: createUniformWord(e.target.value)
+                    })
+                  }
                 }
               }}
             />
-            <small id={`${WIZARD.TEAM_NAME.title}-help`} className="block">{WIZARD.TEAM_NAME.description}</small>
+            <small id={`${WIZARD.TEAM_NAME.ref}-help`} className="block">{WIZARD.TEAM_NAME.description}</small>
           </div>
           <Divider />
           <span style={{ opacity: 0.8, fontSize: '0.8rem' }}>
-            <b>Teknisk teamnavn: </b>
-            {uniformTeamName}
+            <b>{`${WIZARD.UNIFORM_TEAM_NAME.title}: `}</b>
+            {wizardOverride[WIZARD.UNIFORM_TEAM_NAME.ref]}
           </span>
-          {uniformTeamName.length > 0 &&
-          <span
-            style={{
-              opacity: 0.7,
-              fontSize: '0.7rem',
-              color: uniformTeamName.length >= WIZARD.TEAM_NAME.max_chars ? UI.REQUIRED : '#495057'
-            }}
-          >
-            {` (${uniformTeamName.length} / ${WIZARD.TEAM_NAME.max_chars} ${UI.CHARS})`}
-          </span>
-          }
+          <Step1Override />
           <div className="flex justify-content-end mt-4">
             {wizard[WIZARD.TEAM_NAME.ref].length > 2 ?
               <Button
@@ -86,6 +77,10 @@ function Step1 () {
                   setWizard({
                     type: WIZARD.TEAM_NAME.ref,
                     payload: wizard[WIZARD.TEAM_NAME.ref].trimStart().trimEnd()
+                  })
+                  setWizardOverride({
+                    type: WIZARD.UNIFORM_TEAM_NAME.ref,
+                    payload: wizardOverride[WIZARD.UNIFORM_TEAM_NAME.ref].trimStart().trimEnd()
                   })
                   navigate('/2')
                 }}

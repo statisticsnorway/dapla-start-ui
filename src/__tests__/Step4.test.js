@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event'
 import { render } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 
-import { AppContextProvider, useWizardContext } from '../context/AppContext'
+import { AppContextProvider, useWizardContext, useWizardOverrideContext } from '../context/AppContext'
 import { Step4 } from '../components/steps'
 import { API } from '../configurations'
 import { STEPS, UI, WIZARD } from '../content'
@@ -12,14 +12,15 @@ jest.mock('../context/AppContext', () => {
   const actualThing = jest.requireActual('../context/AppContext')
   return {
     ...actualThing,
-    useWizardContext: jest.fn()
+    useWizardContext: jest.fn(),
+    useWizardOverrideContext: jest.fn()
   }
 })
 
 const execute = jest.fn()
 const testWizardData = {
   wizard: {
-    [WIZARD.TEAM_NAME.ref]: 'Team Test',
+    [WIZARD.TEAM_NAME.ref]: 'Sultry Scallywags',
     [WIZARD.MANAGER.ref]: [{
       [API.MEMBER_OBJECT.NAME]: 'Manager',
       [API.MEMBER_OBJECT.EMAIL_SHORT]: 'man@ssb.no',
@@ -43,6 +44,18 @@ const testWizardData = {
     [WIZARD.OTHER_INFO.ref]: '',
     [WIZARD.SERVICES.ref]: ['transfer_service'],
     ui_version: process.env.REACT_APP_VERSION
+  }
+}
+const testWizardOverrideData = {
+  wizardOverride: {
+    [WIZARD.UNIFORM_TEAM_NAME.override]: false,
+    [WIZARD.UNIFORM_TEAM_NAME.ref]: 'sultry-scallywags'
+  }
+}
+const testWizardOverrideDataOverride = {
+  wizardOverride: {
+    [WIZARD.UNIFORM_TEAM_NAME.override]: true,
+    [WIZARD.UNIFORM_TEAM_NAME.ref]: 'sultry-scallyways'
   }
 }
 const emptyTestWizardData = {
@@ -72,6 +85,7 @@ const setup = () => {
 
 test('Renders correctly', () => {
   useWizardContext.mockImplementation(() => testWizardData)
+  useWizardOverrideContext.mockImplementation(() => testWizardOverrideData)
   useAxios.mockReturnValue([{ loading: false, error: null }, execute])
 
   const { getByText } = setup()
@@ -81,6 +95,7 @@ test('Renders correctly', () => {
 
 test('Renders correctly on empty context', () => {
   useWizardContext.mockImplementation(() => emptyTestWizardData)
+  useWizardOverrideContext.mockImplementation(() => testWizardOverrideData)
   useAxios.mockReturnValue([{ loading: false, error: null }, execute])
 
   const { getByText } = setup()
@@ -90,6 +105,7 @@ test('Renders correctly on empty context', () => {
 
 test('Navigates to next step', async () => {
   useWizardContext.mockImplementation(() => testWizardData)
+  useWizardOverrideContext.mockImplementation(() => testWizardOverrideData)
   useAxios.mockReturnValue([{ loading: false, error: null }, execute])
   execute.mockResolvedValue({ data: { key: 'DS-1' } })
 
@@ -98,6 +114,27 @@ test('Navigates to next step', async () => {
   await userEvent.click(getByText(UI.COMPLETE))
 
   expect(execute).toHaveBeenCalled()
+})
+
+test('Navigates to next step if uniform team name is overridden', async () => {
+  useWizardContext.mockImplementation(() => testWizardData)
+  useWizardOverrideContext.mockImplementation(() => testWizardOverrideDataOverride)
+  useAxios.mockReturnValue([{ loading: false, error: null }, execute])
+  execute.mockResolvedValue({ data: { key: 'DS-1' } })
+
+  const { getByText } = setup()
+
+  await userEvent.click(getByText(UI.COMPLETE))
+
+  expect(execute).toHaveBeenCalled()
+  expect(execute).toHaveBeenCalledWith({
+    data:
+      {
+        ...testWizardData.wizard,
+        [WIZARD.UNIFORM_TEAM_NAME.ref]: testWizardOverrideDataOverride.wizardOverride[WIZARD.UNIFORM_TEAM_NAME.ref]
+      },
+    url: `${window.__ENV.REACT_APP_API}${API.CREATE_JIRA}`
+  })
 })
 
 test('Error handling works correctly', () => {
@@ -112,6 +149,7 @@ test('Error handling works correctly', () => {
   const errorMessage = new ErrorClass()
 
   useWizardContext.mockImplementation(() => testWizardData)
+  useWizardOverrideContext.mockImplementation(() => testWizardOverrideData)
   useAxios.mockReturnValue([{ loading: false, error: errorMessage, data: null }, execute])
 
   const { getByText } = setup()
@@ -123,6 +161,7 @@ test('Error response handling works correctly', () => {
   const errorMessage = { response: { data: { detail: 'Something went wrong!' } } }
 
   useWizardContext.mockImplementation(() => testWizardData)
+  useWizardOverrideContext.mockImplementation(() => testWizardOverrideData)
   useAxios.mockReturnValue([{ loading: false, error: errorMessage, data: null }, execute])
 
   const { getByText } = setup()
@@ -134,6 +173,7 @@ test('Error array response data handling works correctly', () => {
   const errorMessage = { response: { data: { detail: [{ loc: 69, msg: 'Not a valid dict!' }] } } }
 
   useWizardContext.mockImplementation(() => testWizardData)
+  useWizardOverrideContext.mockImplementation(() => testWizardOverrideData)
   useAxios.mockReturnValue([{ loading: false, error: errorMessage, data: null }, execute])
 
   const { getByText } = setup()
@@ -145,6 +185,7 @@ test('Try again after error works correctly', async () => {
   const errorMessage = { response: { data: { detail: 'Something went wrong!' } } }
 
   useWizardContext.mockImplementation(() => testWizardData)
+  useWizardOverrideContext.mockImplementation(() => testWizardOverrideData)
   useAxios.mockReturnValueOnce([{ loading: false, error: errorMessage, data: null }, execute])
     .mockReturnValueOnce([{ loading: false, error: null, data: null }, execute])
   execute.mockResolvedValue({ data: { key: 'DS-1' } })
