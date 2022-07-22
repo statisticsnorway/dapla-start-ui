@@ -46,6 +46,14 @@ export const WIZARD = {
     description: 'Her legger du inn eventuelle kommentarer eller annen informasjon.',
     ref: 'other_info'
   },
+  ORG_INFO: {
+    title: 'Seksjon',
+    summaryTitle: 'Hovedansvarlig seksjon',
+    description: <p style={{ fontSize: '0.85rem' }} className="mb-4">
+      Hovedansvarlig seksjon for teamet.
+    </p>,
+    ref: 'org_info'
+  },
   SERVICES: {
     title: 'Tjenester',
     description: <p style={{ fontSize: '0.85rem' }} className="mb-4">

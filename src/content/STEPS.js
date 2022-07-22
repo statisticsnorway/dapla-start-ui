@@ -12,6 +12,10 @@ export const STEPS = [
     pageTitle: 'Medlemmer'
   },
   {
+    stepHeader: 'Ansvar',
+    pageTitle: 'Ansvar'
+  },
+  {
     stepHeader: 'Tjenester',
     pageTitle: 'Tjenester'
   },

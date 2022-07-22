@@ -10,7 +10,7 @@ import 'primeflex/primeflex.css'
 
 import './App.css'
 
-import { Step0, Step1, Step2, Step3, Step4, Step5 } from './components/steps'
+import { Step0, Step1, Step2, Step3, Step4, Step5, Step6 } from './components/steps'
 import { IMAGE_ALT_TEXT, STEPS } from './content'
 
 function App () {
@@ -34,7 +34,7 @@ function App () {
 
   return (
     <>
-      {location.pathname !== '/5' &&
+      {location.pathname !== '/6' &&
         <div className="p-3 mb-4 box shadow-3 flex">
           <div className="flex-shrink-0 pr-3">
             <Image src={dapla_long_rgb} alt={IMAGE_ALT_TEXT.DAPLA_LOGO} width="130" />
@@ -57,6 +57,7 @@ function App () {
         <Route path="/3" element={<Step3 />} />
         <Route path="/4" element={<Step4 />} />
         <Route path="/5" element={<Step5 />} />
+        <Route path="/6" element={<Step6 />} />
       </Routes>
     </>
   )

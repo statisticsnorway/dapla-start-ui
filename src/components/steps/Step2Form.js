@@ -48,8 +48,8 @@ function Step2Form () {
     }
 
     if (error) {
-      if (error.response) {
-        displayMessages.current.show([ERROR_MESSAGE(error, refetch, error.response.data.detail)]) //TODO: This fails is backend is offline
+      if (error.response && error.response.data) {
+        displayMessages.current.show([ERROR_MESSAGE(error, refetch, error.response.data.detail)])
       } else {
         displayMessages.current.show([ERROR_MESSAGE(error, refetch)])
       }
