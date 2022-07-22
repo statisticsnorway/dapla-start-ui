@@ -5,10 +5,16 @@ import { UI } from '../content'
 export const API = {
   CREATE_JIRA: '/create_jira',
   GET_USERS: '/users',
+  GET_ORG_INFO: '/org_info',
   MEMBER_OBJECT: {
     NAME: 'name',
     EMAIL: 'email',
     EMAIL_SHORT: 'email_short'
+  },
+  ORG_INFO_OBJECT: {
+    CODE: 'code',
+    NAME: 'name',
+    PARENT_CODE: 'parentCode'
   }
 }
 
