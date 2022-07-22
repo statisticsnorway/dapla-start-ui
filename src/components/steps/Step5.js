@@ -58,9 +58,9 @@ function Step5 () {
         data = { ...data, [WIZARD.UNIFORM_TEAM_NAME.ref]: wizardOverride[WIZARD.UNIFORM_TEAM_NAME.ref] }
       }
 
-      if (error.response) {
+      if (error.response && error.response.data) {
         displayMessages.current.show([
-          ERROR_MESSAGE(error, doExecute, error.response.data.detail), //TODO: This fails is backend is offline
+          ERROR_MESSAGE(error, doExecute, error.response.data.detail),
           HELP_MESSAGE(data)
         ])
       } else {
