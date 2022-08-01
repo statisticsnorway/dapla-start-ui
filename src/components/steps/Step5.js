@@ -83,13 +83,27 @@ function Step5 () {
         <Divider />
         {STEP_5.TEXT}
         {error && <Messages ref={displayMessages} />}
-        {wizard[WIZARD.TEAM_NAME.ref].length > 6 &&
-          <>
-            <h2 className="mb-0">{wizard[WIZARD.TEAM_NAME.ref]}</h2>
-            <span style={{ opacity: 0.8 }}>{wizardOverride[WIZARD.UNIFORM_TEAM_NAME.ref]}</span>
-          </>
-        }
-        <ul className="list-none p-0 m-0 mt-3">
+        <ul className="list-none p-0 m-0 mt-6">
+          {wizard[WIZARD.TEAM_NAME.ref].length > 2 &&
+            <>
+              <li className="flex align-items-center py-3 px-2 border-300 flex-wrap">
+                <div className="text-500 w-6 md:w-3 font-medium">{WIZARD.TEAM_NAME.title}</div>
+                <div className="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">
+                  <div className="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">
+                    {wizard[WIZARD.TEAM_NAME.ref]}
+                  </div>
+                </div>
+              </li>
+              <li className="flex align-items-center py-3 px-2 border-top-1 border-300 flex-wrap">
+                <div className="text-500 w-6 md:w-3 font-medium">{WIZARD.UNIFORM_TEAM_NAME.title}</div>
+                <div className="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">
+                  <div className="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">
+                    {wizardOverride[WIZARD.UNIFORM_TEAM_NAME.ref]}
+                  </div>
+                </div>
+              </li>
+            </>
+          }
           {wizard[WIZARD.ORG_INFO.ref] !== null &&
             <li className="flex align-items-center py-3 px-2 border-top-1 border-300 flex-wrap">
               <div className="text-500 w-6 md:w-3 font-medium">{WIZARD.ORG_INFO.summaryTitle}</div>

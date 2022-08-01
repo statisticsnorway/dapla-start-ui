@@ -50,7 +50,8 @@ export const WIZARD = {
     title: 'Seksjon',
     summaryTitle: 'Hovedansvarlig seksjon',
     description: <p style={{ fontSize: '0.85rem' }} className="mb-4">
-      Hovedansvarlig seksjon for teamet.
+      Hovedansvarlig seksjon for teamet. I boksen under kan du søke på seksjonsnavn og seksjonsnummer. Fra listen som
+      dukker opp under boksen kan du velge seksjon eller bruke piltastene og trykke Enter.
     </p>,
     ref: 'org_info'
   },

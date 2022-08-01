@@ -18,8 +18,8 @@ export const STEP_2 = {
   HELP_HEADER: 'Hvordan bør jeg sette opp teamet egentlig?',
   HELP: <p style={{ fontSize: '0.85rem', marginBottom: '2rem' }}>
     <b>Det som fylles inn her kan endres senere. </b>
-    Boksene gir søk på navn og epost. Fra listen som dukker opp under boksen kan du velge person eller bruke piltastene
-    og trykke Enter. Hvis en person ikke finnes i søket kan du legge inn kommentar i siste
+    I boksene under kan du søke på navn og epost. Fra listen som dukker opp under boksen kan du velge person eller bruke
+    piltastene og trykke Enter. Hvis en person ikke finnes i søket kan du legge inn kommentar i siste
     boksen '<b>{WIZARD.OTHER_INFO.title}</b>' om dette og i hvilken gruppe den skal inn.
   </p>,
   GROUPS: [

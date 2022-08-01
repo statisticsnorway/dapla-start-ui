@@ -18,7 +18,7 @@ local-run: ## Run the app locally
 	yarn start
 
 .PHONY: local-test
-local-run: ## Run tests and get coverage report
+local-test: ## Run tests and get coverage report
 	yarn coverage
 
 .PHONY: docker-build
