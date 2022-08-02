@@ -12,6 +12,7 @@ jest.mock('../components/steps/Step2', () => () => null)
 jest.mock('../components/steps/Step3', () => () => null)
 jest.mock('../components/steps/Step4', () => () => null)
 jest.mock('../components/steps/Step5', () => () => null)
+jest.mock('../components/steps/Step6', () => () => null)
 
 const setup = () => {
   const { getByText } = render(

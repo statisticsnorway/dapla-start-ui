@@ -48,8 +48,8 @@ function Step2Form () {
     }
 
     if (error) {
-      if (error.response) {
-        displayMessages.current.show([ERROR_MESSAGE(error, refetch, error.response.data.detail)]) //TODO: This fails is backend is offline
+      if (error.response && error.response.data) {
+        displayMessages.current.show([ERROR_MESSAGE(error, refetch, error.response.data.detail)])
       } else {
         displayMessages.current.show([ERROR_MESSAGE(error, refetch)])
       }
@@ -111,7 +111,7 @@ function Step2Form () {
               : null
           })}
         />
-        <small id={`${WIZARD.MANAGER.title}-help`} className="block">{WIZARD.MANAGER.description}</small>
+        <small id={`${WIZARD.MANAGER.ref}-help`} className="block">{WIZARD.MANAGER.description}</small>
       </div>
       {STEP_2.FORM_FIELDS.map(input =>
         <div key={input} className="field mt-4">
@@ -127,7 +127,7 @@ function Step2Form () {
             completeMethod={e => searchNames(e, WIZARD[input].ref)}
             onChange={e => setWizard({ type: WIZARD[input].ref, payload: e.value })}
           />
-          <small id={`${WIZARD[input].title}-help`} className="block">{WIZARD[input].description}</small>
+          <small id={`${WIZARD[input].ref}-help`} className="block">{WIZARD[input].description}</small>
         </div>
       )}
       <Divider />
@@ -141,7 +141,7 @@ function Step2Form () {
           data-testid={`${WIZARD.OTHER_INFO.ref}-testid`}
           onChange={e => setWizard({ type: WIZARD.OTHER_INFO.ref, payload: e.target.value })}
         />
-        <small id={`${WIZARD.OTHER_INFO.title}-help`} className="block">{WIZARD.OTHER_INFO.description}</small>
+        <small id={`${WIZARD.OTHER_INFO.ref}-help`} className="block">{WIZARD.OTHER_INFO.description}</small>
       </div>
       <div className="flex justify-content-end mt-4">
         {wizard[WIZARD.MANAGER.ref] !== null ?

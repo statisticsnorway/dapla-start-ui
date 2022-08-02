@@ -5,10 +5,16 @@ import { UI } from '../content'
 export const API = {
   CREATE_JIRA: '/create_jira',
   GET_USERS: '/users',
+  GET_ORG_INFO: '/org_info',
   MEMBER_OBJECT: {
     NAME: 'name',
     EMAIL: 'email',
     EMAIL_SHORT: 'email_short'
+  },
+  ORG_INFO_OBJECT: {
+    CODE: 'code',
+    NAME: 'name',
+    PARENT_CODE: 'parentCode'
   }
 }
 
@@ -59,4 +65,11 @@ export const HELP_MESSAGE = data => {
       onClick={() => navigator.clipboard.writeText(JSON.stringify(data, null, 2))}
     />
   })
+}
+
+export const createUniformWord = word => {
+  const trimSpaces = word.toLowerCase().trimStart().trimEnd()
+  const removePrefixAndSpaces = trimSpaces.replaceAll('team ', '').replaceAll(' ', '-')
+
+  return removePrefixAndSpaces.replaceAll('æ', 'ae').replaceAll('ø', 'oe').replaceAll('å', 'aa')
 }

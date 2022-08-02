@@ -7,9 +7,15 @@ export const WIZARD = {
       Teamets navn (for eksempel: "Pålegg Brunost").
       <b> Dette kan endres senere. </b>
       Det er OK å bruke store bokstaver, Æ/Ø/Å, og mellomrom her. Det genererte tekniske teamnavnet du kan se nedenfor
-      vil <b>ikke kunne endres</b> senere.
+      vil <b>ikke kunne endres</b> senere men kan overstyres her og nå hvis ønskelig.
     </>,
-    ref: 'display_team_name',
+    ref: 'display_team_name'
+  },
+  UNIFORM_TEAM_NAME: {
+    title: 'Teknisk teamnavn',
+    description: 'Her tillates bare små bokstaver, bindestrek og ikke æ/ø/å.',
+    override: 'override_uniform_team_name',
+    ref: 'uniform_team_name',
     max_chars: 17
   },
   MANAGER: {
@@ -39,6 +45,15 @@ export const WIZARD = {
     title: 'Annen informasjon',
     description: 'Her legger du inn eventuelle kommentarer eller annen informasjon.',
     ref: 'other_info'
+  },
+  ORG_INFO: {
+    title: 'Seksjon',
+    summaryTitle: 'Hovedansvarlig seksjon',
+    description: <p style={{ fontSize: '0.85rem' }} className="mb-4">
+      Hovedansvarlig seksjon for teamet. I boksen under kan du søke på seksjonsnavn og seksjonsnummer. Fra listen som
+      dukker opp under boksen kan du velge seksjon eller bruke piltastene og trykke Enter.
+    </p>,
+    ref: 'org_info'
   },
   SERVICES: {
     title: 'Tjenester',
