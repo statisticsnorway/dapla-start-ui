@@ -31,6 +31,8 @@ variables:
     value: '$(Build.SourceBranchName)-$(Build.SourceVersion)'
   - name: 'sonarCloud'
     value: 'bipSonarCloud-Dapla'
+  - name: 'snykServiceConnection'
+    value: 'Dapla-Snyk'
 
 jobs:
   - template: javascript/react-complete-build.yml@templates
@@ -39,3 +41,4 @@ jobs:
       imageTag: $(imageTag)
       sonarCloud: $(sonarCloud)
       tagToTag: $(Build.SourceVersion)
+      snykServiceConnection: $(snykServiceConnection)
