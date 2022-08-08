@@ -22,6 +22,9 @@ local-install                  Installation steps for local devlopment
 local-build                    Build the app for local serving
 local-run                      Run the app locally
 local-test                     Run tests and get coverage report
+update-version-major           Autoincrement and update the major version
+update-version-minor           Autoincrement and update the minor version
+update-version-patch           Autoincrement and update the patch version
 docker-build                   Build docker image
 docker-run                     Run app locally with docker
 docker-shell                   Enter shell of locally running docker container

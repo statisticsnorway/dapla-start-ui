@@ -21,6 +21,18 @@ local-run: ## Run the app locally
 local-test: ## Run tests and get coverage report
 	yarn coverage
 
+.PHONY: update-version-major
+update-version-major: ## Autoincrement and update the major version
+	yarn version --major --no-git-tag-version --no-commit-hooks
+
+.PHONY: update-version-minor
+update-version-minor: ## Autoincrement and update the minor version
+	yarn version --minor --no-git-tag-version --no-commit-hooks
+
+.PHONY: update-version-patch
+update-version-patch: ## Autoincrement and update the patch version
+	yarn version --patch --no-git-tag-version --no-commit-hooks
+
 .PHONY: docker-build
 docker-build: ## Build docker image
 	docker build -t dapla-start-ui .
