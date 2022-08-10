@@ -125,7 +125,7 @@ function Step2Form () {
             value={wizard[WIZARD[input].ref]}
             suggestions={filteredNames[WIZARD[input].ref]}
             completeMethod={e => searchNames(e, WIZARD[input].ref)}
-            onChange={e => setWizard({ type: WIZARD[input].ref, payload: e.value })}
+            onChange={e => setWizard({ type: WIZARD[input].ref, payload: e.value.length == 0 ? null: e.value })}
           />
           <small id={`${WIZARD[input].ref}-help`} className="block">{WIZARD[input].description}</small>
         </div>
