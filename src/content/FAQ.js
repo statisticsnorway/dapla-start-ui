@@ -46,7 +46,7 @@ export const FAQ = [
   {
     header: 'Hva om jeg trenger hjelp underveis?',
     text: <p>
-      Snakk med oss på <a href={UI.SLACK_URL}>#hjelp_dapla</a> så finner vi ut av
+      Send en epost til <a href={UI.KUNDESERVICE_MAIL}>Kundeservice</a> så finner vi ut av
       det.
     </p>
   },
@@ -61,16 +61,15 @@ export const FAQ = [
   {
     header: 'Hva om jeg ønsker å gjøre endringer på bestillingen?',
     text: <p>
-      Legg inn en kommentar på saken din (som du får en lenke til på slutten av veilederen), alternativt snakk med oss
-      på <a href={UI.SLACK_URL}>#hjelp_dapla</a>.
+      Legg inn en kommentar på saken din (som du får en lenke til på slutten av veilederen), alternativt send en epost
+      til <a href={UI.KUNDESERVICE_MAIL}>Kundeservice</a>.
     </p>
   },
   {
     header: 'Kan jeg bruke denne veilederen for å gjøre endringer i et team på et senere tidspunkt?',
     text: <p>
       Foreløpig er denne veilederen kun ment for opprettelse av nye team. Endring på tjenestene foretas fra GitHub.
-      Dokumentasjon for hvordan dette gjøres vil komme på plass etter hvert. Snakk med oss
-      på <a href={UI.SLACK_URL}>#hjelp_dapla</a> hvis du lurer på noe.
+      Dokumentasjon for hvordan dette gjøres vil komme på plass etter hvert.
     </p>
   },
   {

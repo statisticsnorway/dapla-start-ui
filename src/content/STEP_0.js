@@ -23,12 +23,7 @@ export const STEP_0 = {
     </p>
     <p>
       Nedenfor har vi samlet noen spørsmål og svar som forklarer litt mer om Dapla-team og prosessen med å komme i
-      gang. Vi anbefaler at du leser gjennom disse før du starter veilederen. Send oss gjerne flere spørsmål i
-      kanalen <a href={UI.SLACK_URL}>#hjelp_dapla</a> på Slack dersom noe er uklart.
-    </p>
-    <p>
-      Hvis du ikke har tilgang til Slack kan du alternativt sende en epost
-      til <a href={UI.SLACK_MAIL}>denne adressen</a>.
+      gang. Vi anbefaler at du leser gjennom disse før du starter veilederen.
     </p>
   </>
 }
