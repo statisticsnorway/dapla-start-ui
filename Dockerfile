@@ -1,7 +1,9 @@
 FROM nginx:alpine
 
-RUN apk add --no-cache nodejs yarn
-RUN yarn global add @beam-australia/react-env
+RUN apk update  \
+    && apk upgrade  \
+    && apk add --no-cache nodejs yarn  \
+    && yarn global add @beam-australia/react-env
 
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY .env docker-entrypoint.sh /var/
