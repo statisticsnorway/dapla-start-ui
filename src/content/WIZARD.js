@@ -1,5 +1,3 @@
-import { UI } from './UI'
-
 export const WIZARD = {
   TEAM_NAME: {
     title: 'Teamnavn',
@@ -59,8 +57,7 @@ export const WIZARD = {
     title: 'Tjenester',
     description: <p style={{ fontSize: '0.85rem' }} className="mb-4">
       Velg tjenestene teamet har behov for. Det er mulig å legge til tjenester senere, men det er en fordel om du
-      identifiserer de du trenger allerede nå. Dersom du er usikker, spør oss
-      på <a href={UI.SLACK_URL}>#hjelp_dapla</a>. Det vil komme flere tjenester
+      identifiserer de du trenger allerede nå. Det vil komme flere tjenester
       etterhvert, som kan legges til for teamet når som helst. Foreløpig er det kun <em>Transfer Service</em> som
       finnes.
     </p>,
