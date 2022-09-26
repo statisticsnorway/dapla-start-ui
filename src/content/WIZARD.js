@@ -1,5 +1,3 @@
-import { UI } from './UI'
-
 export const WIZARD = {
   TEAM_NAME: {
     title: 'Teamnavn',

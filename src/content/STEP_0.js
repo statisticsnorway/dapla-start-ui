@@ -1,7 +1,5 @@
 import { Tooltip } from 'primereact/tooltip'
 
-import { UI } from './UI'
-
 export const STEP_0 = {
   TEXT: <>
     <p>
