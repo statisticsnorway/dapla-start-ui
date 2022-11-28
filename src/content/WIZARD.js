@@ -4,8 +4,11 @@ export const WIZARD = {
     description: <>
       Teamets navn (for eksempel: "Pålegg Brunost").
       <b> Dette kan endres senere. </b>
-      Det er OK å bruke store bokstaver, Æ/Ø/Å, og mellomrom her. Det genererte tekniske teamnavnet du kan se nedenfor
-      vil <b>ikke kunne endres</b> senere men kan overstyres her og nå hvis ønskelig.
+
+      <p><b>OBS:</b> Vi støtter ikke teamnavn som starter med "demo" så vennligst unngå dette.
+        Det er OK å bruke store bokstaver, Æ/Ø/Å, og mellomrom her. Det genererte tekniske teamnavnet du kan se nedenfor
+        vil <b>ikke kunne endres</b> senere men kan overstyres her og nå hvis ønskelig.
+      </p>
     </>,
     ref: 'display_team_name'
   },
