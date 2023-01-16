@@ -22,7 +22,7 @@ export const STEP_6 = {
       innom <a href={UI.DAPLA_GUIDE_URL}>veilederen</a> som har mye nyttig informasjon om hvordan komme i gang på Dapla.
     </p>
     <p>
-      Hilsen dine venner i Team Argus 😊
+      Hilsen dine venner i Team Statistikktjenester 😊
     </p>
   </>,
   JIRA_URL: 'https://statistics-norway.atlassian.net/browse/'
