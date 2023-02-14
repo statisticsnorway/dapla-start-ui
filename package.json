@@ -77,6 +77,9 @@
       "cobertura",
       "lcov",
       "text"
-    ]
+    ],
+    "moduleNameMapper": {
+      "axios": "axios/dist/node/axios.cjs"
+    }
   }
 }
