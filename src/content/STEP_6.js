@@ -14,7 +14,7 @@ export const STEP_6 = {
       Teamansvarlig vil få beskjed når alt er klart.
     </p>
     <p>
-      Spør oss på <a href={UI.SLACK_URL}>#hjelp_dapla</a> om du lurer på noe,
+      Send en epost til <a href={UI.KUNDESERVICE_MAIL}>Kundeservice</a> om du lurer på noe,
       eller legg inn en kommentar på <a href={link}>saken</a>.
     </p>
     <p>
@@ -22,7 +22,7 @@ export const STEP_6 = {
       innom <a href={UI.DAPLA_GUIDE_URL}>veilederen</a> som har mye nyttig informasjon om hvordan komme i gang på Dapla.
     </p>
     <p>
-      Hilsen dine venner i Team Argus 😊
+      Hilsen dine venner i Team Statistikktjenester 😊
     </p>
   </>,
   JIRA_URL: 'https://statistics-norway.atlassian.net/browse/'
