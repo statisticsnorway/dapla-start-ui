@@ -61,14 +61,18 @@ export const WIZARD = {
     description: <p style={{ fontSize: '0.85rem' }} className="mb-4">
       Velg tjenestene teamet har behov for. Det er mulig å legge til tjenester senere, men det er en fordel om du
       identifiserer de du trenger allerede nå. Det vil komme flere tjenester
-      etterhvert, som kan legges til for teamet når som helst. Foreløpig er det kun <em>Transfer Service</em> som
-      finnes.
+      etterhvert, som kan legges til for teamet når som helst.
     </p>,
     items: [
       {
         label: 'Transfer Service',
         value: 'transfer_service',
         description: 'Overføre filer mellom Produksjonssonen og Dapla'
+      },
+      {
+        label: 'Automatisert kildedataprosessering',
+        value: 'source_data_automation',
+        description: 'Tjeneste for å automatisere overføring av kildedata'
       }
     ],
     ref: 'enabled_services'
