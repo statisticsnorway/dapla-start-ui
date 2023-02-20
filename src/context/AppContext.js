@@ -14,7 +14,7 @@ const initialWizard = {
   [WIZARD.SUPPORT.ref]: null,
   [WIZARD.OTHER_INFO.ref]: '',
   [WIZARD.ORG_INFO.ref]: null,
-  [WIZARD.SERVICES.ref]: null,
+  [WIZARD.SERVICES.ref]: ['source_data_automation', 'transfer_service'],
   ui_version: process.env.REACT_APP_VERSION
 }
 
