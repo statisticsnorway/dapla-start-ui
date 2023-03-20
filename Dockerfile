@@ -3,7 +3,8 @@ FROM nginx:1.23.3-alpine
 RUN apk update  \
     && apk upgrade  \
     && apk add --no-cache nodejs yarn  \
-    && yarn global add @beam-australia/react-env
+    && yarn global add @beam-australia/react-env \
+    && apk del curl
 
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY .env docker-entrypoint.sh /var/
