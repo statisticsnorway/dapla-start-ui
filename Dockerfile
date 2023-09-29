@@ -21,10 +21,8 @@ RUN chown -R nginx:nginx /var/cache/nginx && \
 
 USER nginx
 
-# Expose the port
 EXPOSE 8180
 
 ENTRYPOINT ["sh", "/var/docker-entrypoint.sh"]
 
-# Define the command to start NGINX
 CMD ["nginx", "-g", "daemon off;"]
