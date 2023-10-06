@@ -1,5 +1,5 @@
 # Build stage
-FROM nginx:1.24-alpine
+FROM nginx:1.25.2-alpine
 
 RUN apk update && apk upgrade && \
     apk add --no-cache nodejs yarn && \
