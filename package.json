@@ -81,5 +81,10 @@
     "moduleNameMapper": {
       "axios": "axios/dist/node/axios.cjs"
     }
+  },
+  "overrides": {
+    "dapla-js-utilities": {
+      "@babel/core": "^7.23.2"
+    }
   }
 }
