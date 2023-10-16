@@ -1711,10 +1711,10 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
-"@statisticsnorway/dapla-js-utilities@^0.4.0":
-  version "0.4.4"
-  resolved "https://registry.yarnpkg.com/@statisticsnorway/dapla-js-utilities/-/dapla-js-utilities-0.4.4.tgz#6d4c63f9032e05013141adfb6628fe976bf9748d"
-  integrity sha512-DusW2lfLFT85zk3OJscxcJE39gIaZerBlWXHTA0n0RUEayGYWno4n4J7Audon157wqcpeBV2z5F3RfmxLVsgcg==
+"@statisticsnorway/dapla-js-utilities@^0.4.5":
+  version "0.4.5"
+  resolved "https://registry.yarnpkg.com/@statisticsnorway/dapla-js-utilities/-/dapla-js-utilities-0.4.5.tgz#5ff6c25427a6c229f9640058a79c6d5191d2369a"
+  integrity sha512-wGFYjbXKplKNsZOM+u0cyCXLrX2vCGvxh6Ah4krWcxgiyfUo2ntrQ0ihHGiO2qManNWXoWssQm5deHzoTPjKwg==
   dependencies:
     primeflex "^3.1.2"
     primeicons "^6.0.1"
