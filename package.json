@@ -15,7 +15,7 @@
     }
   ],
   "dependencies": {
-    "@statisticsnorway/dapla-js-utilities": "^0.4.0",
+    "@statisticsnorway/dapla-js-utilities": "^0.4.5",
     "axios": "^1.5.0",
     "axios-hooks": "^4.0.0",
     "primeflex": "^3.3.1",
