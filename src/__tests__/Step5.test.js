@@ -36,11 +36,6 @@ const testWizardData = {
       [API.MEMBER_OBJECT.EMAIL_SHORT]: 'dev@ssb.no',
       [API.MEMBER_OBJECT.EMAIL]: 'Developer@ssb.no'
     }],
-    [WIZARD.CONSUMERS.ref]: [{
-      [API.MEMBER_OBJECT.NAME]: 'Consumer',
-      [API.MEMBER_OBJECT.EMAIL_SHORT]: 'con@ssb.no',
-      [API.MEMBER_OBJECT.EMAIL]: 'Consumer@ssb.no'
-    }],
     [WIZARD.OTHER_INFO.ref]: '',
     [WIZARD.ORG_INFO.ref]: {
       [API.ORG_INFO_OBJECT.CODE]: '10',
@@ -69,7 +64,6 @@ const emptyTestWizardData = {
     [WIZARD.MANAGER.ref]: null,
     [WIZARD.DATA_ADMINS.ref]: null,
     [WIZARD.DEVELOPERS.ref]: null,
-    [WIZARD.CONSUMERS.ref]: null,
     [WIZARD.OTHER_INFO.ref]: '',
     [WIZARD.ORG_INFO.ref]: null,
     [WIZARD.SERVICES.ref]: null,
@@ -135,10 +129,10 @@ test('Navigates to next step if uniform team name is overridden', async () => {
   expect(execute).toHaveBeenCalled()
   expect(execute).toHaveBeenCalledWith({
     data:
-      {
-        ...testWizardData.wizard,
-        [WIZARD.UNIFORM_TEAM_NAME.ref]: testWizardOverrideDataOverride.wizardOverride[WIZARD.UNIFORM_TEAM_NAME.ref]
-      },
+    {
+      ...testWizardData.wizard,
+      [WIZARD.UNIFORM_TEAM_NAME.ref]: testWizardOverrideDataOverride.wizardOverride[WIZARD.UNIFORM_TEAM_NAME.ref]
+    },
     url: `${window.__ENV.REACT_APP_API}${API.CREATE_JIRA}`
   })
 })
@@ -147,7 +141,7 @@ test('Error handling works correctly', () => {
   class ErrorClass {
     object = { name: 'Error', message: 'Network error', status: null }
 
-    toJSON () {
+    toJSON() {
       return this.object
     }
   }

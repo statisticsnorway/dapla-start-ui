@@ -14,11 +14,10 @@ import { STEP_2, UI, WIZARD } from '../../content'
 const OPTIONS_GROUPS = [
   WIZARD.MANAGER.ref,
   WIZARD.DATA_ADMINS.ref,
-  WIZARD.DEVELOPERS.ref,
-  WIZARD.CONSUMERS.ref
+  WIZARD.DEVELOPERS.ref
 ]
 
-function Step2Form () {
+function Step2Form() {
   const { wizard } = useWizardContext()
   const { setWizard } = useWizardActions()
   const { api } = useContext(ApiContext)

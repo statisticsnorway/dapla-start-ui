@@ -12,7 +12,7 @@ export const STEP_2 = {
     </p>
     <p>
       Færrest mulig personer i teamet burde være <b>{WIZARD.DATA_ADMINS.title}</b> ettersom denne rollen
-      gir tilgang til upseudonymiserte data. <b>{WIZARD.CONSUMERS.title}</b> er typisk folk/grupper utenfor teamet.
+      gir tilgang til upseudonymiserte data (maks 3 stk).
     </p>
   </>,
   HELP_HEADER: 'Hvordan bør jeg sette opp teamet egentlig?',
@@ -43,13 +43,6 @@ export const STEP_2 = {
       sensitiveData: false,
       indata: true,
       outdata: true
-    },
-    {
-      group: WIZARD.CONSUMERS.title,
-      cloudSync: false,
-      sensitiveData: false,
-      indata: false,
-      outdata: true
     }
   ],
   ACCESS_LEVELS: {
@@ -58,5 +51,5 @@ export const STEP_2 = {
     indata: 'Produktdata',
     outdata: 'Delte data'
   },
-  FORM_FIELDS: ['DATA_ADMINS', 'DEVELOPERS', 'CONSUMERS']
+  FORM_FIELDS: ['DATA_ADMINS', 'DEVELOPERS']
 }
