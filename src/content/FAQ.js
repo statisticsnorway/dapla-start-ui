@@ -9,7 +9,8 @@ export const FAQ = [
       <p>
         Et Dapla-team fokuserer på statistikkproduksjon innen et eller flere emneområder på Dapla. Teamet er egentlig et
         arbeidsområde på Dapla, som gir medlemmene av teamet tilgang på teamet sine felles datalagre, roller og
-        bakke-sky synkroniseringsområder.
+        bakke-sky synkroniseringsområder. Mer informasjon finner du i 
+        <a href="https://probable-waddle-o4w1og1.pages.github.io/statistikkere/hva-er-dapla-team.html">Dapla-manualen.</a>
       </p>
       <p>
         Dapla er en <dfn>dataplattform</dfn> fordi den bygges basert på en arkitektur og et sett med tjenester som
@@ -46,8 +47,9 @@ export const FAQ = [
   {
     header: 'Hva om jeg trenger hjelp underveis?',
     text: <p>
-      Send en epost til <a href={UI.KUNDESERVICE_MAIL}>Kundeservice</a> så finner vi ut av
-      det.
+      Send en epost til <a href={UI.KUNDESERVICE_MAIL}>Kundeservice</a>, eller still spørsmål på 
+      <a href="https://web.yammer.com/main/org/ssb.no/groups/eyJfdHlwZSI6Ikdyb3VwIiwiaWQiOiIxNjk5NzMyNjg0ODAifQ/all">Viva Engage</a>, 
+      så finner vi ut av det.
     </p>
   },
   {
