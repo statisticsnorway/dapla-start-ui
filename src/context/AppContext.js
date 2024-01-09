@@ -10,8 +10,6 @@ const initialWizard = {
   [WIZARD.MANAGER.ref]: null,
   [WIZARD.DATA_ADMINS.ref]: null,
   [WIZARD.DEVELOPERS.ref]: null,
-  [WIZARD.CONSUMERS.ref]: null,
-  [WIZARD.SUPPORT.ref]: null,
   [WIZARD.OTHER_INFO.ref]: '',
   [WIZARD.ORG_INFO.ref]: null,
   [WIZARD.SERVICES.ref]: ['source_data_automation', 'transfer_service'],
@@ -36,9 +34,6 @@ const wizardReducer = (state, action) => {
 
     case WIZARD.DEVELOPERS.ref:
       return { ...state, [WIZARD.DEVELOPERS.ref]: action.payload }
-
-    case WIZARD.CONSUMERS.ref:
-      return { ...state, [WIZARD.CONSUMERS.ref]: action.payload }
 
     case WIZARD.OTHER_INFO.ref:
       return { ...state, [WIZARD.OTHER_INFO.ref]: action.payload }

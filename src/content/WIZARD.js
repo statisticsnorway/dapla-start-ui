@@ -20,27 +20,19 @@ export const WIZARD = {
     max_chars: 17
   },
   MANAGER: {
-    title: 'Teamansvarlig',
-    description: 'Ingen tilganger.',
+    title: 'Teamansvarlig (manager)',
+    description: 'Teamansvarlig(manager) skal være en seksjonssjef. (hvis du ikke finner seksjonssjefen din i søket, skriv inn deg selv og legg inn kommentar i siste boksen om dette).',
     ref: 'manager'
   },
   DATA_ADMINS: {
-    title: 'Kildedataansvarlige',
-    description: 'Tilgang til alle data og administrering av bakke-sky synkronisering.',
+    title: 'Kildedataansvarlige (data-admins)',
+    description: 'Privilegert tilgangsgruppe som kan gi seg selv tilgang til kildedata (sensitiv data) ved behov. Maks 3 personer.',
     ref: 'data_admins'
   },
   DEVELOPERS: {
-    title: 'Utviklere',
-    description: 'Tilgang til alle teamets data utenom kildedata. Ikke tilgang til bakke-sky synkronisering.',
+    title: 'Utviklere (developers)',
+    description: 'Tilgangsgruppe for alle de andre på teamet som ikke er kildedataansvarlig.',
     ref: 'developers'
-  },
-  CONSUMERS: {
-    title: 'Konsumenter',
-    description: 'Kun lesetilgang til delte data.',
-    ref: 'consumers'
-  },
-  SUPPORT: {
-    ref: 'support'
   },
   OTHER_INFO: {
     title: 'Annen informasjon',
@@ -48,7 +40,7 @@ export const WIZARD = {
     ref: 'other_info'
   },
   ORG_INFO: {
-    title: 'Seksjon',
+    title: 'Seksjonstilhørighet',
     summaryTitle: 'Hovedansvarlig seksjon',
     description: <p style={{ fontSize: '0.85rem' }} className="mb-4">
       Hovedansvarlig seksjon for teamet. I boksen under kan du søke på seksjonsnavn og seksjonsnummer. Fra listen som

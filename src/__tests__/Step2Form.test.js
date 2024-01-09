@@ -8,7 +8,7 @@ import Step2Form from '../components/steps/Step2Form'
 import { API } from '../configurations'
 import { STEP_2, UI, WIZARD } from '../content'
 
-async function asyncForEach (array, callback) {
+async function asyncForEach(array, callback) {
   for (let index = 0; index < array.length; index++) {
     await callback(array[index], index, array)
   }
@@ -30,11 +30,6 @@ const testData = [
     [API.MEMBER_OBJECT.NAME]: 'Developer',
     [API.MEMBER_OBJECT.EMAIL_SHORT]: 'dev@ssb.no',
     [API.MEMBER_OBJECT.EMAIL]: 'Developer@ssb.no'
-  },
-  {
-    [API.MEMBER_OBJECT.NAME]: 'Consumer',
-    [API.MEMBER_OBJECT.EMAIL_SHORT]: 'con@ssb.no',
-    [API.MEMBER_OBJECT.EMAIL]: 'Consumer@ssb.no'
   }
 ]
 
@@ -110,7 +105,7 @@ test('Error handling works correctly', () => {
   class ErrorClass {
     object = { name: 'Error', message: 'Network error' }
 
-    toJSON () {
+    toJSON() {
       return this.object
     }
   }
